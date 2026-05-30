@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FR2P Network Growth Diagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 1600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #1e3a8a;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #d97706;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .founding-badge {
+            background: #fbbf24;
+            color: #1e3a8a;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .network-tree {
+            position: relative;
+            margin: 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .level {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+            width: 100%;
+        }
+        
+        .level-0 { z-index: 5; }
+        .level-1 { gap: 20px; z-index: 4; }
+        .level-2 { gap: 15px; z-index: 3; flex-wrap: wrap; }
+        .level-3 { gap: 10px; z-index: 2; flex-wrap: wrap; }
+        .level-4 { gap: 8px; z-index: 1; flex-wrap: wrap; }
+        .level-5 { gap: 6px; z-index: 1; flex-wrap: wrap; }
+        
+        .node {
+            text-align: center;
+            position: relative;
+        }
+        
+        .circle {
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .level-0 .circle {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            border: 5px solid #92400e;
+        }
+        
+        .level-1 .circle {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border: 4px solid #1e3a8a;
+        }
+        
+        .level-2 .circle {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            border: 3px solid #065f46;
+        }
+        
+        .level-3 .circle {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            border: 3px solid #5b21b6;
+        }
+        
+        .level-4 .circle {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            border: 2px solid #991b1b;
+        }
+        
+        .level-5 .circle {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+            border: 2px solid #155e75;
+        }
+        
+        .circle-content {
+            color: white;
+            text-align: center;
+        }
+        
+        .level-0 .people-count {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .level-1 .people-count {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .level-2 .people-count {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .level-3 .people-count {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .level-4 .people-count {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .level-5 .people-count {
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .level-label {
+            font-size: 11px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .level-info {
+            text-align: center;
+            margin-top: 15px;
+            padding: 15px 30px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .level-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+        }
+        
+        .level-stats {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #059669;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+        
+        .connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .line {
+            position: absolute;
+            background: #94a3b8;
+            transform-origin: top left;
+        }
+        
+        .totals {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .totals h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        
+        .total-stats {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+        }
+        
+        .total-stat {
+            text-align: center;
+        }
+        
+        .total-number {
+            font-size: 56px;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+        
+        .total-label {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f9fafb;
+            border-radius: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,0,0,0.2);
+        }
+        
+        .legend-text {
+            font-size: 14px;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="founding-badge">⭐ FOUNDING MEMBER PERKS</div>
+            <h1>FR2P Circle of Influence Model</h1>
+            <div class="subtitle">$5 Flat Per Referral - Simple, Unlimited, Recurring (FTC Compliant)</div>
+        </div>
+        
+        <div class="network-tree">
+            <!-- Level 0: You -->
+            <div class="level level-0">
+                <div class="node">
+                    <div class="circle">
+                        <div class="circle-content">
+                            <div class="people-count">YOU</div>
+                            <div class="level-label">Founder</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-title">Starting Point</div>
+            </div>
+            
+            <!-- Level 1: 5 People -->
+            <div class="level level-1">
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">1</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">2</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">3</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">4</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">5</div></div></div></div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-title">🥉 Bronze - 5 Direct Referrals</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">$25/mo</div>
+                        <div class="stat-label">Recurring</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">+$50</div>
+                        <div class="stat-label">Bonus</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 2: 25 People (5 groups of 5) -->
+            <div class="level level-2">
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">5</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">5</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">5</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">5</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">5</div></div></div></div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-title">🥈 Silver - 10 Direct Referrals</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">$50/mo</div>
+                        <div class="stat-label">Recurring</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">+$100</div>
+                        <div class="stat-label">Bonus</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 3: 125 People (represented by groups) -->
+            <div class="level level-3">
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">25</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">25</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">25</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">25</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">25</div></div></div></div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-title">🥇 Gold - 15 Direct Referrals</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">$75/mo</div>
+                        <div class="stat-label">Recurring</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">+$200</div>
+                        <div class="stat-label">Bonus</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 4: 625 People (represented by larger groups) -->
+            <div class="level level-4">
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">125</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">125</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">125</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">125</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">125</div></div></div></div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-title">💠 Platinum - 20 Direct Referrals</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">$100/mo</div>
+                        <div class="stat-label">Recurring</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">+$300</div>
+                        <div class="stat-label">Bonus</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 5: 3,125 People (represented by massive groups) -->
+            <div class="level level-5">
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">625</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">625</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">625</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">625</div></div></div></div>
+                <div class="node"><div class="circle"><div class="circle-content"><div class="people-count">625</div></div></div></div>
+            </div>
+            
+            <div class="level-info">
+                <div class="level-title">💎 Diamond - 25+ Direct Referrals</div>
+                <div class="level-stats">
+                    <div class="stat">
+                        <div class="stat-value">$125+/mo</div>
+                        <div class="stat-label">Recurring</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">+$500</div>
+                        <div class="stat-label">Bonus</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);"></div>
+                <div class="legend-text"><strong>You</strong> - Affiliate Ambassador</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);"></div>
+                <div class="legend-text"><strong>🥉 Bronze</strong> - 5 refs + $50 bonus</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);"></div>
+                <div class="legend-text"><strong>🥈 Silver</strong> - 10 refs + $100 bonus</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);"></div>
+                <div class="legend-text"><strong>🥇 Gold</strong> - 15 refs + $200 bonus</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);"></div>
+                <div class="legend-text"><strong>💠 Platinum</strong> - 20 refs + $300 bonus</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);"></div>
+                <div class="legend-text"><strong>💎 Diamond</strong> - 25 refs + $500 bonus</div>
+            </div>
+        </div>
+        
+        <div class="totals">
+            <h2>🎯 Simple Commission Structure</h2>
+            <div class="total-stats">
+                <div class="total-stat">
+                    <div class="total-number">$5</div>
+                    <div class="total-label">Per Referral/Month</div>
+                </div>
+                <div class="total-stat">
+                    <div class="total-number">Unlimited</div>
+                    <div class="total-label">No Caps (FTC Compliant)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
