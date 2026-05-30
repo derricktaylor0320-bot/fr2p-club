@@ -1,0 +1,20 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "DkU0JLu50gxieMJIB3cZd"
+uri = "file://fr2p-club.tar.gz"
+type = "unspecified"
+title = "FR2P Club — Full Source Code"
+
+[[outputs]]
+id = "v80iLTh2kTh7RQ2AEtIyh"
+uri = "file://fr2p-club.zip"
+type = "unspecified"
+title = "FR2P Club — Full Source Code (.zip)"
+
+[[outputs]]
+id = "HN4ByzPhVNNvDaWVD9YRQ"
+uri = "file://fr2p-club-railway.zip"
+type = "unspecified"
+title = "FR2P Club — Railway-Ready Source Code"

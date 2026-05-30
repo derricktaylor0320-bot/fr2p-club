@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The FR2P Club — Founding 50 Flyer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 40px 20px;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      background: #FFD700;
+      color: #001f3f;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn:hover { background: #e6c200; }
+
+    h1 {
+      color: #FFD700;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    .label {
+      color: #aaa;
+      font-size: 12px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    /* ===== STORY / VERTICAL FLYER (9:16) ===== */
+    .flyer-story {
+      width: 450px;
+      height: 800px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #001f3f;
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.3);
+      flex-shrink: 0;
+    }
+
+    .flyer-story .bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('/fr2p-flyer-bg.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.55;
+    }
+
+    .flyer-story .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(0,31,63,0.6) 0%,
+        rgba(0,31,63,0.3) 40%,
+        rgba(0,31,63,0.7) 70%,
+        rgba(0,31,63,0.95) 100%
+      );
+    }
+
+    .flyer-story .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 30px 32px;
+      text-align: center;
+    }
+
+    /* ===== SQUARE FLYER (1:1) ===== */
+    .flyer-square {
+      width: 600px;
+      height: 600px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #001f3f;
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.3);
+      flex-shrink: 0;
+    }
+
+    .flyer-square .bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('/fr2p-flyer-square-bg.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+    }
+
+    .flyer-square .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+        rgba(0,31,63,0.85) 0%,
+        rgba(0,31,63,0.5) 50%,
+        rgba(0,31,63,0.85) 100%
+      );
+    }
+
+    .flyer-square .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* ===== SHARED ELEMENTS ===== */
+    .founding-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,215,0,0.15);
+      border: 1.5px solid #FFD700;
+      border-radius: 100px;
+      padding: 6px 16px;
+      color: #FFD700;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .crown { font-size: 13px; }
+
+    .headline-main {
+      font-family: 'Playfair Display', serif;
+      color: #FFD700;
+      line-height: 1.1;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    .headline-sub {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .free-pill {
+      display: inline-block;
+      background: linear-gradient(135deg, #FFD700, #e6a800);
+      color: #001f3f;
+      font-weight: 900;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #FFD700, transparent);
+    }
+
+    .benefit-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .benefit-dot {
+      width: 7px;
+      height: 7px;
+      background: #FFD700;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .benefit-text {
+      color: rgba(255,255,255,0.88);
+      line-height: 1.3;
+    }
+
+    .benefit-text strong { color: #FFD700; }
+
+    .cta-box {
+      background: #FFD700;
+      color: #001f3f;
+      border-radius: 12px;
+      font-weight: 800;
+      text-align: center;
+      width: 100%;
+    }
+
+    .cta-url {
+      color: rgba(255,255,255,0.6);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .founder-sig {
+      color: rgba(255,215,0,0.6);
+      font-style: italic;
+    }
+
+    .empire-line {
+      color: rgba(255,255,255,0.3);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ===== STORY-SPECIFIC SIZING ===== */
+    .flyer-story .headline-main { font-size: 36px; margin: 14px 0 8px; }
+    .flyer-story .headline-sub { font-size: 14px; margin-bottom: 16px; }
+    .flyer-story .free-pill { font-size: 22px; padding: 12px 32px; margin: 10px 0; }
+    .flyer-story .divider { margin: 16px auto; }
+    .flyer-story .benefits { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 18px; }
+    .flyer-story .benefit-text { font-size: 13px; }
+    .flyer-story .cta-box { padding: 16px; margin-bottom: 10px; }
+    .flyer-story .cta-box .line1 { font-size: 13px; margin-bottom: 4px; }
+    .flyer-story .cta-box .line2 { font-size: 18px; }
+    .flyer-story .cta-url { font-size: 11px; }
+    .flyer-story .founder-sig { font-size: 11px; margin-top: 10px; }
+    .flyer-story .empire-line { margin-top: 6px; }
+    .flyer-story .spacer { flex: 1; }
+
+    /* ===== SQUARE-SPECIFIC SIZING ===== */
+    .flyer-square .headline-main { font-size: 42px; margin: 16px 0 10px; }
+    .flyer-square .headline-sub { font-size: 15px; margin-bottom: 14px; }
+    .flyer-square .free-pill { font-size: 20px; padding: 10px 28px; margin: 10px 0; }
+    .flyer-square .divider { margin: 14px auto; }
+    .flyer-square .benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; width: 100%; margin-bottom: 20px; text-align: left; }
+    .flyer-square .benefit-text { font-size: 12px; }
+    .flyer-square .cta-box { padding: 16px; margin-bottom: 8px; }
+    .flyer-square .cta-box .line1 { font-size: 12px; margin-bottom: 4px; }
+    .flyer-square .cta-box .line2 { font-size: 17px; }
+    .flyer-square .founder-sig { font-size: 11px; margin-top: 8px; }
+    .flyer-square .empire-line { margin-top: 5px; }
+  </style>
+</head>
+<body>
+
+  <div>
+    <h1>The FR2P Club — Founding 50 Launch Flyers</h1>
+    <p style="color:#aaa; font-size:13px; text-align:center; margin-top:8px;">Right-click any flyer → Save Image As, or use screenshot to save</p>
+  </div>
+
+  <div class="controls">
+    <button class="btn" onclick="window.print()">🖨️ Print Flyers</button>
+    <button class="btn" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">📱 Story Version (9:16)</button>
+    <button class="btn" onclick="document.getElementById('square').scrollIntoView({behavior:'smooth'})">⬛ Square Version (1:1)</button>
+  </div>
+
+  <!-- ===== STORY FLYER ===== -->
+  <div>
+    <p class="label" id="story">📱 Story / TikTok / Reel — 9:16</p>
+    <div class="flyer-story">
+      <div class="bg"></div>
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="founding-badge">
+          <span class="crown">👑</span>
+          Founding Member Opportunity
+        </div>
+
+        <div class="headline-main">Financial<br/>Roadway<br/>2 Prosperity</div>
+        <div class="headline-sub">The movement that puts <em>you</em> in control<br/>of your financial future</div>
+
+        <div class="free-pill">First 50 Members Join FREE</div>
+        <p style="color:rgba(255,215,0,0.7); font-size:11px; margin-top:4px; letter-spacing:0.5px;">No charge for your first 30 days · Full access · No strings</p>
+
+        <div class="divider"></div>
+
+        <div class="spacer"></div>
+
+        <div class="benefits">
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text">Earn <strong>$5/month</strong> per referral — <strong>permanently</strong></div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>7 referrals</strong> = membership essentially free forever</div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text">Free business listing in the <strong>Member Marketplace</strong></div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>Prospect Manager</strong> tool included with membership</div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text">Bronze → Diamond <strong>achievement certificates</strong></div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>Diamond members</strong> invited into direct business partnerships</div>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <div class="line1">🔥 Spots are LIMITED — Only 50 Free Slots Available</div>
+          <div class="line2">Join Now → fr2pclub.replit.app/join</div>
+        </div>
+
+        <p class="cta-url">Use a referral link from any member of The FR2P Club to claim your free spot</p>
+        <p class="founder-sig">— Derrick Taylor, Founder · The Consolidatus Empire</p>
+        <p class="empire-line">FTC Compliant · Single-Tier Affiliate Model</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SQUARE FLYER ===== -->
+  <div>
+    <p class="label" id="square">⬛ Square — Instagram / Facebook / X</p>
+    <div class="flyer-square">
+      <div class="bg"></div>
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="founding-badge">
+          <span class="crown">👑</span>
+          Founding Member · First 50 Only
+        </div>
+
+        <div class="headline-main">The FR2P Club</div>
+        <div class="headline-sub">Financial Roadway 2 Prosperity · Make Money While You Sleep</div>
+
+        <div class="free-pill">First 50 Members Join FREE</div>
+        <p style="color:rgba(255,215,0,0.7); font-size:11px; margin-top:6px;">Full 30-day access · No credit card required · Then $35/month</p>
+
+        <div class="divider"></div>
+
+        <div class="benefits">
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>$5/month</strong> per referral, forever</div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>7 referrals</strong> = net $0 cost</div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text">Free business <strong>Marketplace</strong> listing</div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>Prospect Manager</strong> included</div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>Achievement</strong> certificates</div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-dot"></div>
+            <div class="benefit-text"><strong>Diamond</strong> = business partner</div>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <div class="line1">🔥 Limited · Only 50 Free Founding Spots</div>
+          <div class="line2">fr2pclub.replit.app/join</div>
+        </div>
+
+        <p class="founder-sig">— Derrick Taylor, Founder · The Consolidatus Empire</p>
+        <p class="empire-line">FTC Compliant · Single-Tier Affiliate · "Get 5, Teach 5"</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

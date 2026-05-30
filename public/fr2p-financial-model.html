@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The FR2P Club - Financial Model & Commission Float Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0000 0%, #4a0000 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #001f3f 0%, #002952 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #001f3f;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #FFD700;
+        }
+        
+        .calculator {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #001f3f;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #001f3f;
+            box-shadow: 0 0 10px rgba(128,0,32,0.2);
+        }
+        
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #FFD700;
+        }
+        
+        .result-card h3 {
+            color: #001f3f;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .result-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .result-card .subtext {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #001f3f 0%, #002952 100%);
+            color: white;
+            border-left-color: #FFD700;
+        }
+        
+        .highlight .value,
+        .highlight h3 {
+            color: white;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #001f3f;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .timeline {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-month {
+            min-width: 100px;
+            font-weight: bold;
+            color: #001f3f;
+            font-size: 1.1em;
+        }
+        
+        .timeline-details {
+            flex: 1;
+        }
+        
+        .timeline-details strong {
+            color: #001f3f;
+        }
+        
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .held {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .investment-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tier-card {
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #FFD700;
+            transition: transform 0.3s;
+        }
+        
+        .tier-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .tier-card h3 {
+            color: #001f3f;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .tier-card .price {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+        
+        .tier-card ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .tier-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tier-card li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .recommended {
+            background: linear-gradient(135deg, #001f3f 0%, #002952 100%);
+            color: white;
+            border-color: #FFD700;
+        }
+        
+        .recommended h3,
+        .recommended li {
+            color: white;
+        }
+        
+        .recommended .price {
+            color: #FFD700;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #FFD700;
+            color: #001f3f;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="display: flex; justify-content: center; margin-bottom: 16px;">
+                <img src="/fr2p-logo-new.jpeg" alt="The FR2P Club" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 4px solid #FFD700; box-shadow: 0 4px 16px rgba(0,0,0,0.4);" />
+            </div>
+            <h1>The FR2P Club Financial Model</h1>
+            <p>Commission Float Analysis & Growth Projections</p>
+        </div>
+        
+        <div class="content">
+            <!-- Interactive Calculator -->
+            <div class="section">
+                <h2>📊 Interactive Commission Calculator</h2>
+                <div class="calculator">
+                    <div class="input-group">
+                        <label for="memberCount">Number of Active Monthly Members:</label>
+                        <input type="number" id="memberCount" value="1000" min="1" max="10000" oninput="calculateCommissions()">
+                    </div>
+                    
+                    <div class="results">
+                        <div class="result-card">
+                            <h3>Monthly Revenue</h3>
+                            <div class="value" id="monthlyRevenue">$25,000</div>
+                            <div class="subtext">From membership fees</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Monthly Commissions</h3>
+                            <div class="value" id="monthlyCommissions">$5,000</div>
+                            <div class="subtext">Paid to sponsors</div>
+                        </div>
+                        
+                        <div class="result-card highlight">
+                            <h3>Float Required (30-day)</h3>
+                            <div class="value" id="floatRequired">$5,000</div>
+                            <div class="subtext">Capital needed in reserve</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Net Monthly Revenue</h3>
+                            <div class="value" id="netRevenue">$20,000</div>
+                            <div class="subtext">After commissions</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Annual Revenue</h3>
+                            <div class="value" id="annualRevenue">$300,000</div>
+                            <div class="subtext">Projected yearly</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <h3>Profit Margin</h3>
+                            <div class="value" id="profitMargin">80%</div>
+                            <div class="subtext">After commission payout</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Investment Tiers -->
+            <div class="section">
+                <h2>💰 Investment Tiers & Capacity</h2>
+                <div class="investment-tiers">
+                    <div class="tier-card">
+                        <h3>Conservative</h3>
+                        <div class="price">$10,000</div>
+                        <ul>
+                            <li>Supports up to 2,000 members</li>
+                            <li>$50,000/month revenue capacity</li>
+                            <li>$10,000/month commission capacity</li>
+                            <li>20% equity stake</li>
+                            <li>Perfect for proving concept</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tier-card recommended">
+                        <span class="badge">RECOMMENDED</span>
+                        <h3>Growth Scale</h3>
+                        <div class="price">$25,000</div>
+                        <ul>
+                            <li>Supports up to 5,000 members</li>
+                            <li>$125,000/month revenue capacity</li>
+                            <li>$25,000/month commission capacity</li>
+                            <li>20% equity stake</li>
+                            <li>Full 5-tier network capacity</li>
+                            <li>Aggressive scaling enabled</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Growth Projections Table -->
+            <div class="section">
+                <h2>📈 Growth Projections by Member Count</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Active Members</th>
+                                <th>Monthly Revenue</th>
+                                <th>Monthly Commissions</th>
+                                <th>Float Required</th>
+                                <th>Net Revenue/Month</th>
+                                <th>Annual Net Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>100</td>
+                                <td>$2,500</td>
+                                <td>$500</td>
+                                <td>$500</td>
+                                <td>$2,000</td>
+                                <td>$24,000</td>
+                            </tr>
+                            <tr>
+                                <td>500</td>
+                                <td>$12,500</td>
+                                <td>$2,500</td>
+                                <td>$2,500</td>
+                                <td>$10,000</td>
+                                <td>$120,000</td>
+                            </tr>
+                            <tr style="background: #fff3cd;">
+                                <td><strong>1,000</strong></td>
+                                <td><strong>$25,000</strong></td>
+                                <td><strong>$5,000</strong></td>
+                                <td><strong>$5,000</strong></td>
+                                <td><strong>$20,000</strong></td>
+                                <td><strong>$240,000</strong></td>
+                            </tr>
+                            <tr style="background: #d1ecf1;">
+                                <td><strong>2,000</strong></td>
+                                <td><strong>$50,000</strong></td>
+                                <td><strong>$10,000</strong></td>
+                                <td><strong>$10,000</strong></td>
+                                <td><strong>$40,000</strong></td>
+                                <td><strong>$480,000</strong></td>
+                            </tr>
+                            <tr style="background: #d4edda;">
+                                <td><strong>5,000</strong></td>
+                                <td><strong>$125,000</strong></td>
+                                <td><strong>$25,000</strong></td>
+                                <td><strong>$25,000</strong></td>
+                                <td><strong>$100,000</strong></td>
+                                <td><strong>$1,200,000</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    <strong>Note:</strong> Yellow = Realistic 6-month target | Blue = $10K investment capacity | Green = $25K investment capacity
+                </p>
+            </div>
+            
+            <!-- 30-Day Hold Explanation -->
+            <div class="section">
+                <h2>⏰ How the 30-Day Commission Hold Works</h2>
+                <p style="margin-bottom: 20px; line-height: 1.6;">
+                    The 30-day hold ensures members stay active before sponsors get paid. This protects against fraud and chargebacks while maintaining industry-standard payout timing.
+                </p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-month">Month 1<br>(January)</div>
+                        <div class="timeline-details">
+                            <strong>Action:</strong> New member joins and pays $25 subscription<br>
+                            <strong>Commission:</strong> Sponsor earns $5 → <span class="held">HELD for 30 days</span><br>
+                            <strong>Status:</strong> Commission recorded but not paid yet
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-month">Month 2<br>(February)</div>
+                        <div class="timeline-details">
+                            <strong>Action:</strong> Member's subscription renews automatically ($25)<br>
+                            <strong>Commission:</strong> January's $5 → <span class="success">RELEASED & PAID</span><br>
+                            <strong>New Commission:</strong> February's $5 → <span class="held">HELD for 30 days</span><br>
+                            <strong>Sponsor Receives:</strong> $5 (from January)
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-month">Month 3<br>(March)</div>
+                        <div class="timeline-details">
+                            <strong>Action:</strong> Member's subscription renews automatically ($25)<br>
+                            <strong>Commission:</strong> February's $5 → <span class="success">RELEASED & PAID</span><br>
+                            <strong>New Commission:</strong> March's $5 → <span class="held">HELD for 30 days</span><br>
+                            <strong>Sponsor Receives:</strong> $5 (from February)
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-month">Ongoing</div>
+                        <div class="timeline-details">
+                            <strong>Pattern:</strong> This $5/month is LOCKED IN FOREVER — even if the referral cancels<br>
+                            <strong>Result:</strong> Sponsor earns <span class="success">$5/month PERMANENT residual income per referral</span><br>
+                            <strong>Key Benefit:</strong> True permanent passive income - refer once, earn forever
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Why This Investment Amount -->
+            <div class="section">
+                <h2>🎯 Why $10K-$25K is the Perfect Amount</h2>
+                <div class="calculator">
+                    <h3 style="color: #001f3f; margin-bottom: 15px;">The Commission Float Explained</h3>
+                    <p style="line-height: 1.8; margin-bottom: 20px;">
+                        <strong>What is a commission float?</strong><br>
+                        It's the capital needed to pay commissions while waiting for subscriptions to renew. Think of it like a security deposit that stays in the business - it's not spent, just cycled through the payout system.
+                    </p>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; border-left: 5px solid #28a745;">
+                        <h4 style="color: #001f3f; margin-bottom: 10px;">✅ With $10K-$25K Investment:</h4>
+                        <ul style="line-height: 2;">
+                            <li>✓ Reduce hold from <strong>90 days → 30 days</strong></li>
+                            <li>✓ Match industry standard payout timing</li>
+                            <li>✓ Higher affiliate retention (get paid faster)</li>
+                            <li>✓ More credible to serious prospects</li>
+                            <li>✓ Competitive with established MLM platforms</li>
+                            <li>✓ Support 2,000-5,000 active members</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; border-left: 5px solid #dc3545; margin-top: 20px;">
+                        <h4 style="color: #001f3f; margin-bottom: 10px;">❌ Without Investment (Current State):</h4>
+                        <ul style="line-height: 2;">
+                            <li>✗ Must maintain <strong>90-day hold</strong> (3 months wait)</li>
+                            <li>✗ Affiliates get frustrated with long delays</li>
+                            <li>✗ Lower retention and recruiting success</li>
+                            <li>✗ Appears less professional than competitors</li>
+                            <li>✗ Limited growth capacity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Revenue Streams -->
+            <div class="section">
+                <h2>💸 Multiple Revenue Streams</h2>
+                <div class="results">
+                    <div class="result-card">
+                        <h3>1. Monthly Subscriptions</h3>
+                        <div class="value">$25/mo</div>
+                        <div class="subtext">Recurring revenue per member<br>$5 commission to sponsor<br>$20 net revenue to FR2P</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>2. Annual Memberships</h3>
+                        <div class="value">$250/yr</div>
+                        <div class="subtext">One-time payment<br>$25 commission to sponsor<br>$225 net revenue to FR2P</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>3. Udemy Affiliate</h3>
+                        <div class="value">~15%</div>
+                        <div class="subtext">Commission on course sales<br>210,000+ courses available<br>Additional passive income</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>4. Donations/Investments</h3>
+                        <div class="value">Any $</div>
+                        <div class="subtext">Stripe donation page<br>Support business growth<br>Non-member contributions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ROI for Investors -->
+            <div class="section">
+                <h2>📊 Return on Investment (20% Equity)</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Investment</th>
+                                <th>Equity</th>
+                                <th>Members Needed</th>
+                                <th>Annual Revenue</th>
+                                <th>Investor Share (20%)</th>
+                                <th>ROI Multiple</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>$10,000</strong></td>
+                                <td><strong>20%</strong></td>
+                                <td>1,000</td>
+                                <td>$240,000</td>
+                                <td>$48,000/year</td>
+                                <td><strong>4.8x annually</strong></td>
+                            </tr>
+                            <tr style="background: #d4edda;">
+                                <td><strong>$25,000</strong></td>
+                                <td><strong>20%</strong></td>
+                                <td>2,500</td>
+                                <td>$600,000</td>
+                                <td>$120,000/year</td>
+                                <td><strong>4.8x annually</strong></td>
+                            </tr>
+                            <tr style="background: #d1ecf1;">
+                                <td><strong>$25,000</strong></td>
+                                <td><strong>20%</strong></td>
+                                <td>5,000</td>
+                                <td>$1,200,000</td>
+                                <td>$240,000/year</td>
+                                <td><strong>9.6x annually</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 15px; line-height: 1.6; color: #666;">
+                    <strong>Note:</strong> These projections assume conservative growth rates and do not include Udemy affiliate revenue or annual memberships, making actual returns potentially higher.
+                </p>
+            </div>
+            
+            <!-- Key Takeaways -->
+            <div class="section">
+                <h2>🎯 Key Takeaways for Investors</h2>
+                <div class="calculator" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                    <ol style="line-height: 2.5; font-size: 1.1em;">
+                        <li><strong>The float is working capital, not an expense</strong> - it stays in the business and cycles through payouts</li>
+                        <li><strong>$10K-$25K enables competitive 30-day payout timing</strong> vs current 90-day hold</li>
+                        <li><strong>Investment supports 2,000-5,000 members</strong> before additional capital needed</li>
+                        <li><strong>20% equity stake in recurring revenue model</strong> - passive income for investor</li>
+                        <li><strong>Multiple revenue streams</strong> - subscriptions, annual fees, Udemy affiliate, donations</li>
+                        <li><strong>Self-sustaining model</strong> - once float is established, no additional capital needed</li>
+                        <li><strong>Scalable business</strong> - proven affiliate marketing model with digital products</li>
+                        <li><strong>4.8x-9.6x annual ROI potential</strong> at conservative growth rates</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div style="text-align: center; padding: 30px; background: #f8f9fa; border-radius: 10px; margin-top: 40px;">
+                <h3 style="color: #001f3f; margin-bottom: 15px;">Ready to Partner with The FR2P Club?</h3>
+                <p style="line-height: 1.8; margin-bottom: 20px;">
+                    This financial model demonstrates the commission float requirements and growth potential.<br>
+                    <strong>Investment Range: $10,000 - $25,000 for 20% equity stake</strong>
+                </p>
+                <p style="color: #666; font-size: 0.9em;">
+                    The FR2P Club - Financial Roadway 2 Prosperity<br>
+                    Network Marketing FinTech EdTech SaaS Platform<br>
+                    <strong>Contact for partnership opportunities</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function calculateCommissions() {
+            const memberCount = parseInt(document.getElementById('memberCount').value) || 0;
+            const monthlyFee = 25;
+            const commissionRate = 5;
+            
+            // Calculate values
+            const monthlyRevenue = memberCount * monthlyFee;
+            const monthlyCommissions = memberCount * commissionRate;
+            const floatRequired = monthlyCommissions; // 30-day hold = 1 month of commissions
+            const netRevenue = monthlyRevenue - monthlyCommissions;
+            const annualRevenue = monthlyRevenue * 12;
+            const profitMargin = ((netRevenue / monthlyRevenue) * 100).toFixed(0);
+            
+            // Format currency
+            const formatCurrency = (num) => {
+                return '$' + num.toLocaleString('en-US');
+            };
+            
+            // Update display
+            document.getElementById('monthlyRevenue').textContent = formatCurrency(monthlyRevenue);
+            document.getElementById('monthlyCommissions').textContent = formatCurrency(monthlyCommissions);
+            document.getElementById('floatRequired').textContent = formatCurrency(floatRequired);
+            document.getElementById('netRevenue').textContent = formatCurrency(netRevenue);
+            document.getElementById('annualRevenue').textContent = formatCurrency(annualRevenue);
+            document.getElementById('profitMargin').textContent = profitMargin + '%';
+        }
+        
+        // Initialize on page load
+        window.onload = calculateCommissions;
+    </script>
+</body>
+</html>

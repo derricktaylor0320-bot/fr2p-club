@@ -1,0 +1,23 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue gradient background -->
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F4D03F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Diamond shape -->
+  <path d="M 30,15 L 45,25 L 30,35 L 15,25 Z" fill="url(#goldGradient)" stroke="#D4AF37" stroke-width="1.5"/>
+  
+  <!-- FR2P Text -->
+  <text x="55" y="28" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="url(#goldGradient)">FR2P</text>
+  
+  <!-- Club Text -->
+  <text x="55" y="45" font-family="Arial, sans-serif" font-size="12" fill="#3b82f6">CLUB</text>
+</svg>

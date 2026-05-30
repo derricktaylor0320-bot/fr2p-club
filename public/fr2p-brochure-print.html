@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FR2P Club Brochure — Print as PDF</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5f5; font-family: Arial, sans-serif; }
+        .toolbar {
+            background: #001f3f;
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .toolbar h1 { font-size: 18px; color: #FFD700; }
+        .toolbar p { font-size: 13px; opacity: 0.8; margin-top: 2px; }
+        .btn {
+            background: #FFD700;
+            color: #001f3f;
+            border: none;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn:hover { background: #FFC700; }
+        .instructions {
+            background: #e8f4fd;
+            border-left: 4px solid #001f3f;
+            padding: 12px 20px;
+            margin: 16px 24px;
+            font-size: 13px;
+            color: #333;
+            border-radius: 4px;
+        }
+        .instructions ol { margin-left: 20px; margin-top: 6px; line-height: 1.8; }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            padding: 24px;
+        }
+        .card-wrapper {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+        }
+        .card-label {
+            background: #001f3f;
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 8px 16px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .card-wrapper img { width: 100%; display: block; }
+        @media print {
+            .toolbar, .instructions { display: none !important; }
+            body { background: white; }
+            .card-container { padding: 0; }
+            .card-wrapper { box-shadow: none; border-radius: 0; page-break-inside: avoid; }
+            @page { size: landscape; margin: 0.5in; }
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <div>
+            <h1>FR2P Club — Trifold Brochure</h1>
+            <p>8.5" × 11" folded · Landscape print · Print-ready design</p>
+        </div>
+        <button class="btn" onclick="window.print()">⬇️ Download / Print as PDF</button>
+    </div>
+
+    <div class="instructions">
+        <strong>How to save as PDF:</strong>
+        <ol>
+            <li>Click "Download / Print as PDF" above</li>
+            <li>In the print dialog, set <strong>Layout</strong> to <strong>Landscape</strong> and change <strong>Destination</strong> to <strong>"Save as PDF"</strong></li>
+            <li>Click Save — take your PDF to any print shop and request <strong>trifold on 8.5×11 paper</strong></li>
+        </ol>
+    </div>
+
+    <div class="card-container">
+        <div class="card-wrapper">
+            <div class="card-label">Trifold Brochure Preview (Outside & Inside)</div>
+            <img src="/fr2p-brochure.jpeg" alt="FR2P Club Trifold Brochure — outside and inside panels showing full program details" />
+        </div>
+    </div>
+</body>
+</html>

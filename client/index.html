@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="The FR2P Club - Exclusive affiliate marketing platform with 3-tier progression system and network building tools" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#D4AF37" />
+    
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    
+    <!-- Apple PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="The FR2P Club" />
+    
+    <!-- Microsoft Tile -->
+    <meta name="msapplication-TileColor" content="#020D3C" />
+    <meta name="msapplication-TileImage" content="/icon-192.png" />
+    
+    <title>The FR2P Club - Financial Roadway 2 Prosperity</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('✅ Service Worker registered successfully:', registration.scope);
+            })
+            .catch((error) => {
+              console.log('❌ Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
