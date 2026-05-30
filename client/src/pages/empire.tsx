@@ -19,7 +19,7 @@ const empireBusinesses = [
   {
     name: "The FR2P Club",
     tagline: "Financial Roadway 2 Prosperity",
-    description: "Affiliate marketing and wealth-building membership community. Reward structure offering $5/month potential earnings per direct referral with our FTC-compliant single-tier commission structure.",
+    description: "Affiliate marketing and wealth-building membership community. Earn a $5 commission for every successfully referred member with our FTC-compliant single-tier commission structure.",
     icon: Crown,
     color: "from-[#FFD700] to-[#FFA500]",
     borderColor: "border-[#FFD700]",

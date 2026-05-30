@@ -786,10 +786,10 @@ export default function Dashboard() {
             <div className="flex-1">
               <h3 className="text-green-300 font-bold text-sm uppercase tracking-wide">Permanent Residual Income</h3>
               <p className="text-white/80 text-xs mt-0.5">
-                Your $5/month reward structure per referral is <strong className="text-green-300">permanently locked in</strong>. 
+                Each active referral contributes $5 to your monthly volume — <strong className="text-green-300">permanently locked in</strong>. 
                 {(member.permanentReferralCount || stats.totalReferrals || 0) > 0 
-                  ? ` Potential earnings: $${((member.permanentReferralCount || stats.totalReferrals || 0) * 5).toFixed(2)}/month from ${member.permanentReferralCount || stats.totalReferrals || 0} referral${(member.permanentReferralCount || stats.totalReferrals || 0) > 1 ? 's' : ''}.`
-                  : ' Refer your first member to start building your residual income potential.'}
+                  ? ` Current monthly volume: $${((member.permanentReferralCount || stats.totalReferrals || 0) * 5).toFixed(2)} from ${member.permanentReferralCount || stats.totalReferrals || 0} active referral${(member.permanentReferralCount || stats.totalReferrals || 0) > 1 ? 's' : ''}.`
+                  : ' Refer your first member to start building your monthly volume.'}
               </p>
             </div>
             {(member.permanentReferralCount || stats.totalReferrals || 0) > 0 && (

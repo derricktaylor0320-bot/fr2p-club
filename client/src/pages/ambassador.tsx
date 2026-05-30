@@ -244,7 +244,7 @@ export default function Ambassador() {
             <div className="bg-[#001f3f]/60 rounded-lg p-5 text-center border border-green-500/30">
               <div className="text-4xl font-bold text-green-400 mb-2">Step 3</div>
               <p className="text-white/80 text-sm">
-                <strong className="text-white">Potential to earn $5/month</strong> for every direct referral — every month they remain a member!
+                <strong className="text-white">Earn a $5 commission</strong> for every successfully referred member — every month they remain active!
               </p>
             </div>
           </div>
