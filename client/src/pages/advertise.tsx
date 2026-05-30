@@ -288,7 +288,7 @@ export default function Advertise() {
             <div className="flex-1">
               <p className="font-bold text-gray-900">Did you know? Members advertise for free.</p>
               <p className="text-gray-600 text-sm mt-1">
-                The FR2P Club membership is $35/month and includes a free business listing — plus you earn $5/month for every person you refer. 
+                The FR2P Club membership is $35/month and includes a free business listing — plus a reward structure offering potential earnings of $5/month for every person you refer. 
                 Most members cover their membership cost with just 7 referrals.
               </p>
             </div>

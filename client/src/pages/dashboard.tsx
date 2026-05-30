@@ -670,7 +670,7 @@ export default function Dashboard() {
                     <div className="h-px bg-white/10" />
                     <div className="flex justify-between">
                       <span className="text-white/70 font-semibold">Your FR2P savings</span>
-                      <span className="text-green-400 font-black">$420/yr guaranteed return</span>
+                      <span className="text-green-400 font-black">potential $420/yr in savings</span>
                     </div>
                   </div>
                   <p className="text-xs text-green-400/70 mt-2">
@@ -786,10 +786,10 @@ export default function Dashboard() {
             <div className="flex-1">
               <h3 className="text-green-300 font-bold text-sm uppercase tracking-wide">Permanent Residual Income</h3>
               <p className="text-white/80 text-xs mt-0.5">
-                Your $5/month per referral is <strong className="text-green-300">locked in forever</strong>. 
+                Your $5/month reward structure per referral is <strong className="text-green-300">permanently locked in</strong>. 
                 {(member.permanentReferralCount || stats.totalReferrals || 0) > 0 
-                  ? ` You're earning $${((member.permanentReferralCount || stats.totalReferrals || 0) * 5).toFixed(2)}/month permanently from ${member.permanentReferralCount || stats.totalReferrals || 0} referral${(member.permanentReferralCount || stats.totalReferrals || 0) > 1 ? 's' : ''}.`
-                  : ' Refer your first member to start building income that never stops.'}
+                  ? ` Potential earnings: $${((member.permanentReferralCount || stats.totalReferrals || 0) * 5).toFixed(2)}/month from ${member.permanentReferralCount || stats.totalReferrals || 0} referral${(member.permanentReferralCount || stats.totalReferrals || 0) > 1 ? 's' : ''}.`
+                  : ' Refer your first member to start building your residual income potential.'}
               </p>
             </div>
             {(member.permanentReferralCount || stats.totalReferrals || 0) > 0 && (
@@ -867,7 +867,7 @@ export default function Dashboard() {
               </h3>
               <p className="text-sm text-green-700 mt-1">
                 <strong>🎉 With investor funding: New commissions are held for just 1 month (30 days)</strong> to ensure sufficient funds from membership payments before payout. 
-                This protects the platform's cash flow and guarantees all members receive their earnings. <span className="font-semibold text-green-800">Join early to help us secure this funding and get faster payouts!</span>
+                This protects the platform's cash flow and helps ensure members receive their earnings. <span className="font-semibold text-green-800">Join early to help us secure this funding and get faster payouts!</span>
               </p>
             </div>
             <div className="text-center">

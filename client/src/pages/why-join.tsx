@@ -55,12 +55,12 @@ export default function WhyJoin() {
     },
     {
       q: "What do I actually get for my $35/month?",
-      a: "Full affiliate platform access, your personal referral link, community chat and support, access to professional training resources, digital education materials, FR2P Wealth Monthly magazine, and the ability to earn $5/month per direct referral — permanently."
+      a: "Full affiliate platform access, your personal referral link, community chat and support, access to professional training resources, digital education materials, FR2P Wealth Monthly magazine, and a reward structure offering potential earnings of $5/month per direct referral — permanently locked in once the referral joins."
     },
   ];
 
   const comparisons = [
-    { option: "The FR2P Club", cost: "$35/mo", potential: "$5/mo per referral, forever", passive: true, training: true, community: true },
+    { option: "The FR2P Club", cost: "$35/mo", potential: "$5/mo per referral potential earnings", passive: true, training: true, community: true },
     { option: "Uber/Lyft Driver", cost: "Your car + gas", potential: "$15–25/hr (active only)", passive: false, training: false, community: false },
     { option: "Dropshipping", cost: "$500–2,000 setup", potential: "Varies, not guaranteed", passive: false, training: false, community: false },
     { option: "Amazon FBA", cost: "$3,000–10,000 setup", potential: "Varies, highly competitive", passive: false, training: true, community: false },
@@ -391,7 +391,7 @@ export default function WhyJoin() {
                 {
                   name: "Denise R.",
                   location: "Atlanta, GA",
-                  story: "What sold me was the 90-day grace period. Life happens. Knowing my account doesn't just vanish if I miss a payment gave me the confidence to commit. I've since referred 12 people and earn $60/month.",
+                  story: "What sold me was the 90-day grace period. Life happens. Knowing my account doesn't just vanish if I miss a payment gave me the confidence to commit. I've since referred 12 people and have reached $60/month in potential earnings.",
                   achievement: "Silver Affiliate",
                   initials: "DR",
                 },

@@ -589,7 +589,7 @@ export default function Calculator() {
           <CardHeader className="text-center">
             <CardTitle className="text-2xl text-green-300">💵 Your Earnings - Direct Referrals Only (FTC Compliant)</CardTitle>
             <CardDescription className="text-white/80 text-base">
-              You earn $5/month per direct referral (Founding Members: $16-$22)
+              Reward structure: $5/month potential earnings per direct referral (Founding Members: $16-$22)
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -1269,7 +1269,7 @@ export default function Calculator() {
               <div className="mt-6 p-4 bg-gradient-to-r from-green-700 to-emerald-700 border border-green-500 rounded-lg">
                 <h4 className="font-semibold text-white mb-2">✅ FTC-Compliant Single-Tier Affiliate Program</h4>
                 <p className="text-sm text-green-100 mb-2">
-                  Earn $5/month per direct referral - simple, transparent, and unlimited potential!
+                  Reward structure: $5/month potential earnings per direct referral — simple, transparent, and unlimited potential!
                 </p>
                 <p className="text-xs text-green-50">
                   Plus earn achievement bonuses as you reach tier milestones: $50 (Bronze) → $100 (Silver) → $200 (Gold) → $500 (Platinum) → $1,000 (Diamond)

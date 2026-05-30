@@ -96,9 +96,9 @@ export default function CompensationPlan() {
               <Lock className="h-5 w-5 text-green-400" />
             </div>
             <p className="text-white/90 text-sm">
-              Once you refer someone and they make their first payment, that $5/month is <strong className="text-green-300">locked in FOREVER</strong>. 
-              Even if your referral cancels their membership, your residual income <strong className="text-green-300">never stops</strong>. 
-              Your job was to refer — and you earned that income permanently.
+              Once you refer someone and they make their first payment, that $5/month reward structure is <strong className="text-green-300">permanently locked in</strong>. 
+              Even if your referral cancels their membership, your residual income potential <strong className="text-green-300">continues</strong>. 
+              Your job was to refer — and your reward structure honors that contribution.
             </p>
           </div>
           
@@ -220,7 +220,7 @@ export default function CompensationPlan() {
             </div>
             <CardTitle className="text-2xl text-gold-400">💰 Simple Recurring Income Calculator</CardTitle>
             <CardDescription className="text-white/80 text-base">
-              See exactly what you earn <strong className="text-green-400">every single month FOREVER</strong> — your referrals are locked in permanently
+              See your potential monthly earnings — your referral reward structure is permanently locked in once they join
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -328,8 +328,8 @@ export default function CompensationPlan() {
             </div>
             <div className="text-center text-white/70 text-sm">
               {isFoundingMember 
-                ? 'You earn $16-$22 per referral as a Founding Member! Standard members earn $5/referral.'
-                : 'Standard members earn $5/referral. Achievement bonuses are one-time rewards at each milestone!'
+                ? 'Founding Member reward structure: $16-$22 per referral in potential earnings. Standard member structure: $5/referral.'
+                : 'Reward structure: $5/referral in potential earnings. Achievement bonuses are one-time rewards at each milestone!'
               }
             </div>
             
@@ -342,8 +342,8 @@ export default function CompensationPlan() {
                     <ArrowRight className="h-5 w-5 mr-3 text-amber-400 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-bold text-amber-300 mb-1">Step 1: You Refer John</p>
-                      <p className="text-sm">John joins with $35/month membership → <strong className="text-amber-400">You earn $5/month FOREVER</strong></p>
-                      <p className="text-xs text-white/70 mt-1">💰 Once John is locked in, you earn $5/month permanently — even if he cancels later</p>
+                      <p className="text-sm">John joins with $35/month membership → <strong className="text-amber-400">Potential to earn $5/month from John's referral</strong></p>
+                      <p className="text-xs text-white/70 mt-1">💰 Once John is locked in, your reward structure pays $5/month — even if he cancels later</p>
                     </div>
                   </div>
                 </div>
@@ -500,7 +500,7 @@ export default function CompensationPlan() {
                     💡 Wealth Building Strategy
                   </div>
                   <div className="text-xs text-green-700">
-                    With 14 referrals, you earn $70/month. $35 goes to savings, you keep $35 cash. You must earn at least double the deduction amount — that's $420/year in automatic savings, covering your annual membership!
+                    With 14 referrals at the $5/month reward rate, potential earnings are $70/month. $35 goes to savings, you keep $35 cash. You must reach at least double the deduction amount — that's a potential $420/year in automatic savings, which can cover your annual membership!
                   </div>
                 </div>
               </div>
@@ -623,7 +623,7 @@ export default function CompensationPlan() {
                   </div>
                 </div>
                 <div className="text-center mt-3 text-white/80 text-sm">
-                  Standard members earn $5/month per referral. <span className="text-gold-400 font-bold">Founding Members earn 3-4x more!</span>
+                  Standard member reward structure: $5/month per referral in potential earnings. <span className="text-gold-400 font-bold">Founding Members have enhanced reward structures of 3-4x more!</span>
                 </div>
               </div>
               

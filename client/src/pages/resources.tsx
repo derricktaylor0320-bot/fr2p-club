@@ -877,7 +877,7 @@ export default function Resources() {
                       💬 Text Message
                     </Button>
                     <Button variant="outline" className="text-green-600 border-green-300 text-sm" data-testid="button-share-whatsapp"
-                      onClick={() => window.open(`https://wa.me/?text=Join%20The%20FR2P%20Club%20and%20start%20earning%20%245%2Fmonth%20per%20referral%20permanently!%20https%3A%2F%2Ffr2pclub.com%2Fjoin%2F${memberData?.member?.id || 'demo'}`, '_blank')}>
+                      onClick={() => window.open(`https://wa.me/?text=Join%20The%20FR2P%20Club%20and%20build%20your%20potential%20earnings%20with%20a%20%245%2Fmonth%20per%20referral%20reward%20structure!%20https%3A%2F%2Ffr2pclub.com%2Fjoin%2F${memberData?.member?.id || 'demo'}`, '_blank')}>
                       📱 WhatsApp
                     </Button>
                     <Button variant="outline" className="text-blue-600 border-blue-300 text-sm" data-testid="button-share-email"
