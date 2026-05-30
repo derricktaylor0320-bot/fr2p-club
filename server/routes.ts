@@ -792,6 +792,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ═══════════════════════════════════════════════════════════════════
   // PERMANENT RESIDUAL INCOME - Monthly Commission Generation
   // ═══════════════════════════════════════════════════════════════════
+  app.post("/api/admin/send-welcome-email", async (req, res) => {
+    try {
+      const { email, firstName, lastName, username, memberNumber, isFoundingMember, referralLink } = req.body;
+      const { sendWelcomeEmail } = await import("./services/email");
+      await sendWelcomeEmail({ email, firstName, lastName, username, memberNumber, isFoundingMember, referralLink });
+      res.json({ success: true, message: `Welcome email sent to ${email}` });
+    } catch (error: any) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
   // This endpoint generates monthly $5 residual commissions for ALL members
   // based on their permanentReferralCount. Referrals are locked in forever.
   // Even if a referred member cancels, the sponsor keeps earning $5/month.
