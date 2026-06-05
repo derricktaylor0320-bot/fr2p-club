@@ -28,6 +28,7 @@ import WhyJoin from "@/pages/why-join";
 import Marketplace from "@/pages/marketplace";
 import Advertise from "@/pages/advertise";
 import Prospects from "@/pages/prospects";
+import MarketingTools from "@/pages/marketing-tools";
 import Login from "@/pages/login";
 import NotFound from "@/pages/not-found";
 
@@ -64,6 +65,7 @@ function Router() {
       <Route path="/marketplace" component={Marketplace} />
       <Route path="/advertise" component={Advertise} />
       <Route path="/prospects" component={Prospects} />
+      <Route path="/marketing-tools" component={MarketingTools} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

@@ -23,6 +23,7 @@ import {
   Lightbulb,
   ShoppingBag,
   Target,
+  FileImage,
   LogIn,
   LogOut
 } from "lucide-react";
@@ -37,6 +38,7 @@ interface SidebarNavProps {
 const navigation = [
   { name: "Dashboard", href: "/", icon: Home },
   { name: "Prospect Manager", href: "/prospects", icon: Target },
+  { name: "Marketing Tools", href: "/marketing-tools", icon: FileImage, highlight: true },
   { name: "Why Join FR2P", href: "/why-join", icon: Lightbulb, highlight: true },
   { name: "Member Marketplace", href: "/marketplace", icon: ShoppingBag, highlight: true },
   { name: "Advertise With Us", href: "/advertise", icon: Megaphone, highlight: true },
