@@ -50,24 +50,16 @@ export default function Store() {
       title: `${productName} - Purchase Started!`,
       description: `Redirecting to Stripe checkout for ${price}...`,
     });
-    
     try {
-      // Extract amount from price string (e.g., "$25" -> 25)
       const amount = parseFloat(price.replace(/[^0-9.-]+/g, ""));
-      
       const response = await apiRequest("POST", "/api/create-payment-intent", {
         amount: amount,
         productName: productName,
         type: type
       });
-      
       const data = await response.json();
-      
       if (data.url) {
-        // Brief delay to show toast, then redirect to Stripe checkout
-        setTimeout(() => {
-          window.location.href = data.url;
-        }, 800);
+        setTimeout(() => { window.location.href = data.url; }, 800);
       } else {
         throw new Error("No checkout URL received");
       }
@@ -1645,7 +1637,7 @@ export default function Store() {
                       <div className="space-y-1.5 text-sm text-white/80">
                         <div>🌟 <span className="font-medium text-white">Headline:</span> Bold attention-grabbing FR2P Club message</div>
                         <div>💳 <span className="font-medium text-white">Membership:</span> Standard $35/mo and Premium $50/mo options</div>
-                        <div>💰 <span className="font-medium text-white">Income:</span> $5/month per referral — permanent residual income</div>
+                        <div>💰 <span className="font-medium text-white">Income:</span> $5/month per referral — recurring commission potential</div>
                         <div>🔗 <span className="font-medium text-white">Your link:</span> Personal referral link and QR code at the bottom</div>
                         <div>📞 <span className="font-medium text-white">Contact:</span> Your name, phone, and email</div>
                       </div>

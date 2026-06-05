@@ -140,49 +140,34 @@ export default function Join() {
 
   const onSubmit = async (data: RegistrationForm) => {
     setIsProcessing(true);
-    
     try {
-      // Calculate amount based on membership level AND billing plan
-      // Standard: $35/month or $350/year
-      // Premium: $50/month or $500/year
       let amount: number;
       let productName: string;
-      
       if (data.membershipLevel === "premium") {
         amount = data.membershipPlan === "annual" ? 500 : 50;
-        productName = data.membershipPlan === "annual" 
-          ? "The FR2P Club Premium Annual Membership" 
+        productName = data.membershipPlan === "annual"
+          ? "The FR2P Club Premium Annual Membership"
           : "The FR2P Club Premium Monthly Membership";
       } else {
         amount = data.membershipPlan === "annual" ? 350 : 35;
-        productName = data.membershipPlan === "annual" 
-          ? "The FR2P Club Standard Annual Membership" 
+        productName = data.membershipPlan === "annual"
+          ? "The FR2P Club Standard Annual Membership"
           : "The FR2P Club Standard Monthly Membership";
       }
-      
       const paymentResponse = await apiRequest("POST", "/api/create-membership-session", {
         amount,
         productName,
         membershipPlan: data.membershipPlan,
         membershipLevel: data.membershipLevel,
-        registrationData: {
-          ...data,
-          referrerId: referrerId || null,
-        }
+        registrationData: { ...data, referrerId: referrerId || null }
       });
-      
       const paymentData = await paymentResponse.json();
-      
       if (paymentData.url) {
         toast({
           title: "Redirecting to Payment",
           description: "You'll be redirected to complete your payment securely...",
         });
-        
-        // Redirect to Stripe checkout
-        setTimeout(() => {
-          window.location.href = paymentData.url;
-        }, 1000);
+        setTimeout(() => { window.location.href = paymentData.url; }, 1000);
       } else {
         throw new Error("No checkout URL received");
       }
@@ -244,7 +229,7 @@ export default function Join() {
             </div>
             <div className="flex items-start gap-3 text-white/80">
               <span className="text-[#FFD700] font-bold mt-0.5">3.</span>
-              <span>Start building your 5. Every referral you bring in is locked in permanently — they earn you $5/month forever.</span>
+              <span>Start building your 5. Every referral you bring in is recorded on first payment — earning you a $5/month recurring commission each active month.</span>
             </div>
             <div className="flex items-start gap-3 text-white/80">
               <span className="text-[#FFD700] font-bold mt-0.5">4.</span>

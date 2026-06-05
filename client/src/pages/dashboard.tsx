@@ -777,16 +777,16 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Permanent Residual Income Banner */}
+        {/* Recurring Commission Income Banner */}
         <div className="mb-6 bg-gradient-to-r from-green-900 to-emerald-800 border-2 border-green-400 rounded-lg p-4 shadow-lg">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0">
               <Lock className="h-5 w-5 text-green-400" />
             </div>
             <div className="flex-1">
-              <h3 className="text-green-300 font-bold text-sm uppercase tracking-wide">Permanent Residual Income</h3>
+              <h3 className="text-green-300 font-bold text-sm uppercase tracking-wide">Recurring Commission Income</h3>
               <p className="text-white/80 text-xs mt-0.5">
-                Each active referral contributes $5 to your monthly volume — <strong className="text-green-300">permanently locked in</strong>. 
+                Each active referral contributes $5 to your monthly commission volume — <strong className="text-green-300">recorded on first payment</strong>. 
                 {(member.permanentReferralCount || stats.totalReferrals || 0) > 0 
                   ? ` Current monthly volume: $${((member.permanentReferralCount || stats.totalReferrals || 0) * 5).toFixed(2)} from ${member.permanentReferralCount || stats.totalReferrals || 0} active referral${(member.permanentReferralCount || stats.totalReferrals || 0) > 1 ? 's' : ''}.`
                   : ' Refer your first member to start building your monthly volume.'}
@@ -795,7 +795,7 @@ export default function Dashboard() {
             {(member.permanentReferralCount || stats.totalReferrals || 0) > 0 && (
               <div className="text-right flex-shrink-0">
                 <div className="text-green-300 text-xl font-bold">${((member.permanentReferralCount || stats.totalReferrals || 0) * 5).toFixed(2)}</div>
-                <div className="text-green-400/70 text-xs">/month forever</div>
+                <div className="text-green-400/70 text-xs">/month (recurring)</div>
               </div>
             )}
           </div>

@@ -31,15 +31,15 @@ export default function WhyJoin() {
   const faqs = [
     {
       q: "Is there a time limit to get my 7 referrals?",
-      a: "No time limit at all. You can take 3 weeks or 3 years — there's no deadline. The moment you hit 7 active referrals, your commissions cover your membership cost every month going forward, permanently."
+      a: "No time limit at all. You can take 3 weeks or 3 years — there's no deadline. The moment you hit 7 active referrals, your commissions can cover your membership cost every active month."
     },
     {
       q: "Do I stop paying once my commissions cover my membership?",
-      a: "You continue paying $35/month, but you also receive $35/month back in commissions. Your net cost becomes $0. Both sides keep running — that's what funds the permanent residual income promise for your referrer too."
+      a: "You continue paying $35/month, but you also receive $35/month back in recurring commissions based on your active referrals. Your potential net cost becomes $0. Both sides keep running — that's what powers the recurring commission model."
     },
     {
       q: "What if one of my referrals cancels their membership?",
-      a: "Here's the powerful part — your $5/month commission on that person is LOCKED IN on their first payment. Even if they cancel, you continue earning your residual income from them. It's truly permanent."
+      a: "Your $5/month commission on that person is recorded on their first payment. Commission activity is based on active referral status. Actual results vary based on individual effort and referral activity."
     },
     {
       q: "When do I start earning commissions?",
@@ -55,7 +55,7 @@ export default function WhyJoin() {
     },
     {
       q: "What do I actually get for my $35/month?",
-      a: "Full affiliate platform access, your personal referral link, community chat and support, access to professional training resources, digital education materials, FR2P Wealth Monthly magazine, and the ability to earn a $5 commission for every successfully referred member — permanently locked in once they join."
+      a: "Full affiliate platform access, your personal referral link, community chat and support, access to professional training resources, digital education materials, FR2P Wealth Monthly magazine, and the ability to earn a recurring $5 commission for every successfully referred active member."
     },
   ];
 
@@ -150,7 +150,7 @@ export default function WhyJoin() {
               <div className="bg-white/10 rounded-xl p-5 border border-white/20">
                 <div className="text-4xl font-bold text-yellow-400">$5</div>
                 <div className="text-white/80 mt-1">Commission Per Referral/Month</div>
-                <div className="text-xs text-white/50 mt-2">Paid to you, permanently</div>
+                <div className="text-xs text-white/50 mt-2">Recurring per active referral</div>
               </div>
               <div className="bg-yellow-400/20 rounded-xl p-5 border-2 border-yellow-400">
                 <div className="text-4xl font-bold text-yellow-400">7</div>
@@ -180,7 +180,7 @@ export default function WhyJoin() {
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <p>Your commission is <strong className="text-yellow-400">LOCKED IN</strong> on each referral's first payment — it's permanent even if they later cancel.</p>
+                  <p>Your commission is <strong className="text-yellow-400">RECORDED</strong> on each referral's first payment — commissions are recurring based on active referral status.</p>
                 </div>
               </div>
             </div>
@@ -311,11 +311,11 @@ export default function WhyJoin() {
               <div className="space-y-3">
                 <h4 className="text-green-400 font-semibold text-lg mb-3">What Comes Back to You</h4>
                 {[
-                  ["7 referrals (break-even)", "$35/month forever"],
-                  ["10 referrals", "$50/month forever"],
-                  ["20 referrals", "$100/month forever"],
-                  ["50 referrals", "$250/month forever"],
-                  ["100 referrals", "$500/month forever"],
+                  ["7 referrals (break-even)", "$35/month potential"],
+                  ["10 referrals", "$50/month potential"],
+                  ["20 referrals", "$100/month potential"],
+                  ["50 referrals", "$250/month potential"],
+                  ["100 referrals", "$500/month potential"],
                 ].map(([label, value]) => (
                   <div key={label} className="flex justify-between items-center py-2 border-b border-white/10">
                     <span className="text-white/80 text-sm">{label}</span>
@@ -325,8 +325,8 @@ export default function WhyJoin() {
               </div>
             </div>
             <div className="mt-6 bg-yellow-400/10 border border-yellow-400 rounded-xl p-4 text-center">
-              <p className="text-yellow-400 font-bold">The income is permanent — even after referrals stop paying.</p>
-              <p className="text-white/70 text-sm mt-1">Commission is locked in on each referral's first payment and continues forever.</p>
+              <p className="text-yellow-400 font-bold">Commission potential grows with every active referral you bring in.</p>
+              <p className="text-white/70 text-sm mt-1">Recurring $5 commissions are recorded on first payment. Actual results vary based on individual effort and referral activity.</p>
             </div>
           </CardContent>
         </Card>

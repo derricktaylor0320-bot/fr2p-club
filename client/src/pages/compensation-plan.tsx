@@ -92,13 +92,13 @@ export default function CompensationPlan() {
           <div className="mt-6 max-w-2xl mx-auto bg-gradient-to-r from-green-900/80 to-emerald-800/80 border-2 border-green-400 rounded-xl p-5 shadow-lg">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Lock className="h-5 w-5 text-green-400" />
-              <span className="text-green-300 font-bold text-lg uppercase tracking-wide">Permanent Residual Income</span>
+              <span className="text-green-300 font-bold text-lg uppercase tracking-wide">Recurring Commission Income</span>
               <Lock className="h-5 w-5 text-green-400" />
             </div>
             <p className="text-white/90 text-sm">
-              Once you refer someone and they make their first payment, that $5 commission is <strong className="text-green-300">permanently locked in</strong>. 
-              Even if your referral cancels their membership, your residual commission <strong className="text-green-300">continues</strong>. 
-              Your job was to refer — and each active referral contributes $5 to your monthly volume.
+              Once you refer someone and they make their first payment, that $5 commission is <strong className="text-green-300">recorded on first payment</strong>. 
+              Your commission activity is tied to your referral efforts — each active referral contributes $5 to your monthly volume.
+              Actual results vary based on individual effort and referral activity.
             </p>
           </div>
           
@@ -133,9 +133,9 @@ export default function CompensationPlan() {
                 <div className="bg-gradient-to-r from-green-500/20 to-green-600/20 border-2 border-green-500 rounded-lg p-6 text-center">
                   <div className="text-5xl font-bold text-primary mb-2">$5</div>
                   <div className="text-lg text-muted-foreground font-medium">per referral / month</div>
-                  <div className="mt-3 text-sm text-green-600 font-semibold">Permanent • Unlimited • FTC Compliant</div>
+                  <div className="mt-3 text-sm text-green-600 font-semibold">Recurring • Unlimited • FTC Compliant</div>
                   <div className="mt-2 text-xs text-green-700 font-medium flex items-center justify-center gap-1">
-                    <Lock className="h-3 w-3" /> Locked in forever — even if they cancel
+                    <Lock className="h-3 w-3" /> Recorded on first payment — results vary by effort
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center text-sm mt-4">
@@ -282,7 +282,7 @@ export default function CompensationPlan() {
                 ✨ One-Time Referral Work → Monthly Residual Paycheck ✨
               </p>
               <p className="text-white/70 text-sm mt-1">
-                You refer them once, you get paid {isFoundingMember ? '$16-$22' : '$5'} every single month FOREVER — even if they cancel their membership
+                You refer them once, you get paid a recurring {isFoundingMember ? '$16-$22' : '$5'} commission each active month — based on your referral activity and effort.
               </p>
             </div>
           </CardContent>
@@ -343,7 +343,7 @@ export default function CompensationPlan() {
                     <div>
                       <p className="font-bold text-amber-300 mb-1">Step 1: You Refer John</p>
                       <p className="text-sm">John joins with $35/month membership → <strong className="text-amber-400">John's active enrollment contributes $5 to your monthly volume</strong></p>
-                      <p className="text-xs text-white/70 mt-1">💰 Once John is locked in, each active referral contributes $5 to your monthly volume — even if he cancels later</p>
+                      <p className="text-xs text-white/70 mt-1">💰 Once John's commission is recorded, each active referral contributes $5 to your monthly volume based on active status.</p>
                     </div>
                   </div>
                 </div>
@@ -353,8 +353,8 @@ export default function CompensationPlan() {
                     <ArrowRight className="h-5 w-5 mr-3 text-amber-400 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-bold text-amber-300 mb-1">Step 2: You Get 5 Referrals (Reach Bronze!)</p>
-                      <p className="text-sm">5 locked-in referrals × $5/month = <strong className="text-amber-400">$25/month FOREVER + ${isFoundingMember ? '100' : '50'} Bronze bonus!</strong></p>
-                      <p className="text-xs text-white/70 mt-1">💰 Your residual never stops — keep growing to unlock higher tiers and bonuses!</p>
+                      <p className="text-sm">5 active referrals × $5/month = <strong className="text-amber-400">$25/month recurring potential + ${isFoundingMember ? '100' : '50'} Bronze bonus!</strong></p>
+                      <p className="text-xs text-white/70 mt-1">💰 Keep growing your referrals to unlock higher tiers and bonuses! Results vary by effort.</p>
                     </div>
                   </div>
                 </div>

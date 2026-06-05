@@ -370,7 +370,7 @@ export default function Investments() {
               <h3 className="text-red-300 font-bold text-lg mb-4">❌ If You Cancel Your Membership</h3>
               <div className="space-y-3 text-sm">
                 {[
-                  { loss: "You lose $5/month per referral — permanently", detail: "Every person you referred locks you in as long as they pay. Cancel and that income stops forever." },
+                  { loss: "You lose your recurring $5/month commission per referral", detail: "Every active referral contributes to your monthly commission volume. Cancel and that recurring activity stops." },
                   { loss: "You lose your place in the achievement tier system", detail: "Your Bronze → Diamond progress, your certificates, your status — gone." },
                   { loss: "You lose broker & banking access", detail: "No more warm introductions. You're back to cold applications." },
                   { loss: "You lose real estate investment access", detail: "The pooled fund opportunity requires an active membership." },
@@ -388,7 +388,7 @@ export default function Investments() {
               <h3 className="text-green-300 font-bold text-lg mb-4">✅ If You Stay in The FR2P Club</h3>
               <div className="space-y-3 text-sm">
                 {[
-                  { gain: "Referral income compounds forever", detail: "Every month you stay is another month your 5+ referrals generate $5 each — for life." },
+                  { gain: "Recurring commission potential grows over time", detail: "Every month you stay is another month your 5+ referrals can generate $5 each in recurring commissions." },
                   { gain: "Access unlocks grow over time", detail: "Broker access, banking relationships, real estate fund — all coming for active members." },
                   { gain: "7 referrals = $0 net cost", detail: "At 7 referrals, your $35/month membership is covered by commission. You're in for free." },
                   { gain: "Tier bonuses keep stacking", detail: "Bronze → Silver → Gold → Platinum → Diamond bonuses only come to active, paying members." },
@@ -408,7 +408,7 @@ export default function Investments() {
             <h3 className="text-[#FFD700] font-bold text-xl mb-2">The Math Is Simple</h3>
             <p className="text-white/80 text-base max-w-2xl mx-auto">
               With just <strong className="text-[#FFD700]">7 referrals</strong>, your $35/month membership pays for itself. Every referral after that is pure profit — 
-              locked in permanently. The longer you stay, the more referrals you lock in, the more the platform opens up to you.
+              building recurring commission potential. The longer you stay, the more referrals you build, the more the platform opens up to you.
               <strong className="text-[#FFD700]"> Getting out costs you money. Staying makes you money.</strong>
             </p>
           </div>
