@@ -27,6 +27,16 @@ const materials = [
     printNote: "Print at VistaPrint as a standard business card (3.5×2 in). Glossy finish recommended."
   },
   {
+    id: "postcard",
+    title: "Postcard",
+    description: "Front & back postcard with membership pricing and a 'Connect With Me' section.",
+    category: "Postcard",
+    file: "/marketing/postcard-v1.jpeg",
+    downloadName: "FR2P-Postcard.jpg",
+    icon: Mail,
+    printNote: "Print as 4×6 or 5×7 postcard. Great for direct mail and networking events."
+  },
+  {
     id: "flyer",
     title: "Promotional Flyer",
     description: "\"Multiple Streams. One Road to Success!\" — vertical flyer for social media or print.",
@@ -39,63 +49,13 @@ const materials = [
   {
     id: "brochure",
     title: "Trifold Brochure",
-    description: "Full 6-panel trifold covering membership options, benefits, and the residual income story.",
+    description: "Full 6-panel trifold covering membership options, benefits, and the commission story.",
     category: "Brochure",
     file: "/marketing/trifold-brochure.jpeg",
     downloadName: "FR2P-Trifold-Brochure.jpg",
     icon: BookOpen,
     printNote: "Print double-sided 8.5×11 folded in thirds. Ask for 'trifold' at FedEx Office or Office Depot."
   },
-  {
-    id: "postcard-v1",
-    title: "Postcard – Version 1",
-    description: "Front & back postcard with membership pricing and a 'Connect With Me' section.",
-    category: "Postcard",
-    file: "/marketing/postcard-v1.jpeg",
-    downloadName: "FR2P-Postcard-v1.jpg",
-    icon: Mail,
-    printNote: "Print as 4×6 or 5×7 postcard. Great for direct mail and networking events."
-  },
-  {
-    id: "postcard-v2",
-    title: "Postcard – Version 2",
-    description: "Clean postcard back with gold border, contact info slots, and QR code area.",
-    category: "Postcard",
-    file: "/marketing/postcard-v2.jpeg",
-    downloadName: "FR2P-Postcard-v2.jpg",
-    icon: Mail,
-    printNote: "Use as the back of your mailing postcard. Add your HiHello QR code before printing."
-  },
-  {
-    id: "postcard-v3",
-    title: "Postcard – Version 3",
-    description: "Double-sided postcard with front flyer and back 'Connect With Me' contact layout.",
-    category: "Postcard",
-    file: "/marketing/postcard-v3.jpeg",
-    downloadName: "FR2P-Postcard-v3.jpg",
-    icon: Mail,
-    printNote: "Perfect for handing out at events. Fill in your info card below before printing."
-  },
-  {
-    id: "postcard-v4",
-    title: "Postcard – Version 4",
-    description: "Front & back postcard with 'Scan Me' QR code area built into the design.",
-    category: "Postcard",
-    file: "/marketing/postcard-v4.jpeg",
-    downloadName: "FR2P-Postcard-v4.jpg",
-    icon: Mail,
-    printNote: "Replace the placeholder QR with your HiHello QR code, then send to print."
-  },
-  {
-    id: "diamond-logo",
-    title: "Diamond Logo",
-    description: "Official FR2P Club diamond logo in navy & gold — use on any custom materials.",
-    category: "Logo",
-    file: "/marketing/diamond-logo.jpeg",
-    downloadName: "FR2P-Diamond-Logo.jpg",
-    icon: Star,
-    printNote: "Use this logo in Canva, Google Slides, or any design tool for custom materials."
-  }
 ];
 
 const categoryColors: Record<string, string> = {
@@ -509,7 +469,7 @@ export default function MarketingTools() {
           </div>
           {/* Category Filter */}
           <div className="flex flex-wrap gap-2">
-            {["All", "Print Ready", "Flyer", "Brochure", "Postcard", "Logo"].map(cat => (
+            {["All", "Print Ready", "Postcard", "Flyer", "Brochure"].map(cat => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}

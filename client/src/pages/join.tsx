@@ -26,7 +26,7 @@ const registrationSchema = z.object({
   city: z.string().min(1, "City is required"),
   state: z.string().min(2, "State is required"),
   zipCode: z.string().min(5, "ZIP code is required"),
-  membershipPlan: z.enum(["monthly", "annual"]),
+  membershipPlan: z.enum(["monthly", "annual", "lifetime"]),
   membershipLevel: z.enum(["standard", "premium"]),
 });
 
@@ -342,6 +342,45 @@ export default function Join() {
           </div>
         )}
 
+        {/* Letter from the Founder */}
+        <div className="mb-8 bg-gradient-to-br from-[#001f3f] to-[#002855] border-2 border-[#FFD700] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:w-64 flex-shrink-0 relative">
+              <img
+                src="/founder-photo.png"
+                alt="Derrick Taylor — Founder, The FR2P Club"
+                className="w-full h-72 md:h-full object-cover object-top"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#001f3f] to-transparent p-3 text-center">
+                <div className="text-[#FFD700] font-bold text-sm">Derrick Taylor</div>
+                <div className="text-white/70 text-xs">Founder, The FR2P Club</div>
+              </div>
+            </div>
+            <div className="flex-1 p-6 flex flex-col justify-center">
+              <div className="text-[#FFD700] font-bold text-xs uppercase tracking-widest mb-2">A Personal Message</div>
+              <h2 className="text-white font-bold text-2xl md:text-3xl mb-4 leading-snug">
+                "Everybody Can Win — <br className="hidden md:block" />That's the FR2P Way."
+              </h2>
+              <div className="space-y-3 text-white/85 text-sm leading-relaxed">
+                <p>
+                  I built The FR2P Club because I believe financial freedom shouldn't be reserved for a select few. 
+                  With just <strong className="text-[#FFD700]">5 people</strong> and the right system, 
+                  you can cover your membership cost, build real recurring commission income, and create a life on your terms.
+                </p>
+                <p>
+                  This isn't about being the best salesperson. It's about leadership, duplication, and showing up for your 5. 
+                  You find your 5, you teach your 5, and they teach theirs.
+                  That's how a movement grows.
+                </p>
+                <p className="text-[#FFD700] font-semibold">
+                  Welcome to the road to prosperity. Let's build something together.
+                </p>
+              </div>
+              <div className="mt-4 text-white/50 text-xs italic">— Derrick Taylor, Founder & CEO · The FR2P Club · A Division of The Consolidatus Empire</div>
+            </div>
+          </div>
+        </div>
+
         {/* Exclusive Invite-Only Club Message */}
         <Card className="mb-8 bg-gradient-to-br from-[#001f3f] to-[#003366] border-2 border-[#FFD700]">
           <CardContent className="pt-6">
@@ -380,10 +419,10 @@ export default function Join() {
             <div className="text-4xl font-bold text-green-400 mb-1">7 Referrals</div>
             <div className="text-xl font-semibold mb-2">= Your Membership is Essentially FREE</div>
             <p className="text-white/80 text-sm mb-3">
-              7 referrals × $5/month = $35/month back to you. Your commission matches your membership cost — net $0, forever.
+              7 referrals × $5/month = $35/month recurring commissions. Your commission matches your membership cost — net $0 each active month.
             </p>
             <div className="bg-white/10 rounded-lg p-3 text-xs text-white/70">
-              No time limit to reach 7. Commission is locked in permanently on each referral's first payment.
+              No time limit to reach 7. Commission is recorded on each referral's first payment. Results vary by effort.
             </div>
           </div>
           <div className="bg-gradient-to-br from-[#001f3f] to-[#002952] border-2 border-[#FFD700] rounded-xl p-5 text-white text-center flex flex-col items-center justify-center gap-4">
@@ -682,12 +721,15 @@ export default function Join() {
               <CardContent className="space-y-3 text-sm">
                 <div className="pb-2 border-b border-yellow-200">
                   <div className="font-semibold text-blue-800">STANDARD</div>
-                  <div className="text-yellow-800">$35/mo or $350/year (save $70)</div>
+                  <div className="text-yellow-800">$35/mo · $350/yr · <span className="font-bold text-amber-700">$297 lifetime</span></div>
                 </div>
-                <div>
+                <div className="pb-2 border-b border-yellow-200">
                   <div className="font-semibold text-amber-700">PREMIUM</div>
-                  <div className="text-yellow-800">$50/mo or $500/year (save $100)</div>
+                  <div className="text-yellow-800">$50/mo · $500/yr · <span className="font-bold text-amber-700">$497 lifetime</span></div>
                   <div className="text-xs text-amber-600 mt-1">+ KonnectMD Healthcare Access</div>
+                </div>
+                <div className="bg-amber-100 rounded-lg p-2 text-center">
+                  <div className="text-xs font-bold text-amber-800">💡 Lifetime = One payment, never pay again</div>
                 </div>
               </CardContent>
             </Card>
@@ -863,7 +905,7 @@ export default function Join() {
                     {/* Step 2: Choose Billing Cycle */}
                     <div className="space-y-3">
                       <FormLabel className="text-lg font-semibold">Step 2: Choose Your Billing Cycle</FormLabel>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-3 gap-3">
                         <Card 
                           className={`cursor-pointer transition-all ${
                             selectedPlan === "monthly" 
@@ -873,14 +915,12 @@ export default function Join() {
                           onClick={() => form.setValue("membershipPlan", "monthly")}
                           data-testid="card-monthly-billing"
                         >
-                          <CardContent className="pt-6 text-center">
-                            <div className="text-2xl font-bold text-blue-600">
-                              {selectedLevel === "premium" ? "$50" : "$35"}/month
+                          <CardContent className="pt-5 text-center">
+                            <div className="text-xl font-bold text-blue-600">
+                              {selectedLevel === "premium" ? "$50" : "$35"}<span className="text-sm font-normal">/mo</span>
                             </div>
-                            <div className="text-sm text-muted-foreground mt-1">Monthly Billing</div>
-                            <div className="text-xs text-muted-foreground mt-2">
-                              {selectedLevel === "premium" ? "$600" : "$420"}/year total
-                            </div>
+                            <div className="text-sm text-muted-foreground mt-1">Monthly</div>
+                            <div className="text-xs text-muted-foreground mt-1">Cancel anytime</div>
                           </CardContent>
                         </Card>
                         <Card 
@@ -892,18 +932,43 @@ export default function Join() {
                           onClick={() => form.setValue("membershipPlan", "annual")}
                           data-testid="card-annual-billing"
                         >
-                          <CardContent className="pt-6 text-center relative">
-                            <Badge className="absolute -top-2 right-4 bg-green-600">
+                          <CardContent className="pt-5 text-center relative">
+                            <Badge className="absolute -top-2 right-2 bg-green-600 text-xs px-2">
                               Save {selectedLevel === "premium" ? "$100" : "$70"}!
                             </Badge>
-                            <div className="text-2xl font-bold text-green-600">
-                              {selectedLevel === "premium" ? "$500" : "$350"}/year
+                            <div className="text-xl font-bold text-green-600">
+                              {selectedLevel === "premium" ? "$500" : "$350"}<span className="text-sm font-normal">/yr</span>
                             </div>
-                            <div className="text-sm text-muted-foreground mt-1">Annual Billing</div>
-                            <div className="text-xs text-green-600 font-semibold mt-2">17% savings</div>
+                            <div className="text-sm text-muted-foreground mt-1">Annual</div>
+                            <div className="text-xs text-green-600 font-semibold mt-1">17% savings</div>
+                          </CardContent>
+                        </Card>
+                        <Card 
+                          className={`cursor-pointer transition-all relative ${
+                            selectedPlan === "lifetime" 
+                              ? "border-2 border-[#FFD700] bg-yellow-50" 
+                              : "border border-[#FFD700]/40 hover:border-[#FFD700]"
+                          }`}
+                          onClick={() => form.setValue("membershipPlan", "lifetime")}
+                          data-testid="card-lifetime-billing"
+                        >
+                          <Badge className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#FFD700] text-[#001f3f] text-xs px-2 whitespace-nowrap">
+                            ONE TIME
+                          </Badge>
+                          <CardContent className="pt-5 text-center">
+                            <div className="text-xl font-bold text-amber-600">
+                              {selectedLevel === "premium" ? "$497" : "$297"}<span className="text-sm font-normal"> once</span>
+                            </div>
+                            <div className="text-sm text-muted-foreground mt-1">Lifetime</div>
+                            <div className="text-xs text-amber-600 font-semibold mt-1">Pay once, done ✓</div>
                           </CardContent>
                         </Card>
                       </div>
+                      {selectedPlan === "lifetime" && (
+                        <div className="bg-amber-50 border border-amber-300 rounded-lg p-3 text-xs text-amber-800">
+                          <strong>Lifetime Membership:</strong> One payment — no future monthly or annual billing. Your membership stays active as long as FR2P operates. Standard Lifetime: $297 | Premium Lifetime: $497.
+                        </div>
+                      )}
                     </div>
 
                     {/* Account Information */}
