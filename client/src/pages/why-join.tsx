@@ -671,11 +671,105 @@ export default function WhyJoin() {
           </CardContent>
         </Card>
 
+        {/* Motivation Corner */}
+        <Card className="text-white border border-white/20" style={{ backgroundColor: "#001f3f" }}>
+          <CardHeader>
+            <CardTitle className="text-yellow-400 text-2xl flex items-center gap-2">
+              🎯 Motivation Corner
+            </CardTitle>
+            <p className="text-white/70 text-sm">
+              These two legends explain exactly why the FR2P model works. Watch before you decide — then share with your 5.
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-8">
+
+            {/* Video 1 — Robert Kiyosaki */}
+            <div className="bg-white/5 border border-[#FFD700]/30 rounded-2xl overflow-hidden">
+              <div className="p-4 border-b border-white/10">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-[#FFD700] font-black text-sm">RK</span>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-base">Robert Kiyosaki — The CASHFLOW Quadrant</h3>
+                    <p className="text-white/60 text-xs mt-0.5">Rich Dad Poor Dad · E-S-B-I System Explained</p>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-2 text-sm text-white/80">
+                  <p>
+                    Kiyosaki breaks the world into 4 types of people: <strong className="text-[#FFD700]">Employee · Self-Employed · Business Owner · Investor</strong>.
+                    Most people are stuck on the left side (E & S) — trading time for money, working harder, never getting ahead.
+                  </p>
+                  <p>
+                    The right side (B & I) is where wealth is built through <strong className="text-[#FFD700]">systems and other people's effort</strong>.
+                    FR2P is your bridge from the left side to the right — building a system that works whether you're at your desk or not.
+                  </p>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {["E: Employee", "S: Self-Employed", "B: Business Owner", "I: Investor"].map((q, i) => (
+                    <span key={q} className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${
+                      i < 2 ? "bg-red-500/10 text-red-300 border-red-500/30" : "bg-green-500/10 text-green-300 border-green-500/30"
+                    }`}>{q}</span>
+                  ))}
+                </div>
+                <p className="text-[#FFD700] text-xs font-semibold mt-2">FR2P positions you as a B — building a business that earns while you sleep.</p>
+              </div>
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/bC1ScfCny38"
+                  title="Robert Kiyosaki — CASHFLOW Quadrant ESBI Explained"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+
+            {/* Video 2 — Les Brown */}
+            <div className="bg-white/5 border border-[#FFD700]/30 rounded-2xl overflow-hidden">
+              <div className="p-4 border-b border-white/10">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-[#FFD700] font-black text-sm">LB</span>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-base">Les Brown — "It's Possible"</h3>
+                    <p className="text-white/60 text-xs mt-0.5">Greatest Hits Motivational Speech</p>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-2 text-sm text-white/80">
+                  <p>
+                    Les Brown grew up labeled "educably mentally retarded" — went on to become one of the most powerful voices in motivational speaking.
+                    His message: <strong className="text-[#FFD700]">it doesn't matter where you started. What matters is that you decide it's possible.</strong>
+                  </p>
+                  <p>
+                    That's the FR2P spirit. You don't need to be a sales expert or have money to invest.
+                    You need to <strong className="text-[#FFD700]">believe it's possible</strong>, find your 5, and teach them to believe the same.
+                  </p>
+                </div>
+                <div className="mt-3 bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-lg p-2.5">
+                  <p className="text-[#FFD700] text-xs font-semibold italic">"You don't have to be great to get started, but you have to get started to be great." — Les Brown</p>
+                </div>
+              </div>
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/VUshxhZaX10"
+                  title="Les Brown — It's Possible Motivational Speech"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+
+          </CardContent>
+        </Card>
+
         {/* Final CTA */}
         <div className="text-center space-y-4 py-6">
           <h2 className="text-3xl font-bold text-yellow-400">Ready to Begin Your Journey?</h2>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Join The FR2P Club today. Get your 7 referrals. Watch your membership become essentially free — forever.
+            Join The FR2P Club today. Get your 7 referrals. Watch your membership pay for itself.
           </p>
           <div className="flex flex-wrap gap-4 justify-center mt-6">
             <Link href="/join">
