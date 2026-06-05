@@ -762,6 +762,44 @@ export default function WhyJoin() {
               </div>
             </div>
 
+            {/* Video 3 — Myron Golden */}
+            <div className="bg-white/5 border border-[#FFD700]/30 rounded-2xl overflow-hidden">
+              <div className="p-4 border-b border-white/10">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-[#FFD700] font-black text-sm">MG</span>
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-base">Myron Golden — How To Turn What You Love Into Residual Income</h3>
+                    <p className="text-white/60 text-xs mt-0.5">Building income streams that pay you over and over</p>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-2 text-sm text-white/80">
+                  <p>
+                    Myron Golden breaks down exactly how ordinary people turn their passion and their network into
+                    <strong className="text-[#FFD700]"> recurring income streams</strong> — without a massive following or startup capital.
+                  </p>
+                  <p>
+                    This is the strategy behind FR2P. You already have relationships.
+                    You already have something to offer. The system is built — 
+                    <strong className="text-[#FFD700]"> all you do is connect people to it.</strong>
+                  </p>
+                </div>
+                <div className="mt-3 bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-lg p-2.5">
+                  <p className="text-[#FFD700] text-xs font-semibold italic">"Residual income is getting paid for work you did once — over and over again." — Myron Golden</p>
+                </div>
+              </div>
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/lmpv7CJz6so"
+                  title="Myron Golden — How To Turn What You Love Into Residual Income"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+
           </CardContent>
         </Card>
 
