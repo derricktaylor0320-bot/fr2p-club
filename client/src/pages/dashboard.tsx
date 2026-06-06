@@ -992,6 +992,119 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* Motivation Corner */}
+        <div className="mt-8 mb-2">
+          <div className="bg-[#001f3f] border-2 border-[#FFD700]/40 rounded-2xl p-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-[#FFD700]/20 rounded-lg">
+                <span className="text-2xl">🎯</span>
+              </div>
+              <div>
+                <h2 className="text-[#FFD700] font-bold text-xl">Motivation Corner</h2>
+                <p className="text-white/60 text-sm">The mindset behind the movement — watch, learn, and share with your 5</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5">
+
+              {/* Video 1 — Robert Kiyosaki */}
+              <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-white/10 flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-[#FFD700] font-black text-xs">RK</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-sm leading-tight">Robert Kiyosaki</p>
+                      <p className="text-white/50 text-xs">The CASHFLOW Quadrant</p>
+                    </div>
+                  </div>
+                  <p className="text-white/70 text-xs leading-relaxed mb-2">
+                    The E-S-B-I system explained. Most people are stuck trading time for money. FR2P moves you to the B side — where systems earn for you.
+                  </p>
+                  <div className="flex flex-wrap gap-1">
+                    {["E: Employee", "S: Self-Employed", "B: Business", "I: Investor"].map((q, i) => (
+                      <span key={q} className={`text-[10px] px-2 py-0.5 rounded-full font-semibold border ${
+                        i < 2 ? "bg-red-500/10 text-red-300 border-red-500/30" : "bg-green-500/10 text-green-300 border-green-500/30"
+                      }`}>{q}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="aspect-video">
+                  <iframe
+                    src="https://www.youtube.com/embed/bC1ScfCny38"
+                    title="Robert Kiyosaki — CASHFLOW Quadrant"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+
+              {/* Video 2 — Les Brown */}
+              <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-white/10 flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-[#FFD700] font-black text-xs">LB</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-sm leading-tight">Les Brown</p>
+                      <p className="text-white/50 text-xs">"It's Possible" — Greatest Hits</p>
+                    </div>
+                  </div>
+                  <p className="text-white/70 text-xs leading-relaxed mb-2">
+                    It doesn't matter where you started. What matters is that you decide it's possible. That's the FR2P spirit.
+                  </p>
+                  <div className="bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-lg p-2">
+                    <p className="text-[#FFD700] text-[10px] font-semibold italic">"You don't have to be great to get started, but you have to get started to be great."</p>
+                  </div>
+                </div>
+                <div className="aspect-video">
+                  <iframe
+                    src="https://www.youtube.com/embed/VUshxhZaX10"
+                    title="Les Brown — It's Possible"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+
+              {/* Video 3 — Myron Golden */}
+              <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-white/10 flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-[#FFD700] font-black text-xs">MG</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-sm leading-tight">Myron Golden</p>
+                      <p className="text-white/50 text-xs">Turn Your Passion Into Residual Income</p>
+                    </div>
+                  </div>
+                  <p className="text-white/70 text-xs leading-relaxed mb-2">
+                    How ordinary people turn their network into recurring income streams — without startup capital or a massive following.
+                  </p>
+                  <div className="bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-lg p-2">
+                    <p className="text-[#FFD700] text-[10px] font-semibold italic">"Residual income is getting paid for work you did once — over and over again."</p>
+                  </div>
+                </div>
+                <div className="aspect-video">
+                  <iframe
+                    src="https://www.youtube.com/embed/lmpv7CJz6so"
+                    title="Myron Golden — Residual Income"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         {/* Music Player and Commission Payment Information */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Music Player */}
