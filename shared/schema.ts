@@ -774,6 +774,25 @@ export interface TierResponse {
 }
 
 // Charity Search Types
+export const prospects = pgTable("prospects", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull().references(() => members.id),
+  name: text("name").notNull(),
+  phone: text("phone"),
+  email: text("email"),
+  socialPlatform: text("social_platform"),
+  socialHandle: text("social_handle"),
+  marketType: text("market_type").notNull().default("warm"),
+  status: text("status").notNull().default("new"),
+  notes: text("notes"),
+  followUpDate: timestamp("follow_up_date"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertProspectSchema = createInsertSchema(prospects).omit({ id: true, createdAt: true });
+export type InsertProspect = z.infer<typeof insertProspectSchema>;
+export type Prospect = typeof prospects.$inferSelect;
+
 export interface CharitySearchResult {
   ein: string; // Employer Identification Number
   name: string; // Organization name

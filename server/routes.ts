@@ -5,7 +5,7 @@ import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
-import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
+import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
 import { sendWelcomeEmail } from "./services/email";
@@ -2256,6 +2256,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error removing track:", error);
       res.status(500).json({ message: "Failed to remove track" });
+    }
+  });
+
+  // ── Prospect Manager Routes ──────────────────────────────────────────
+  app.get("/api/prospects/:memberId", async (req, res) => {
+    try {
+      const { memberId } = req.params;
+      const rows = await db.select().from(prospects).where(eq(prospects.memberId, memberId));
+      res.json(rows);
+    } catch (error) {
+      console.error("Error fetching prospects:", error);
+      res.status(500).json({ message: "Failed to fetch prospects" });
+    }
+  });
+
+  app.post("/api/prospects", async (req, res) => {
+    try {
+      const parsed = insertProspectSchema.safeParse(req.body);
+      if (!parsed.success) return res.status(400).json({ message: "Invalid data", errors: parsed.error.errors });
+      const [created] = await db.insert(prospects).values(parsed.data).returning();
+      res.json(created);
+    } catch (error) {
+      console.error("Error creating prospect:", error);
+      res.status(500).json({ message: "Failed to create prospect" });
+    }
+  });
+
+  app.patch("/api/prospects/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const [updated] = await db.update(prospects).set(req.body).where(eq(prospects.id, id)).returning();
+      if (!updated) return res.status(404).json({ message: "Prospect not found" });
+      res.json(updated);
+    } catch (error) {
+      console.error("Error updating prospect:", error);
+      res.status(500).json({ message: "Failed to update prospect" });
+    }
+  });
+
+  app.delete("/api/prospects/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      await db.delete(prospects).where(eq(prospects.id, id));
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting prospect:", error);
+      res.status(500).json({ message: "Failed to delete prospect" });
     }
   });
 
