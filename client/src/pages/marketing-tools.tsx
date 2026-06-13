@@ -48,8 +48,8 @@ const materials = [
   },
   {
     id: "brochure",
-    title: "Trifold Brochure",
-    description: "Full 6-panel trifold covering membership options, benefits, and the commission story.",
+    title: "2-Fold Brochure (Tri-Fold)",
+    description: "6-panel brochure — 3 panels on the front, 3 on the back. Made with 2 folds on a standard 8.5×11 sheet, each panel ~3.6\" wide. Covers membership options, benefits, and the commission story.",
     category: "Brochure",
     file: "/marketing/trifold-brochure.jpeg",
     downloadName: "FR2P-Trifold-Brochure.jpg",
