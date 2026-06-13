@@ -10,7 +10,8 @@ import { getLoggedInMemberId } from "@/lib/auth";
 import {
   Download, Printer, QrCode, Smartphone, ExternalLink,
   CreditCard, FileImage, Megaphone, BookOpen, Mail, Star,
-  Info, X, CheckCircle2, User, Phone, Globe, AtSign, Briefcase
+  Info, X, CheckCircle2, User, Phone, Globe, AtSign, Briefcase,
+  Search, Users, Zap
 } from "lucide-react";
 
 const MEMBER_ID = getLoggedInMemberId();
@@ -529,6 +530,99 @@ export default function MarketingTools() {
               </div>
             );
           })}
+        </div>
+
+        {/* Digital Prospecting Tools */}
+        <div className="mb-10">
+          <div className="flex items-center gap-2 mb-5">
+            <div className="w-6 h-6 rounded-full bg-[#FFD700] text-[#001f3f] text-xs font-black flex items-center justify-center">3</div>
+            <h2 className="text-white font-bold text-lg">Digital Prospecting Tools</h2>
+          </div>
+
+          <div className="bg-gradient-to-br from-[#001f3f] to-[#002a55] border-2 border-[#FFD700]/40 rounded-2xl overflow-hidden">
+            <div className="p-6 lg:p-8">
+              <div className="flex flex-col lg:flex-row gap-8 items-start">
+
+                {/* Left — Info */}
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-12 h-12 bg-[#FFD700]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Search className="h-6 w-6 text-[#FFD700]" />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-bold text-xl leading-tight">Prospect Identifier</h3>
+                      <p className="text-[#FFD700] text-xs font-semibold">Included free with your FR2P membership</p>
+                    </div>
+                  </div>
+
+                  <p className="text-white/80 text-sm leading-relaxed mb-4">
+                    Stop guessing who to talk to. The Prospect Identifier scans social media platforms — <strong className="text-white">LinkedIn, Facebook, Instagram, and Threads</strong> — and identifies people who are actively looking for business opportunities. When someone's showing the signals, you'll know.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+                    {[
+                      { icon: Search, label: "Smart Scanning", desc: "Scans LinkedIn, Facebook, Instagram & Threads for opportunity-seekers" },
+                      { icon: Users, label: "Warm Market Tracking", desc: "Track and follow up with prospects by name, contact, and status" },
+                      { icon: Zap, label: "Higher Close Rate", desc: "Talk to people already looking — not cold strangers who aren't ready" },
+                    ].map(f => (
+                      <div key={f.label} className="bg-white/5 border border-white/10 rounded-xl p-3">
+                        <f.icon className="h-4 w-4 text-[#FFD700] mb-1.5" />
+                        <p className="text-white font-semibold text-xs mb-0.5">{f.label}</p>
+                        <p className="text-white/50 text-xs leading-relaxed">{f.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-xl p-3 mb-4">
+                    <p className="text-[#FFD700] text-xs font-semibold mb-1">💡 How to use it with FR2P:</p>
+                    <p className="text-white/70 text-xs leading-relaxed">
+                      Use the free tier to scan for prospects daily. When you find someone showing interest in business opportunities, reach out with your FR2P referral link. It's like having a research assistant working 24/7 to find your next 5.
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <div className="flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 rounded-full px-3 py-1">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-green-400" />
+                      <span className="text-green-300 text-xs font-semibold">Free Tier Available</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/30 rounded-full px-3 py-1">
+                      <Star className="h-3.5 w-3.5 text-blue-400" />
+                      <span className="text-blue-300 text-xs font-semibold">Paid Upgrade Available</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-full px-3 py-1">
+                      <Zap className="h-3.5 w-3.5 text-[#FFD700]" />
+                      <span className="text-[#FFD700] text-xs font-semibold">Works On All Major Platforms</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right — Launch Button */}
+                <div className="lg:w-56 flex flex-col items-center gap-3 lg:pt-4">
+                  <div className="w-full bg-white/5 border border-[#FFD700]/20 rounded-2xl p-5 text-center">
+                    <div className="w-16 h-16 bg-[#FFD700]/20 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                      <Search className="h-8 w-8 text-[#FFD700]" />
+                    </div>
+                    <p className="text-white font-bold text-sm mb-0.5">Prospect Identifier</p>
+                    <p className="text-white/50 text-xs mb-4">by FR2P Club</p>
+                    <a
+                      href="https://prospect-identifier.replit.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 bg-[#FFD700] hover:bg-yellow-300 text-[#001f3f] font-bold text-sm py-3 rounded-xl transition-colors"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Launch Tool
+                    </a>
+                    <p className="text-white/30 text-[10px] mt-2">Opens in a new tab</p>
+                  </div>
+                  <p className="text-white/40 text-[10px] text-center leading-relaxed">
+                    Use your FR2P referral link when sharing with prospects you find through this tool.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Print Tips */}
