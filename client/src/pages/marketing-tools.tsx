@@ -93,7 +93,7 @@ function PrintModal({ material, info, onClose }: PrintModalProps) {
         <!DOCTYPE html>
         <html>
           <head>
-            <title>${material.title} – FR2P Club</title>
+            <title>${material.title} – The FR2P Club</title>
             <style>
               * { margin: 0; padding: 0; box-sizing: border-box; }
               body { font-family: Georgia, serif; background: white; }
@@ -603,7 +603,7 @@ export default function MarketingTools() {
                       <Search className="h-8 w-8 text-[#FFD700]" />
                     </div>
                     <p className="text-white font-bold text-sm mb-0.5">Prospect Identifier</p>
-                    <p className="text-white/50 text-xs mb-4">by FR2P Club</p>
+                    <p className="text-white/50 text-xs mb-4">by The FR2P Club</p>
                     <a
                       href="https://prospect-identifier.replit.app"
                       target="_blank"
