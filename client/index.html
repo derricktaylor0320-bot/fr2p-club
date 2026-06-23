@@ -2,6 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Frame-buster: if FR2P is embedded inside another site's iframe, break out to full page -->
+    <script>
+      if (window.self !== window.top) {
+        try { window.top.location.href = window.self.location.href; } catch(e) {}
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <meta name="description" content="The FR2P Club - Exclusive affiliate marketing platform with 3-tier progression system and network building tools" />
     
