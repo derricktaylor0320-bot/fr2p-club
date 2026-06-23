@@ -12,7 +12,8 @@ import {
   Star,
   Users,
   Sparkles,
-  Globe
+  Globe,
+  Rocket
 } from "lucide-react";
 
 const empireBusinesses = [
@@ -65,6 +66,19 @@ const empireBusinesses = [
     isComingSoon: true,
     highlight: "CREATIVE",
     features: ["Content creation", "Podcast production", "Media services"]
+  },
+  {
+    name: "Pocket Booster",
+    tagline: "Micro-Loans for Entrepreneurs",
+    description: "Community-backed micro-loans from $100 to $1,000 for Consolidatus Empire members. No hard credit pull, fast decisions. Get the capital boost you need to launch, restock, or grow.",
+    icon: Rocket,
+    color: "from-emerald-500 to-emerald-600",
+    borderColor: "border-emerald-500",
+    url: "https://khomplete-khemistri-apparel.up.railway.app/pocket-booster",
+    isInternal: false,
+    isComingSoon: true,
+    highlight: "FINTECH",
+    features: ["$100–$1,000 micro-loans", "FR2P members get priority", "Build credit history"]
   }
 ];
 
