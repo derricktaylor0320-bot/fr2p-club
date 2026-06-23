@@ -35,7 +35,7 @@ const empireBusinesses = [
     icon: ShoppingBag,
     color: "from-purple-500 to-purple-600",
     borderColor: "border-purple-500",
-    url: "https://kkmgllc2023-derricktaylor03.replit.app/",
+    url: "https://khomplete-khemistri-apparel.up.railway.app/",
     isInternal: false,
     highlight: "SHOP",
     features: ["Exclusive apparel", "Premium accessories", "Member discounts"]
@@ -210,7 +210,7 @@ export default function Empire() {
                 Join FR2P Now
               </Button>
             </a>
-            <a href="https://kkmgllc2023-derricktaylor03.replit.app/" target="_blank" rel="noopener noreferrer">
+            <a href="https://khomplete-khemistri-apparel.up.railway.app/" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700]/10 px-8" data-testid="button-shop-apparel">
                 <ShoppingBag className="h-5 w-5 mr-2" />
                 Shop Apparel

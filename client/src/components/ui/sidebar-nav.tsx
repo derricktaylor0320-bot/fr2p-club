@@ -100,6 +100,20 @@ export function SidebarNav({ className }: SidebarNavProps) {
           className
         )}
       >
+        {/* Consolidatus Empire Hub Bar */}
+        <a
+          href="https://khomplete-khemistri-apparel.up.railway.app/hub"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-amber-700/40 to-amber-600/30 border-b border-[#FFD700]/30 hover:bg-[#FFD700]/20 transition-colors group"
+        >
+          <Building2 className="h-3.5 w-3.5 text-[#FFD700] flex-shrink-0" />
+          <span className="text-[#FFD700] text-[10px] font-bold tracking-wide group-hover:text-yellow-200 leading-tight text-center">
+            CONSOLIDATUS EMPIRE HUB
+          </span>
+          <LogIn className="h-3 w-3 text-[#FFD700]/60 flex-shrink-0 rotate-0 group-hover:text-yellow-200" />
+        </a>
+
         {/* Logo Section */}
         <div className="flex items-center justify-center h-20 px-6 border-b border-gold-400/30 bg-gradient-to-r from-navy-900 to-navy-800 shadow-lg">
           <Link href="/" className="flex items-center justify-center">
