@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import type { DashboardResponse } from "@shared/schema";
+import buffettQuote from "@assets/1487735-Warren-Buffett-Quote-If-you-don-t-find-a-way-to-make-m_1782277441172.jpg";
+import rockQuote from "@assets/Screenshot_20260623_235629_Instagram_1782277447118.jpg";
 import { SidebarNav } from "@/components/ui/sidebar-nav";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StatsCard } from "@/components/ui/stats-card";
@@ -1102,6 +1104,25 @@ export default function Dashboard() {
               </div>
 
             </div>
+
+            {/* Quote Images Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+              <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl overflow-hidden">
+                <img
+                  src={buffettQuote}
+                  alt="Warren Buffett — If you don't find a way to make money while you sleep, you will work until you die."
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl overflow-hidden">
+                <img
+                  src={rockQuote}
+                  alt="The Rock — Don't work 8 hours for a company and then go home and not work on your own goals."
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
           </div>
         </div>
 
