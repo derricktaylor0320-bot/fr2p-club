@@ -825,6 +825,23 @@ export const insertHustleInvestmentSchema = createInsertSchema(hustleInvestments
 export type HustleInvestment = typeof hustleInvestments.$inferSelect;
 export type InsertHustleInvestment = z.infer<typeof insertHustleInvestmentSchema>;
 
+export const incubatorSuccessStories = pgTable("incubator_success_stories", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").references(() => members.id),
+  memberName: text("member_name").notNull(),
+  tier: text("tier"),
+  skillTrack: text("skill_track"),
+  monthsIn: integer("months_in"),
+  incomeGained: integer("income_gained"), // monthly income in dollars
+  story: text("story").notNull(),
+  isVerified: boolean("is_verified").notNull().default(false),
+  postedAt: timestamp("posted_at").notNull().defaultNow(),
+});
+
+export const insertIncubatorSuccessStorySchema = createInsertSchema(incubatorSuccessStories).omit({ id: true, postedAt: true, isVerified: true });
+export type IncubatorSuccessStory = typeof incubatorSuccessStories.$inferSelect;
+export type InsertIncubatorSuccessStory = z.infer<typeof insertIncubatorSuccessStorySchema>;
+
 export interface CharitySearchResult {
   ein: string; // Employer Identification Number
   name: string; // Organization name

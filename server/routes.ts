@@ -5,7 +5,7 @@ import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
-import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, pocketBoosterWaitlist, hustleInvestments, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
+import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, pocketBoosterWaitlist, hustleInvestments, incubatorSuccessStories, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
 import { sendWelcomeEmail } from "./services/email";
@@ -2362,6 +2362,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error updating phase:", error);
       res.status(500).json({ message: "Failed to update phase" });
+    }
+  });
+
+  // Incubator Success Stories
+  app.get("/api/incubator-stories", async (req, res) => {
+    try {
+      const rows = await db.select().from(incubatorSuccessStories).orderBy(sql`posted_at desc`);
+      res.json({ stories: rows });
+    } catch (error) {
+      console.error("Error fetching stories:", error);
+      res.status(500).json({ message: "Failed to fetch stories" });
+    }
+  });
+
+  app.post("/api/incubator-stories", async (req, res) => {
+    try {
+      const schema = z.object({
+        memberId: z.string().nullable().optional(),
+        memberName: z.string().min(1),
+        tier: z.string().nullable().optional(),
+        skillTrack: z.string().nullable().optional(),
+        monthsIn: z.number().int().min(0).nullable().optional(),
+        incomeGained: z.number().int().min(0).nullable().optional(),
+        story: z.string().min(10, "Please share a bit more detail"),
+      });
+      const parsed = schema.parse(req.body);
+      const [entry] = await db.insert(incubatorSuccessStories).values({
+        memberId: parsed.memberId || null,
+        memberName: parsed.memberName,
+        tier: parsed.tier || null,
+        skillTrack: parsed.skillTrack || null,
+        monthsIn: parsed.monthsIn ?? null,
+        incomeGained: parsed.incomeGained ?? null,
+        story: parsed.story,
+      }).returning();
+      res.json({ success: true, story: entry });
+    } catch (error) {
+      console.error("Error posting story:", error);
+      res.status(500).json({ message: "Failed to post story" });
     }
   });
 
