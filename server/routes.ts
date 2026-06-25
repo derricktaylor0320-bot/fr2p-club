@@ -2306,6 +2306,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Side Hustle Incubator Waitlist
+  app.post("/api/hustle-incubator/waitlist", async (req, res) => {
+    try {
+      const schema = z.object({
+        firstName: z.string().min(1, "First name is required"),
+        email: z.string().email("Valid email required"),
+        tier: z.string().nullable().optional(),
+        track: z.string().nullable().optional(),
+      });
+      const parsed = schema.parse(req.body);
+      try {
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        await resend.emails.send({
+          from: "The FR2P Club <noreply@thefr2pclub.com>",
+          to: parsed.email,
+          subject: "You're a Founding Member — FR2P Side Hustle Incubator 🔥",
+          html: `
+            <div style="background:#001f3f;padding:40px;font-family:Arial,sans-serif;color:#fff;max-width:600px;margin:0 auto;border-radius:12px;">
+              <h1 style="color:#FFD700;text-align:center;">You're In! 🔥</h1>
+              <h2 style="color:#fff;text-align:center;">Founding Member Spot Reserved</h2>
+              <p>Hi ${parsed.firstName},</p>
+              <p>You're officially on the founding member waitlist for the <strong style="color:#FFD700;">FR2P AI-Powered Side Hustle Incubator</strong>.</p>
+              ${parsed.tier ? `<p>Tier interested in: <strong style="color:#FFD700;">${parsed.tier}</strong></p>` : ""}
+              ${parsed.track ? `<p>Skill track: <strong style="color:#FFD700;">${parsed.track}</strong></p>` : ""}
+              <div style="background:#002855;border:1px solid #FFD700;border-radius:8px;padding:20px;margin:20px 0;">
+                <h3 style="color:#FFD700;margin:0 0 10px;">What Happens Next</h3>
+                <p style="margin:4px 0;">✅ You get early access before the public</p>
+                <p style="margin:4px 0;">✅ Founding member pricing (locked in for you)</p>
+                <p style="margin:4px 0;">✅ First pick of coaching slots and skill tracks</p>
+              </div>
+              <p>Keep building your FR2P network — active members get priority placement when we open doors.</p>
+              <p style="color:#FFD700;font-weight:bold;">— Derrick Taylor &amp; The FR2P Club Team</p>
+            </div>
+          `,
+        });
+      } catch (emailErr) {
+        console.error("Hustle Incubator waitlist email error:", emailErr);
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Hustle Incubator waitlist error:", error);
+      res.status(500).json({ message: "Failed to join waitlist" });
+    }
+  });
+
   // Pocket Booster Waitlist
   app.post("/api/pocket-booster/waitlist", async (req, res) => {
     try {
