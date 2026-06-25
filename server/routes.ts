@@ -2515,6 +2515,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ── MICRO LOAN APPLICATIONS ──────────────────────────────────────────────
+  app.post("/api/micro-loan/apply", async (req, res) => {
+    try {
+      const { microLoanApplications, insertMicroLoanApplicationSchema } = await import("@shared/schema");
+      const data = insertMicroLoanApplicationSchema.parse(req.body);
+      const [app_] = await db.insert(microLoanApplications).values(data).returning();
+      res.json({ success: true, application: app_ });
+    } catch (error: any) {
+      console.error("Micro loan apply error:", error);
+      res.status(500).json({ message: "Failed to submit application" });
+    }
+  });
+
+  app.get("/api/micro-loan/my-applications", async (req, res) => {
+    try {
+      const { microLoanApplications } = await import("@shared/schema");
+      const memberId = req.query.memberId as string;
+      if (!memberId) return res.status(400).json({ message: "memberId required" });
+      const apps = await db.select().from(microLoanApplications)
+        .where(eq(microLoanApplications.memberId, memberId));
+      res.json({ applications: apps });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch applications" });
+    }
+  });
+
   // Helper function to broadcast to all except one
   function broadcastExcept(excludeMemberId: string | null, message: any) {
     const messageStr = JSON.stringify(message);

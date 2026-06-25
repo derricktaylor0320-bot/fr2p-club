@@ -75,12 +75,28 @@ const loanLadder = [
   },
 ];
 
+const STEPS = ["Loan Details", "Employer Info", "Banking & Authorization"];
+
+const emptyLoanForm = {
+  // Step 1
+  firstName: "", lastName: "", email: "", phone: "",
+  loanAmount: "", loanPurpose: "", repaymentSchedule: "",
+  // Step 2
+  employerName: "", employerAddress: "", employerPhone: "",
+  hrContactName: "", hrContactEmail: "",
+  jobTitle: "", employmentStartDate: "", payFrequency: "",
+  // Step 3
+  bankName: "", routingNumber: "", accountNumber: "", accountType: "",
+  authorizedDeduction: false,
+};
+
 export default function PocketBooster() {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({
-    firstName: "", lastName: "", email: "", phone: "", loanAmount: "", purpose: "",
-  });
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState(emptyLoanForm);
+  const set = (field: keyof typeof emptyLoanForm, val: string | boolean) =>
+    setForm(f => ({ ...f, [field]: val }));
 
   const { data: memberData } = useQuery<MemberResponse>({
     queryKey: ["/api/member", DEMO_USER_ID],
@@ -90,30 +106,52 @@ export default function PocketBooster() {
     queryKey: ["/api/pocket-booster/waitlist-count"],
   });
 
-  const waitlistMutation = useMutation({
-    mutationFn: async (data: typeof form) => {
-      const res = await apiRequest("POST", "/api/pocket-booster/waitlist", {
-        ...data,
+  const applyMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/micro-loan/apply", {
+        ...form,
         memberId: DEMO_USER_ID !== "fr2p-founder" ? DEMO_USER_ID : null,
+        authorizedDeduction: form.authorizedDeduction,
       });
       return res.json();
     },
     onSuccess: () => {
       setSubmitted(true);
-      toast({ title: "You're on the list! 🚀", description: "We'll notify you the moment Pocket Booster launches." });
+      toast({ title: "Application submitted! 🚀", description: "We'll review your application and contact you within 3–5 business days." });
     },
     onError: () => {
       toast({ title: "Something went wrong", description: "Please try again.", variant: "destructive" });
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.firstName || !form.email) {
-      toast({ title: "Required fields missing", description: "Please enter your name and email.", variant: "destructive" });
-      return;
+  const validateStep = () => {
+    if (step === 0) {
+      if (!form.firstName || !form.lastName || !form.email || !form.phone)
+        return "Please fill in your name, email, and phone number.";
+      if (!form.loanAmount) return "Please select a loan amount.";
+      if (!form.loanPurpose) return "Please describe what you'll use the loan for.";
+      if (!form.repaymentSchedule) return "Please choose a repayment schedule.";
     }
-    waitlistMutation.mutate(form);
+    if (step === 1) {
+      if (!form.employerName || !form.employerAddress || !form.employerPhone)
+        return "Please fill in your employer name, address, and phone.";
+      if (!form.jobTitle || !form.employmentStartDate || !form.payFrequency)
+        return "Please fill in your job title, start date, and pay frequency.";
+    }
+    if (step === 2) {
+      if (!form.bankName || !form.routingNumber || !form.accountNumber || !form.accountType)
+        return "Please fill in all banking information.";
+      if (!form.authorizedDeduction)
+        return "You must authorize payroll deduction to proceed.";
+    }
+    return null;
+  };
+
+  const nextStep = () => {
+    const err = validateStep();
+    if (err) { toast({ title: "Missing information", description: err, variant: "destructive" }); return; }
+    if (step < 2) setStep(s => s + 1);
+    else applyMutation.mutate();
   };
 
   return (
@@ -287,13 +325,13 @@ export default function PocketBooster() {
 
           {/* Section header */}
           <div className="text-center mb-10">
-            <Badge className="bg-amber-500/20 text-amber-400 border border-amber-500/40 mb-3 px-5 py-1.5 text-sm font-bold">
-              🕐 COMING SOON — WAITLIST OPEN
+            <Badge className="mb-3 px-5 py-1.5 text-sm font-bold text-black" style={{ background: TEAL }}>
+              📋 APPLY NOW — PRE-LAUNCH
             </Badge>
             <h2 className="text-3xl md:text-4xl font-black text-white mb-2">Pocket Micro-Loan Program</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
-              Community-backed micro-loans from $100 to $1,000. No hard credit pull. 
-              Built on trust — you earn your way to bigger amounts by showing us you can pay back.
+              Community-backed micro-loans from $100 to $1,000. No hard credit pull. No FICO score needed.
+              Repaid via payroll deduction — built on trust you <em>earn</em>.
             </p>
           </div>
 
@@ -472,7 +510,7 @@ export default function PocketBooster() {
             </CardContent>
           </Card>
 
-          {/* Waitlist Form */}
+          {/* Loan Application Form */}
           <div className="max-w-2xl mx-auto" id="waitlist">
             {submitted ? (
               <Card className="bg-[#0d1f35] border-2 border-emerald-500 text-center">
@@ -480,87 +518,259 @@ export default function PocketBooster() {
                   <div className="bg-emerald-500 rounded-full p-4 w-20 h-20 flex items-center justify-center mx-auto mb-5">
                     <CheckCircle className="h-10 w-10 text-white" />
                   </div>
-                  <h2 className="text-3xl font-black mb-3" style={{ color: TEAL }}>You're On The List! 🚀</h2>
-                  <p className="text-white/70 mb-2">We'll send you an email the moment Pocket Booster goes live.</p>
-                  <p className="text-white/50 text-sm">
-                    Keep building your FR2P network in the meantime — active members with more referrals move to the front of the line.
+                  <h2 className="text-3xl font-black mb-3" style={{ color: TEAL }}>Application Submitted! 🚀</h2>
+                  <p className="text-white/70 mb-3 leading-relaxed">
+                    Your Pocket Micro-Loan application is in. We'll verify your employment and review your application within <strong className="text-white">3–5 business days</strong>.
+                  </p>
+                  <div className="bg-black/20 rounded-xl p-4 text-left space-y-2 mb-4">
+                    <p className="text-white/60 text-sm flex items-start gap-2"><CheckCircle className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Employment verification call to your employer</p>
+                    <p className="text-white/60 text-sm flex items-start gap-2"><CheckCircle className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Payroll deduction authorization on file</p>
+                    <p className="text-white/60 text-sm flex items-start gap-2"><CheckCircle className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Decision sent to your email</p>
+                  </div>
+                  <p className="text-white/40 text-xs">
+                    Keep building your FR2P network — active members with more referrals move to the front of the approval line.
                   </p>
                 </CardContent>
               </Card>
             ) : (
               <Card className="bg-[#0d1f35] border-2" style={{ borderColor: `${TEAL}50` }}>
-                <CardHeader className="text-center pb-2">
-                  <Badge className="text-black font-bold w-fit mx-auto mb-3" style={{ background: TEAL }}>
-                    JOIN THE WAITLIST — FREE
-                  </Badge>
-                  <CardTitle className="text-white text-2xl font-black">Get Early Access</CardTitle>
-                  {countData && countData.count > 0 && (
-                    <p className="text-emerald-400 font-semibold text-sm">🔥 {countData.count} people already waiting</p>
-                  )}
-                  <p className="text-white/60 text-sm">Be first in line when Pocket Booster launches. No commitment required.</p>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between mb-1">
+                    <Badge className="text-black font-bold" style={{ background: TEAL }}>
+                      LOAN APPLICATION
+                    </Badge>
+                    <span className="text-white/40 text-xs">Step {step + 1} of {STEPS.length}</span>
+                  </div>
+                  <CardTitle className="text-white text-2xl font-black">{STEPS[step]}</CardTitle>
+
+                  {/* Progress bar */}
+                  <div className="flex gap-1.5 mt-3">
+                    {STEPS.map((s, i) => (
+                      <div key={s} className="flex-1 h-1.5 rounded-full overflow-hidden bg-white/10">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{ width: i <= step ? "100%" : "0%", background: TEAL }}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </CardHeader>
-                <CardContent className="p-6">
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label className="text-white/70 mb-1.5 block text-sm">First Name *</Label>
-                        <Input value={form.firstName} onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
-                          placeholder="Derrick" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" required />
+
+                <CardContent className="p-6 pt-0">
+                  <div className="space-y-4">
+
+                    {/* ── STEP 1: Loan Details ── */}
+                    {step === 0 && <>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">First Name *</Label>
+                          <Input value={form.firstName} onChange={e => set("firstName", e.target.value)}
+                            placeholder="Derrick" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                        </div>
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">Last Name *</Label>
+                          <Input value={form.lastName} onChange={e => set("lastName", e.target.value)}
+                            placeholder="Taylor" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                        </div>
                       </div>
                       <div>
-                        <Label className="text-white/70 mb-1.5 block text-sm">Last Name</Label>
-                        <Input value={form.lastName} onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
-                          placeholder="Taylor" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                        <Label className="text-white/70 mb-1.5 block text-sm">Email Address *</Label>
+                        <Input type="email" value={form.email} onChange={e => set("email", e.target.value)}
+                          placeholder="you@email.com" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
                       </div>
-                    </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Phone Number *</Label>
+                        <Input type="tel" value={form.phone} onChange={e => set("phone", e.target.value)}
+                          placeholder="(555) 000-0000" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Loan Amount *</Label>
+                        <Select value={form.loanAmount} onValueChange={v => set("loanAmount", v)}>
+                          <SelectTrigger className="bg-[#001520] border-white/20 text-white">
+                            <SelectValue placeholder="Select an amount" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-[#001520] border-white/20 text-white">
+                            <SelectItem value="$100">$100 — Starter Boost (1 month repayment)</SelectItem>
+                            <SelectItem value="$250">$250 — Side Hustle Fuel (2 months repayment)</SelectItem>
+                            <SelectItem value="$500">$500 — Business Accelerator (5 months repayment)</SelectItem>
+                            <SelectItem value="$1,000">$1,000 — Growth Capital (must earn through trust ladder)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Repayment Schedule *</Label>
+                        <div className="grid grid-cols-2 gap-3">
+                          {["$50/paycheck", "$100/paycheck"].map(opt => (
+                            <button key={opt} type="button"
+                              onClick={() => set("repaymentSchedule", opt)}
+                              className={`rounded-xl border-2 p-4 text-center font-bold transition-all ${form.repaymentSchedule === opt ? "border-[#00C2CB] bg-[#00C2CB]/10 text-[#00C2CB]" : "border-white/20 text-white/60 hover:border-white/40"}`}>
+                              {opt}
+                              <div className="text-xs font-normal text-white/40 mt-1">per paycheck</div>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">What will you use it for? *</Label>
+                        <Textarea value={form.loanPurpose} onChange={e => set("loanPurpose", e.target.value)}
+                          placeholder="e.g., Run ads for my side hustle, restock inventory, pay for a certification course..."
+                          className="bg-[#001520] border-white/20 text-white placeholder:text-white/30 min-h-[80px]" />
+                      </div>
+                    </>}
 
-                    <div>
-                      <Label className="text-white/70 mb-1.5 block text-sm">Email Address *</Label>
-                      <Input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                        placeholder="you@email.com" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" required />
-                    </div>
+                    {/* ── STEP 2: Employer Info ── */}
+                    {step === 1 && <>
+                      <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 flex items-start gap-2 mb-2">
+                        <Shield className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-amber-300 text-xs leading-relaxed">
+                          We will call your employer to verify employment and tenure. This is how we guarantee repayment — no credit score required.
+                        </p>
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Employer / Company Name *</Label>
+                        <Input value={form.employerName} onChange={e => set("employerName", e.target.value)}
+                          placeholder="Acme Corp" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Employer Address *</Label>
+                        <Input value={form.employerAddress} onChange={e => set("employerAddress", e.target.value)}
+                          placeholder="123 Main St, City, State 00000" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Employer Phone Number *</Label>
+                        <Input type="tel" value={form.employerPhone} onChange={e => set("employerPhone", e.target.value)}
+                          placeholder="(555) 000-0000" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">HR Contact Name (if known)</Label>
+                          <Input value={form.hrContactName} onChange={e => set("hrContactName", e.target.value)}
+                            placeholder="Jane Smith" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                        </div>
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">HR Contact Email (if known)</Label>
+                          <Input type="email" value={form.hrContactEmail} onChange={e => set("hrContactEmail", e.target.value)}
+                            placeholder="hr@company.com" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Your Job Title *</Label>
+                        <Input value={form.jobTitle} onChange={e => set("jobTitle", e.target.value)}
+                          placeholder="e.g., Warehouse Associate, Nurse, Driver" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">Employment Start Date *</Label>
+                          <Input type="month" value={form.employmentStartDate} onChange={e => set("employmentStartDate", e.target.value)}
+                            className="bg-[#001520] border-white/20 text-white" />
+                        </div>
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">Pay Frequency *</Label>
+                          <Select value={form.payFrequency} onValueChange={v => set("payFrequency", v)}>
+                            <SelectTrigger className="bg-[#001520] border-white/20 text-white">
+                              <SelectValue placeholder="How often paid?" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#001520] border-white/20 text-white">
+                              <SelectItem value="weekly">Weekly</SelectItem>
+                              <SelectItem value="biweekly">Bi-weekly (every 2 weeks)</SelectItem>
+                              <SelectItem value="semimonthly">Semi-monthly (1st & 15th)</SelectItem>
+                              <SelectItem value="monthly">Monthly</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </>}
 
-                    <div>
-                      <Label className="text-white/70 mb-1.5 block text-sm">Phone (Optional)</Label>
-                      <Input type="tel" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                        placeholder="(555) 000-0000" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
-                    </div>
+                    {/* ── STEP 3: Banking & Authorization ── */}
+                    {step === 2 && <>
+                      <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-3 flex items-start gap-2 mb-2">
+                        <Lock className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-blue-300 text-xs leading-relaxed">
+                          Your banking info is used solely to set up payroll deduction for loan repayment. It is stored securely and never shared.
+                        </p>
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Bank Name *</Label>
+                        <Input value={form.bankName} onChange={e => set("bankName", e.target.value)}
+                          placeholder="e.g., Chase, Wells Fargo, Bank of America" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">Routing Number *</Label>
+                          <Input value={form.routingNumber} onChange={e => set("routingNumber", e.target.value)}
+                            placeholder="9-digit routing #" maxLength={9}
+                            className="bg-[#001520] border-white/20 text-white placeholder:text-white/30 font-mono" />
+                        </div>
+                        <div>
+                          <Label className="text-white/70 mb-1.5 block text-sm">Account Number *</Label>
+                          <Input value={form.accountNumber} onChange={e => set("accountNumber", e.target.value)}
+                            placeholder="Account number" className="bg-[#001520] border-white/20 text-white placeholder:text-white/30 font-mono" />
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Account Type *</Label>
+                        <div className="grid grid-cols-2 gap-3">
+                          {["checking", "savings"].map(t => (
+                            <button key={t} type="button"
+                              onClick={() => set("accountType", t)}
+                              className={`rounded-xl border-2 p-3 text-center font-bold capitalize transition-all ${form.accountType === t ? "border-[#00C2CB] bg-[#00C2CB]/10 text-[#00C2CB]" : "border-white/20 text-white/60 hover:border-white/40"}`}>
+                              {t}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
 
-                    <div>
-                      <Label className="text-white/70 mb-1.5 block text-sm">Loan Amount You're Interested In</Label>
-                      <Select onValueChange={val => setForm(f => ({ ...f, loanAmount: val }))}>
-                        <SelectTrigger className="bg-[#001520] border-white/20 text-white">
-                          <SelectValue placeholder="Select an amount" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-[#001520] border-white/20 text-white">
-                          <SelectItem value="$100">$100 — Starter Boost (1 month repayment)</SelectItem>
-                          <SelectItem value="$250">$250 — Side Hustle Fuel (2 months repayment)</SelectItem>
-                          <SelectItem value="$500">$500 — Business Accelerator (5 months repayment)</SelectItem>
-                          <SelectItem value="$1,000">$1,000 — Growth Capital (must earn it)</SelectItem>
-                          <SelectItem value="Not sure yet">Not sure yet</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+                      {/* Authorization */}
+                      <div className="bg-[#001520] border-2 border-[#00C2CB]/40 rounded-xl p-5 mt-2">
+                        <h3 className="text-white font-bold mb-3 flex items-center gap-2">
+                          <Shield className="h-5 w-5 text-[#00C2CB]" /> Payroll Deduction Authorization
+                        </h3>
+                        <p className="text-white/60 text-sm leading-relaxed mb-4">
+                          By checking the box below, I <strong className="text-white">{form.firstName} {form.lastName}</strong> authorize Pocket Booster (a Consolidatus Empire company) to initiate payroll deductions 
+                          of <strong className="text-white">{form.repaymentSchedule || "[repayment schedule]"}</strong> from my paycheck at <strong className="text-white">{form.employerName || "[employer]"}</strong>, 
+                          deposited to the bank account provided above, until my loan of <strong className="text-white">{form.loanAmount || "[loan amount]"}</strong> is paid in full. 
+                          I understand this authorization will be verified with my employer and that I must notify Pocket Booster of any employment changes.
+                        </p>
+                        <label className="flex items-start gap-3 cursor-pointer group">
+                          <div
+                            onClick={() => set("authorizedDeduction", !form.authorizedDeduction)}
+                            className={`mt-0.5 w-5 h-5 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all cursor-pointer ${form.authorizedDeduction ? "border-[#00C2CB] bg-[#00C2CB]" : "border-white/40 group-hover:border-[#00C2CB]/60"}`}
+                          >
+                            {form.authorizedDeduction && <CheckCircle className="h-3 w-3 text-black" />}
+                          </div>
+                          <span className="text-white/80 text-sm leading-relaxed">
+                            I authorize the payroll deduction described above and confirm all information provided is accurate and truthful.
+                          </span>
+                        </label>
+                      </div>
+                    </>}
 
-                    <div>
-                      <Label className="text-white/70 mb-1.5 block text-sm">What Would You Use It For?</Label>
-                      <Textarea value={form.purpose} onChange={e => setForm(f => ({ ...f, purpose: e.target.value }))}
-                        placeholder="e.g., Run ads for my side hustle, restock inventory, pay for a certification..."
-                        className="bg-[#001520] border-white/20 text-white placeholder:text-white/30 min-h-[80px]" />
-                    </div>
-
-                    <Button type="submit" disabled={waitlistMutation.isPending}
-                      className="w-full font-black py-5 text-base text-black rounded-xl flex items-center justify-center gap-2"
-                      style={{ background: TEAL }}>
-                      {waitlistMutation.isPending ? "Joining..." : (
-                        <><Rocket className="h-5 w-5" /> Join the Pocket Booster Waitlist <ArrowRight className="h-4 w-4" /></>
+                    {/* Navigation */}
+                    <div className="flex gap-3 pt-2">
+                      {step > 0 && (
+                        <Button type="button" variant="outline" onClick={() => setStep(s => s - 1)}
+                          className="flex-1 border-white/20 text-white hover:bg-white/5">
+                          ← Back
+                        </Button>
                       )}
-                    </Button>
+                      <Button type="button" onClick={nextStep}
+                        disabled={applyMutation.isPending}
+                        className="flex-1 font-black py-5 text-base text-black rounded-xl flex items-center justify-center gap-2"
+                        style={{ background: TEAL }}>
+                        {applyMutation.isPending ? "Submitting..." : step < 2 ? (
+                          <>Next: {STEPS[step + 1]} <ArrowRight className="h-4 w-4" /></>
+                        ) : (
+                          <><Shield className="h-5 w-5" /> Submit Application</>
+                        )}
+                      </Button>
+                    </div>
 
-                    <p className="text-white/40 text-xs text-center">
-                      No credit card. No commitment. Just your spot in line.
+                    <p className="text-white/30 text-xs text-center">
+                      {step === 2
+                        ? "Submitting this application does not guarantee approval. We will contact you within 3–5 business days."
+                        : "Your information is kept confidential and used only for loan processing."}
                     </p>
-                  </form>
+                  </div>
                 </CardContent>
               </Card>
             )}

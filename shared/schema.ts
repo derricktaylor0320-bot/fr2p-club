@@ -842,6 +842,47 @@ export const insertIncubatorSuccessStorySchema = createInsertSchema(incubatorSuc
 export type IncubatorSuccessStory = typeof incubatorSuccessStories.$inferSelect;
 export type InsertIncubatorSuccessStory = z.infer<typeof insertIncubatorSuccessStorySchema>;
 
+export const microLoanApplications = pgTable("micro_loan_applications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").references(() => members.id),
+  // Personal info
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  // Loan details
+  loanAmount: text("loan_amount").notNull(), // "$100" | "$250" | "$500" | "$1,000"
+  loanPurpose: text("loan_purpose").notNull(),
+  repaymentSchedule: text("repayment_schedule").notNull(), // "$50/paycheck" | "$100/paycheck"
+  // Employer info
+  employerName: text("employer_name").notNull(),
+  employerAddress: text("employer_address").notNull(),
+  employerPhone: text("employer_phone").notNull(),
+  hrContactName: text("hr_contact_name"),
+  hrContactEmail: text("hr_contact_email"),
+  jobTitle: text("job_title").notNull(),
+  employmentStartDate: text("employment_start_date").notNull(), // stored as text e.g. "2022-03"
+  payFrequency: text("pay_frequency").notNull(), // "weekly" | "biweekly" | "semimonthly" | "monthly"
+  // Banking for payroll deduction
+  bankName: text("bank_name").notNull(),
+  routingNumber: text("routing_number").notNull(),
+  accountNumber: text("account_number").notNull(),
+  accountType: text("account_type").notNull(), // "checking" | "savings"
+  // Authorization
+  authorizedDeduction: boolean("authorized_deduction").notNull().default(false),
+  // Admin
+  status: text("status").notNull().default("pending"), // "pending" | "under_review" | "approved" | "denied" | "active" | "paid_off"
+  adminNotes: text("admin_notes"),
+  appliedAt: timestamp("applied_at").notNull().defaultNow(),
+  reviewedAt: timestamp("reviewed_at"),
+});
+
+export const insertMicroLoanApplicationSchema = createInsertSchema(microLoanApplications).omit({
+  id: true, appliedAt: true, reviewedAt: true, status: true, adminNotes: true,
+});
+export type MicroLoanApplication = typeof microLoanApplications.$inferSelect;
+export type InsertMicroLoanApplication = z.infer<typeof insertMicroLoanApplicationSchema>;
+
 export interface CharitySearchResult {
   ein: string; // Employer Identification Number
   name: string; // Organization name
