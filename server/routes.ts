@@ -5,7 +5,7 @@ import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
-import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
+import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, pocketBoosterWaitlist, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
 import { sendWelcomeEmail } from "./services/email";
@@ -2303,6 +2303,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error deleting prospect:", error);
       res.status(500).json({ message: "Failed to delete prospect" });
+    }
+  });
+
+  // Pocket Booster Waitlist
+  app.post("/api/pocket-booster/waitlist", async (req, res) => {
+    try {
+      const schema = z.object({
+        firstName: z.string().min(1, "First name is required"),
+        lastName: z.string().nullable().optional(),
+        email: z.string().email("Valid email required"),
+        phone: z.string().nullable().optional(),
+        memberId: z.string().nullable().optional(),
+        loanAmount: z.string().nullable().optional(),
+        purpose: z.string().nullable().optional(),
+      });
+      const parsed = schema.parse(req.body);
+      const entry = await db.insert(pocketBoosterWaitlist).values({
+        firstName: parsed.firstName,
+        lastName: parsed.lastName || null,
+        email: parsed.email,
+        phone: parsed.phone || null,
+        memberId: parsed.memberId || null,
+        loanAmount: parsed.loanAmount || null,
+        purpose: parsed.purpose || null,
+      }).returning();
+      try {
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        await resend.emails.send({
+          from: "The FR2P Club <noreply@thefr2pclub.com>",
+          to: parsed.email,
+          subject: "You're on the Pocket Booster Waitlist!",
+          html: `
+            <div style="background:#001f3f;padding:40px;font-family:Arial,sans-serif;color:#fff;max-width:600px;margin:0 auto;border-radius:12px;">
+              <h1 style="color:#FFD700;text-align:center;">You're In! 🚀</h1>
+              <h2 style="color:#fff;text-align:center;">Pocket Booster Waitlist Confirmed</h2>
+              <p>Hi ${parsed.firstName},</p>
+              <p>You're officially on the Pocket Booster waitlist. When we launch, you'll be among the first to access community-backed micro-loans from <strong style="color:#FFD700;">$100 to $1,000</strong> — no hard credit pull, fast decisions.</p>
+              <div style="background:#002855;border:1px solid #FFD700;border-radius:8px;padding:20px;margin:20px 0;">
+                <h3 style="color:#FFD700;margin:0 0 10px;">Your Waitlist Details</h3>
+                <p style="margin:4px 0;">Name: ${parsed.firstName} ${parsed.lastName || ""}</p>
+                <p style="margin:4px 0;">Email: ${parsed.email}</p>
+                ${parsed.loanAmount ? `<p style="margin:4px 0;">Loan Amount Interested In: ${parsed.loanAmount}</p>` : ""}
+              </div>
+              <p>We'll notify you the moment Pocket Booster goes live. Stay connected — your financial boost is coming.</p>
+              <p style="color:#FFD700;font-weight:bold;">— The FR2P Club Team</p>
+            </div>
+          `,
+        });
+      } catch (emailErr) {
+        console.error("Pocket Booster waitlist email error:", emailErr);
+      }
+      res.json({ success: true, entry: entry[0] });
+    } catch (error) {
+      console.error("Pocket Booster waitlist error:", error);
+      res.status(500).json({ message: "Failed to join waitlist" });
+    }
+  });
+
+  app.get("/api/pocket-booster/waitlist-count", async (req, res) => {
+    try {
+      const result = await db.select({ count: sql<number>`count(*)` }).from(pocketBoosterWaitlist);
+      res.json({ count: Number(result[0]?.count || 0) });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to get count" });
     }
   });
 

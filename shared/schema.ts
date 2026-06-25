@@ -790,6 +790,22 @@ export const prospects = pgTable("prospects", {
 });
 
 export const insertProspectSchema = createInsertSchema(prospects).omit({ id: true, createdAt: true });
+
+export const pocketBoosterWaitlist = pgTable("pocket_booster_waitlist", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name"),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  memberId: varchar("member_id").references(() => members.id),
+  loanAmount: text("loan_amount"),
+  purpose: text("purpose"),
+  joinedAt: timestamp("joined_at").notNull().defaultNow(),
+});
+
+export const insertPocketBoosterWaitlistSchema = createInsertSchema(pocketBoosterWaitlist).omit({ id: true, joinedAt: true });
+export type PocketBoosterWaitlist = typeof pocketBoosterWaitlist.$inferSelect;
+export type InsertPocketBoosterWaitlist = z.infer<typeof insertPocketBoosterWaitlistSchema>;
 export type InsertProspect = z.infer<typeof insertProspectSchema>;
 export type Prospect = typeof prospects.$inferSelect;
 

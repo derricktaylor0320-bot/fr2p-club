@@ -29,6 +29,7 @@ import Marketplace from "@/pages/marketplace";
 import Advertise from "@/pages/advertise";
 import Prospects from "@/pages/prospects";
 import MarketingTools from "@/pages/marketing-tools";
+import PocketBooster from "@/pages/pocket-booster";
 import Login from "@/pages/login";
 import NotFound from "@/pages/not-found";
 
@@ -66,6 +67,7 @@ function Router() {
       <Route path="/advertise" component={Advertise} />
       <Route path="/prospects" component={Prospects} />
       <Route path="/marketing-tools" component={MarketingTools} />
+      <Route path="/pocket-booster" component={PocketBooster} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
