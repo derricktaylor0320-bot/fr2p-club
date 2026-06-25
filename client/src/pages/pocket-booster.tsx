@@ -77,6 +77,9 @@ const loanLadder = [
 
 const STEPS = ["Loan Details", "Employer Info", "Banking & Authorization"];
 
+// ── Set to false when applications are officially open ──
+const LOAN_PREVIEW_MODE = true;
+
 const emptyLoanForm = {
   // Step 1
   firstName: "", lastName: "", email: "", phone: "",
@@ -148,6 +151,10 @@ export default function PocketBooster() {
   };
 
   const nextStep = () => {
+    if (LOAN_PREVIEW_MODE) {
+      if (step < 2) setStep(s => s + 1);
+      return;
+    }
     const err = validateStep();
     if (err) { toast({ title: "Missing information", description: err, variant: "destructive" }); return; }
     if (step < 2) setStep(s => s + 1);
@@ -512,7 +519,7 @@ export default function PocketBooster() {
 
           {/* Loan Application Form */}
           <div className="max-w-2xl mx-auto" id="waitlist">
-            {submitted ? (
+            {submitted && !LOAN_PREVIEW_MODE ? (
               <Card className="bg-[#0d1f35] border-2 border-emerald-500 text-center">
                 <CardContent className="p-10">
                   <div className="bg-emerald-500 rounded-full p-4 w-20 h-20 flex items-center justify-center mx-auto mb-5">
@@ -533,11 +540,23 @@ export default function PocketBooster() {
                 </CardContent>
               </Card>
             ) : (
-              <Card className="bg-[#0d1f35] border-2" style={{ borderColor: `${TEAL}50` }}>
+              <Card className="bg-[#0d1f35] border-2" style={{ borderColor: LOAN_PREVIEW_MODE ? "rgba(255,215,0,0.4)" : `${TEAL}50` }}>
+
+                {/* ── PREVIEW MODE BANNER ── */}
+                {LOAN_PREVIEW_MODE && (
+                  <div className="rounded-t-xl px-6 py-3 flex items-center justify-between gap-3" style={{ background: "linear-gradient(90deg, #FFD70020, #FFD70008)" }}>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="text-amber-300 text-xs font-bold uppercase tracking-widest">Preview Mode — Coming Soon</span>
+                    </div>
+                    <span className="text-white/40 text-xs">Navigate freely — nothing is submitted</span>
+                  </div>
+                )}
+
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between mb-1">
-                    <Badge className="text-black font-bold" style={{ background: TEAL }}>
-                      LOAN APPLICATION
+                    <Badge className="text-black font-bold" style={{ background: LOAN_PREVIEW_MODE ? "#FFD700" : TEAL }}>
+                      {LOAN_PREVIEW_MODE ? "🔒 COMING SOON" : "LOAN APPLICATION"}
                     </Badge>
                     <span className="text-white/40 text-xs">Step {step + 1} of {STEPS.length}</span>
                   </div>
@@ -549,7 +568,7 @@ export default function PocketBooster() {
                       <div key={s} className="flex-1 h-1.5 rounded-full overflow-hidden bg-white/10">
                         <div
                           className="h-full rounded-full transition-all duration-500"
-                          style={{ width: i <= step ? "100%" : "0%", background: TEAL }}
+                          style={{ width: i <= step ? "100%" : "0%", background: LOAN_PREVIEW_MODE ? "#FFD700" : TEAL }}
                         />
                       </div>
                     ))}
@@ -557,7 +576,7 @@ export default function PocketBooster() {
                 </CardHeader>
 
                 <CardContent className="p-6 pt-0">
-                  <div className="space-y-4">
+                  <div className={`space-y-4 ${LOAN_PREVIEW_MODE ? "opacity-60 pointer-events-none select-none" : ""}`}>
 
                     {/* ── STEP 1: Loan Details ── */}
                     {step === 0 && <>
@@ -745,14 +764,34 @@ export default function PocketBooster() {
                       </div>
                     </>}
 
-                    {/* Navigation */}
-                    <div className="flex gap-3 pt-2">
-                      {step > 0 && (
-                        <Button type="button" variant="outline" onClick={() => setStep(s => s - 1)}
-                          className="flex-1 border-white/20 text-white hover:bg-white/5">
-                          ← Back
+                  </div>
+
+                  {/* Navigation — always clickable, outside faded area */}
+                  <div className="flex gap-3 pt-4">
+                    {step > 0 && (
+                      <Button type="button" variant="outline" onClick={() => setStep(s => s - 1)}
+                        className="flex-1 border-white/20 text-white hover:bg-white/5">
+                        ← Back
+                      </Button>
+                    )}
+                    {LOAN_PREVIEW_MODE ? (
+                      step < 2 ? (
+                        <Button type="button" onClick={nextStep}
+                          className="flex-1 font-black py-5 text-base text-black rounded-xl flex items-center justify-center gap-2"
+                          style={{ background: TEAL }}>
+                          Preview Next Step <ArrowRight className="h-4 w-4" />
                         </Button>
-                      )}
+                      ) : (
+                        <div className="flex-1 flex flex-col items-center gap-2">
+                          <div className="w-full rounded-xl py-4 flex items-center justify-center gap-2 font-black text-base border-2 border-dashed border-amber-400/50 text-amber-300 bg-amber-400/5 cursor-not-allowed">
+                            <Lock className="h-5 w-5" /> Applications Opening Soon
+                          </div>
+                          <p className="text-white/30 text-xs text-center">
+                            Join the waitlist above to be notified the moment applications go live.
+                          </p>
+                        </div>
+                      )
+                    ) : (
                       <Button type="button" onClick={nextStep}
                         disabled={applyMutation.isPending}
                         className="flex-1 font-black py-5 text-base text-black rounded-xl flex items-center justify-center gap-2"
@@ -763,14 +802,16 @@ export default function PocketBooster() {
                           <><Shield className="h-5 w-5" /> Submit Application</>
                         )}
                       </Button>
-                    </div>
+                    )}
+                  </div>
 
-                    <p className="text-white/30 text-xs text-center">
+                  {!LOAN_PREVIEW_MODE && (
+                    <p className="text-white/30 text-xs text-center pt-2">
                       {step === 2
                         ? "Submitting this application does not guarantee approval. We will contact you within 3–5 business days."
                         : "Your information is kept confidential and used only for loan processing."}
                     </p>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
             )}
