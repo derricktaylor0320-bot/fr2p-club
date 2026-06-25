@@ -26,7 +26,10 @@ import {
   TrendingUp,
   CreditCard,
   Handshake,
+  Brain,
+  BarChart3,
 } from "lucide-react";
+import { Link } from "wouter";
 import { getLoggedInMemberId } from "@/lib/auth";
 
 const DEMO_USER_ID = getLoggedInMemberId();
@@ -390,20 +393,66 @@ export default function PocketBooster() {
           )}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-12 text-center">
-          <div className="bg-[#001f3f] border border-[#FFD700]/20 rounded-2xl p-8 max-w-3xl mx-auto">
-            <Handshake className="h-10 w-10 text-[#FFD700] mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-[#FFD700] mb-3">Part of the Consolidatus Empire</h3>
-            <p className="text-white/70 mb-6">
-              Pocket Booster was built for people inside our community. As an FR2P member, you're not just earning commissions — you're getting access to a whole financial ecosystem designed to help you win at every level.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Badge className="bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/30 px-4 py-2">Micro-Loans</Badge>
-              <Badge className="bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/30 px-4 py-2">Commission Income</Badge>
-              <Badge className="bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/30 px-4 py-2">Certifications</Badge>
-              <Badge className="bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/30 px-4 py-2">Wealth Building</Badge>
-              <Badge className="bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/30 px-4 py-2">Community Access</Badge>
+        {/* Pocket Booster Program Suite */}
+        <div className="mt-12">
+          <div className="text-center mb-6">
+            <Badge className="bg-[#FFD700] text-[#001f3f] font-bold mb-3">POCKET BOOSTER PROGRAM SUITE</Badge>
+            <h3 className="text-2xl font-bold text-white">More Than Just a Loan</h3>
+            <p className="text-white/60 mt-2">Pocket Booster is a full financial acceleration ecosystem. Explore the tools built alongside it.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+            <Card className="bg-[#001f3f] border-2 border-purple-500/50 hover:border-purple-400 transition-colors group">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="bg-purple-500/20 rounded-lg p-2.5">
+                    <Brain className="h-6 w-6 text-purple-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold">AI Side Hustle Incubator</h4>
+                    <Badge className="bg-purple-500/20 text-purple-300 text-xs">$1,000 · $2,500 · $5,000</Badge>
+                  </div>
+                </div>
+                <p className="text-white/60 text-sm mb-4">
+                  Invest in yourself. AI builds your business step by step — skill tracks, digital assets, automated income systems, and a 6–24 month growth roadmap.
+                </p>
+                <Link href="/hustle-incubator">
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold flex items-center justify-center gap-2">
+                    Explore the Incubator <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-[#001f3f] border-2 border-emerald-500/50 hover:border-emerald-400 transition-colors group">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="bg-emerald-500/20 rounded-lg p-2.5">
+                    <BarChart3 className="h-6 w-6 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold">Investment Tracker</h4>
+                    <Badge className="bg-emerald-500/20 text-emerald-300 text-xs">Back Office ROI Dashboard</Badge>
+                  </div>
+                </div>
+                <p className="text-white/60 text-sm mb-4">
+                  See exactly where your investment went, projected returns at 6/12/24 months, your phase timeline, and community win stories from real members.
+                </p>
+                <Link href="/investment-tracker">
+                  <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center justify-center gap-2">
+                    View My Tracker <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-8 text-center">
+            <div className="bg-[#001f3f] border border-[#FFD700]/20 rounded-2xl p-6 max-w-3xl mx-auto">
+              <Handshake className="h-8 w-8 text-[#FFD700] mx-auto mb-3" />
+              <h3 className="text-xl font-bold text-[#FFD700] mb-2">Part of the Consolidatus Empire</h3>
+              <p className="text-white/60 text-sm">
+                Pocket Booster sits under the Consolidatus Empire alongside The FR2P Club, Khomplete Khemistri Apparel, GuardConnect DMV, and Studio Business — one community, multiple ways to win.
+              </p>
             </div>
           </div>
         </div>

@@ -55,8 +55,6 @@ const navigation = [
   { name: "Wealth Building", href: "/investments", icon: TrendingUp, highlight: true },
   { name: "Wealth Monthly", href: "/magazine", icon: Newspaper, highlight: true },
   { name: "Pocket Booster", href: "/pocket-booster", icon: Rocket, highlight: true },
-  { name: "Side Hustle Incubator", href: "/hustle-incubator", icon: Brain, highlight: true },
-  { name: "Investment Tracker", href: "/investment-tracker", icon: BarChart3, highlight: true },
   { name: "Achievements", href: "/achievements", icon: Trophy },
   { name: "Store", href: "/store", icon: Store },
   { name: "Chat", href: "/chat", icon: MessageCircle },
