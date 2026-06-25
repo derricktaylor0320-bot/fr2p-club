@@ -90,44 +90,71 @@ function formatMoney(cents: number) {
 function SkillROICalculator() {
   const [hours, setHours] = useState(10);
   const [track, setTrack] = useState("Digital Marketing");
-  const [tier, setTier] = useState<keyof typeof TIER_CONFIG>("Growth");
+  const [amountInput, setAmountInput] = useState("100");
+  const [investAmount, setInvestAmount] = useState(100);
 
   const rates = TRACK_RATES[track] || TRACK_RATES["Digital Marketing"];
-  const cfg = TIER_CONFIG[tier];
 
-  // Ramp curve: skill starts at 30% efficiency, reaches 100% after rampMonths
   function monthlyEarnings(month: number, rate: number) {
     const ramp = Math.min(1, 0.3 + (0.7 * month) / rates.rampMonths);
-    return Math.round(hours * 4.33 * rate * ramp); // 4.33 weeks/month
+    return Math.round(hours * 4.33 * rate * ramp);
   }
 
-  const milestones = [1, 3, 6, 12, 24];
+  const chartMonths = [1, 2, 3, 4, 5, 6, 9, 12, 18, 24];
+  const chartData = chartMonths.map(m => ({
+    month: m,
+    low: monthlyEarnings(m, rates.low),
+    high: monthlyEarnings(m, rates.high),
+    pastBreakeven: monthlyEarnings(m, rates.high) >= investAmount,
+  }));
+  const maxHigh = Math.max(...chartData.map(d => d.high), investAmount);
+  const breakevenMonth = chartData.find(d => d.pastBreakeven)?.month ?? null;
 
   return (
     <Card className="bg-[#001f3f] border border-[#FFD700]/30">
       <CardHeader>
         <CardTitle className="text-[#FFD700] flex items-center gap-2 text-2xl">
-          <Calculator className="h-6 w-6" /> Skill ROI Calculator
+          <Calculator className="h-6 w-6" /> Watch It Grow — Skill ROI Calculator
         </CardTitle>
         <p className="text-white/60 text-sm">
-          Enter how many hours per week you'll put in — see what your skills can realistically earn you.
+          Enter your investment amount and how many hours a week you'll put in — watch your income grow month by month.
         </p>
       </CardHeader>
       <CardContent className="p-6 pt-0 space-y-6">
+
         {/* Inputs */}
         <div className="grid sm:grid-cols-3 gap-5">
           <div>
+            <Label className="text-white/80 mb-2 block">My Investment Amount</Label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FFD700] font-bold">$</span>
+              <Input
+                type="number" min={5}
+                value={amountInput}
+                onChange={e => {
+                  setAmountInput(e.target.value);
+                  const v = parseInt(e.target.value);
+                  if (!isNaN(v) && v >= 5) setInvestAmount(v);
+                }}
+                className="bg-[#002855] border-white/20 text-white pl-7 font-bold"
+                placeholder="100"
+              />
+            </div>
+            <p className="text-white/30 text-xs mt-1">Any amount — $5 minimum</p>
+          </div>
+
+          <div>
             <Label className="text-white/80 mb-2 block">Hours Per Week</Label>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mt-2">
               <input
                 type="range" min={2} max={40} value={hours}
                 onChange={e => setHours(Number(e.target.value))}
                 className="flex-1 accent-[#FFD700]"
               />
-              <span className="text-[#FFD700] font-bold text-lg w-10 text-right">{hours}</span>
+              <span className="text-[#FFD700] font-bold text-lg w-12 text-right">{hours}h</span>
             </div>
             <div className="flex justify-between text-white/30 text-xs mt-1">
-              <span>2 hrs</span><span>Part-time</span><span>Full-time 40</span>
+              <span>2</span><span>Part-time</span><span>Full 40</span>
             </div>
           </div>
 
@@ -144,74 +171,126 @@ function SkillROICalculator() {
               </SelectContent>
             </Select>
           </div>
+        </div>
 
+        {/* Breakeven summary */}
+        <div className="bg-[#002855] border border-[#FFD700]/30 rounded-xl p-4 flex items-start gap-3">
+          <TrendingUp className="h-5 w-5 text-[#FFD700] mt-0.5 flex-shrink-0" />
           <div>
-            <Label className="text-white/80 mb-2 block">Investment Tier</Label>
-            <Select value={tier} onValueChange={v => setTier(v as keyof typeof TIER_CONFIG)}>
-              <SelectTrigger className="bg-[#002855] border-white/20 text-white">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-[#002855] border-white/20 text-white">
-                <SelectItem value="Basic">Basic — $1,000</SelectItem>
-                <SelectItem value="Growth">Growth — $2,500</SelectItem>
-                <SelectItem value="Elite">Elite — $5,000</SelectItem>
-              </SelectContent>
-            </Select>
+            <p className="text-white font-bold text-sm">
+              Your ${investAmount.toLocaleString()} investment in {track}
+              {breakevenMonth
+                ? <> is projected to pay for itself by <span className="text-emerald-400">Month {breakevenMonth}</span> — after that, everything is pure income.</>
+                : <> hasn't hit breakeven in this 24-month window — try increasing your hours per week.</>
+              }
+            </p>
+            <p className="text-white/40 text-xs mt-1">At {hours} hrs/week · income grows as your skill improves</p>
           </div>
         </div>
 
-        {/* Results */}
+        {/* WATCH IT GROW bar chart */}
         <div>
-          <h3 className="text-white font-bold mb-3 text-sm uppercase tracking-wide">
-            Projected Monthly Earnings at {hours} hrs/week · {track}
+          <h3 className="text-white font-bold mb-1 text-sm uppercase tracking-wide flex items-center gap-2">
+            <BarChart3 className="h-4 w-4 text-[#FFD700]" /> Watch It Grow — Monthly Income Projection
           </h3>
-          <div className="grid grid-cols-5 gap-2">
-            {milestones.map(m => {
-              const low  = monthlyEarnings(m, rates.low);
-              const high = monthlyEarnings(m, rates.high);
-              const isBreakeven = high >= cfg.amount;
-              return (
-                <div
-                  key={m}
-                  className={`rounded-xl p-3 text-center border ${isBreakeven ? "border-emerald-500 bg-emerald-500/10" : "border-white/10 bg-[#002855]"}`}
-                >
-                  <div className="text-white/50 text-xs mb-1">Mo {m}</div>
-                  <div className="text-white text-xs">${low.toLocaleString()}</div>
-                  <div className="text-white/30 text-xs">–</div>
-                  <div className={`font-bold text-sm ${isBreakeven ? "text-emerald-400" : "text-[#FFD700]"}`}>
-                    ${high.toLocaleString()}
+          <p className="text-white/40 text-xs mb-4">
+            Each bar = projected monthly earnings from your skills · Dotted line = your ${investAmount.toLocaleString()} investment recovered
+          </p>
+
+          {/* Bar chart */}
+          <div className="relative">
+            {/* Breakeven line */}
+            <div
+              className="absolute left-0 right-0 border-t-2 border-dashed border-emerald-500/60 z-10 flex items-center"
+              style={{ bottom: `${(investAmount / maxHigh) * 180}px` }}
+            >
+              <span className="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-0.5 rounded ml-2 border border-emerald-500/40">
+                ${investAmount.toLocaleString()} recovered
+              </span>
+            </div>
+
+            {/* Bars */}
+            <div className="flex items-end gap-1.5 h-[180px] pt-4">
+              {chartData.map(d => {
+                const heightPct = Math.min(100, (d.high / maxHigh) * 100);
+                const lowPct = Math.min(100, (d.low / maxHigh) * 100);
+                return (
+                  <div key={d.month} className="flex-1 flex flex-col items-center gap-1">
+                    <div className="w-full relative flex flex-col justify-end" style={{ height: "160px" }}>
+                      {/* Low bar (background) */}
+                      <div
+                        className="absolute bottom-0 left-0 right-0 rounded-t-sm opacity-30"
+                        style={{
+                          height: `${lowPct}%`,
+                          background: d.pastBreakeven ? "#10b981" : "#FFD700",
+                        }}
+                      />
+                      {/* High bar (foreground) */}
+                      <div
+                        className="absolute bottom-0 left-0 right-0 rounded-t-md transition-all duration-700"
+                        style={{
+                          height: `${heightPct}%`,
+                          background: d.pastBreakeven
+                            ? "linear-gradient(to top, #10b981, #34d399)"
+                            : "linear-gradient(to top, #FFD700, #FFC300)",
+                          opacity: 0.85,
+                        }}
+                      />
+                      {d.pastBreakeven && d.month === breakevenMonth && (
+                        <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-xs text-emerald-400 font-bold whitespace-nowrap">
+                          🎯
+                        </div>
+                      )}
+                    </div>
+                    <span className="text-white/40 text-xs">M{d.month}</span>
                   </div>
-                  {isBreakeven && <div className="text-emerald-400 text-xs mt-1">🎯 ROI+</div>}
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex flex-wrap items-center gap-4 mt-3 text-xs text-white/50">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-sm bg-[#FFD700]" /> Building income
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-sm bg-emerald-400" /> Investment recovered + profit
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 border-t-2 border-dashed border-emerald-500" /> Breakeven line
+            </div>
+          </div>
+        </div>
+
+        {/* Month-by-month numbers */}
+        <div>
+          <h3 className="text-white/70 font-semibold mb-3 text-xs uppercase tracking-wide">Monthly Earnings Breakdown</h3>
+          <div className="grid grid-cols-5 gap-2">
+            {[1, 3, 6, 12, 24].map(m => {
+              const d = chartData.find(x => x.month === m)!;
+              return (
+                <div key={m} className={`rounded-xl p-3 text-center border ${d.pastBreakeven ? "border-emerald-500 bg-emerald-500/10" : "border-white/10 bg-[#002855]"}`}>
+                  <div className="text-white/50 text-xs mb-1">Mo {m}</div>
+                  <div className="text-white/60 text-xs">${d.low.toLocaleString()}</div>
+                  <div className="text-white/30 text-xs">–</div>
+                  <div className={`font-bold text-sm ${d.pastBreakeven ? "text-emerald-400" : "text-[#FFD700]"}`}>
+                    ${d.high.toLocaleString()}
+                  </div>
+                  {d.pastBreakeven && <div className="text-emerald-400 text-xs mt-1">🎯 ROI+</div>}
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Breakeven callout */}
-        <div className="bg-[#002855] border border-[#FFD700]/20 rounded-xl p-4 flex items-start gap-3">
-          <TrendingUp className="h-5 w-5 text-[#FFD700] mt-0.5 flex-shrink-0" />
-          <div>
-            <p className="text-white font-semibold text-sm">
-              At {hours} hrs/week, the high-end projection covers your ${cfg.amount.toLocaleString()} investment within{" "}
-              <span className="text-emerald-400">
-                {milestones.find(m => monthlyEarnings(m, rates.high) >= cfg.amount) ?? "24"}+ months
-              </span>
-              {" "}— then everything beyond is pure profit.
-            </p>
-            <p className="text-white/40 text-xs mt-1">
-              Your return comes from your skills — not from our pocket. That's what makes it real and legal.
-            </p>
-          </div>
-        </div>
-
-        {/* Legal clarity box */}
+        {/* Legal clarity */}
         <div className="bg-[#001f3f] border border-white/10 rounded-xl p-4 flex items-start gap-3">
           <Shield className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
           <div>
             <p className="text-blue-300 font-semibold text-sm mb-1">Why This Is Different From Scams</p>
             <p className="text-white/60 text-xs leading-relaxed">
-              Programs that promise "invest $100, get $1,000 back from us" are Ponzi schemes — they pay old investors with new investors' money until it collapses.
+              Programs that promise "invest $100, get $1,000 back from us" are Ponzi schemes.
               Here, your return comes from <strong className="text-white">what you earn using your skills</strong> — affiliate commissions, digital product sales, client work.
               We invest in your tools and training. <strong className="text-white">The market pays you. Not us.</strong>
             </p>
@@ -712,11 +791,11 @@ export default function InvestmentTracker() {
           </>
         )}
 
-        {/* Skill ROI Calculator — always visible */}
-        <SkillROICalculator />
-
-        {/* Success Story Board — always visible */}
+        {/* Success Story Board — real results first */}
         <SuccessStoryBoard />
+
+        {/* Skill ROI Calculator — Watch It Grow */}
+        <SkillROICalculator />
 
       </div>
     </div>

@@ -35,67 +35,30 @@ import { getLoggedInMemberId } from "@/lib/auth";
 
 const DEMO_USER_ID = getLoggedInMemberId();
 
-const tiers = [
-  {
-    name: "Basic",
-    price: "$1,000",
-    label: "Starter Investor",
-    timeline: "6–12 months",
-    color: "border-blue-400",
-    badgeColor: "bg-blue-500",
-    highlight: false,
-    tagline: "For beginners ready to start earning",
-    features: [
-      "AI-powered business builder",
-      "1 skill track (digital marketing, AI automation, or content creation)",
-      "Landing page, ad & offer templates",
-      "Weekly group coaching sessions",
-      "FR2P community access",
-      "6-month growth roadmap",
-      "Income calculator & projections",
-    ],
-  },
-  {
-    name: "Growth",
-    price: "$2,500",
-    label: "Scale Investor",
-    timeline: "6–18 months",
-    color: "border-[#FFD700]",
-    badgeColor: "bg-[#FFD700] text-[#001f3f]",
-    highlight: true,
-    tagline: "For people ready to scale fast",
-    features: [
-      "Everything in Basic",
-      "3 skill tracks (your choice)",
-      "Automated affiliate funnels",
-      "Digital product builder",
-      "Personalized 90-day action plan",
-      "Monthly 1-on-1 coaching session",
-      "Access to premium AI tools",
-      "12-month growth roadmap",
-    ],
-  },
-  {
-    name: "Elite",
-    price: "$5,000",
-    label: "Elite Investor",
-    timeline: "12–24 months",
-    color: "border-purple-500",
-    badgeColor: "bg-purple-600",
-    highlight: false,
-    tagline: "For serious wealth builders",
-    features: [
-      "All skill tracks — unlimited",
-      "Done-with-you business setup",
-      "AI business automation suite",
-      "Private mastermind group",
-      "Revenue-tracking dashboard",
-      "Priority 1-on-1 coaching",
-      "Annual virtual summit access",
-      "24-month roadmap with check-ins",
-    ],
-  },
-];
+const QUICK_AMOUNTS = [5, 10, 20, 50, 100, 250, 500, 1000, 2500, 5000];
+
+function getAccessLevel(amount: number) {
+  if (amount < 50) return {
+    label: "Starter", color: "text-emerald-400", border: "border-emerald-400",
+    features: ["1 skill track — AI-guided lessons", "Community access & accountability", "Basic templates vault", "Income projection calculator"],
+    timeline: "Start learning today",
+  };
+  if (amount < 250) return {
+    label: "Builder", color: "text-blue-400", border: "border-blue-400",
+    features: ["2 skill tracks of your choice", "Group coaching sessions (weekly)", "Digital asset creation tools", "Landing page & ad templates", "6-month roadmap"],
+    timeline: "First results: 3–6 months",
+  };
+  if (amount < 1000) return {
+    label: "Accelerator", color: "text-[#FFD700]", border: "border-[#FFD700]",
+    features: ["3 skill tracks", "Automated affiliate funnel setup", "Digital product builder", "Monthly 1-on-1 coaching session", "Priority community access", "12-month roadmap"],
+    timeline: "First results: 2–4 months",
+  };
+  return {
+    label: "Elite", color: "text-purple-400", border: "border-purple-400",
+    features: ["All 6 skill tracks — unlimited", "Done-with-you business setup", "AI business automation suite", "Private mastermind group", "Priority 1-on-1 coaching", "24-month roadmap with check-ins"],
+    timeline: "First results: 1–3 months",
+  };
+}
 
 const skillTracks = [
   { icon: Brain, name: "AI Automation", desc: "Build systems that work while you sleep using AI tools" },
@@ -128,8 +91,9 @@ const timeline = [
 export default function HustleIncubator() {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
-  const [selectedTier, setSelectedTier] = useState("");
-  const [form, setForm] = useState({ firstName: "", email: "", tier: "", track: "" });
+  const [customAmount, setCustomAmount] = useState<number>(100);
+  const [customInput, setCustomInput] = useState("100");
+  const [form, setForm] = useState({ firstName: "", email: "", tier: "", track: "", amount: "" });
 
   const { data: memberData } = useQuery<MemberResponse>({
     queryKey: ["/api/member", DEMO_USER_ID],
@@ -189,10 +153,10 @@ export default function HustleIncubator() {
             AI builds your business step by step. You learn the skills. You own the assets. You keep the income.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Badge className="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-4 py-2 text-sm">$1,000 · $2,500 · $5,000</Badge>
-            <Badge className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-4 py-2 text-sm">6–24 Month Roadmaps</Badge>
+            <Badge className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-4 py-2 text-sm">Start With Any Amount</Badge>
+            <Badge className="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-4 py-2 text-sm">6–24 Month Roadmaps</Badge>
             <Badge className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-4 py-2 text-sm">AI-Powered Tools</Badge>
-            <Badge className="bg-[#FFD700]/20 text-[#FFD700] border border-[#FFD700]/30 px-4 py-2 text-sm">Skill Tracks + Coaching</Badge>
+            <Badge className="bg-[#FFD700]/20 text-[#FFD700] border border-[#FFD700]/30 px-4 py-2 text-sm">6 Skill Tracks + Coaching</Badge>
           </div>
           <Button
             onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
@@ -237,54 +201,115 @@ export default function HustleIncubator() {
           </CardContent>
         </Card>
 
-        {/* Tier Structure */}
+        {/* Flexible Investment Selector */}
         <div className="mb-14">
           <div className="text-center mb-10">
-            <Badge className="bg-[#FFD700] text-[#001f3f] font-bold mb-3">INVESTMENT TIERS</Badge>
-            <h2 className="text-4xl font-bold text-[#FFD700] mb-3">Choose Your Level</h2>
-            <p className="text-white/70 text-lg">You're not buying a product — you're investing in a system that builds your income.</p>
+            <Badge className="bg-[#FFD700] text-[#001f3f] font-bold mb-3">INVEST ANY AMOUNT</Badge>
+            <h2 className="text-4xl font-bold text-[#FFD700] mb-3">Start With What You Have</h2>
+            <p className="text-white/70 text-lg max-w-2xl mx-auto">
+              $5 or $5,000 — every dollar goes toward building your skills and income. 
+              You decide how much to invest. The system works at every level.
+            </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {tiers.map((tier) => (
-              <Card key={tier.name} className={`bg-[#001f3f] border-2 ${tier.color} relative ${tier.highlight ? "ring-2 ring-[#FFD700]/40 scale-105" : ""} transition-transform hover:scale-105`}>
-                {tier.highlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <Badge className="bg-[#FFD700] text-[#001f3f] font-bold px-4 py-1 text-sm">⭐ MOST POPULAR</Badge>
-                  </div>
-                )}
-                <CardHeader className="text-center pt-8 pb-4">
-                  <Badge className={`${tier.badgeColor} w-fit mx-auto mb-3 px-3 py-1`}>{tier.label}</Badge>
-                  <CardTitle className="text-white text-2xl">{tier.name} Tier</CardTitle>
-                  <div className="text-5xl font-bold text-[#FFD700] mt-2">{tier.price}</div>
-                  <p className="text-white/60 text-sm mt-1">one-time investment</p>
-                  <p className="text-emerald-400 font-semibold text-sm mt-2 flex items-center justify-center gap-1">
-                    <Clock className="h-4 w-4" /> Results in {tier.timeline}
-                  </p>
-                  <p className="text-white/70 text-sm mt-2 italic">"{tier.tagline}"</p>
-                </CardHeader>
-                <CardContent className="px-6 pb-8">
-                  <ul className="space-y-3">
-                    {tier.features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/80">
-                        <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button
-                    onClick={() => {
-                      setForm(f => ({ ...f, tier: tier.name }));
-                      setSelectedTier(tier.name);
-                      document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" });
+
+          <Card className="bg-[#001f3f] border-2 border-[#FFD700]/40 mb-6">
+            <CardContent className="p-8">
+              {/* Quick-select buttons */}
+              <div className="mb-6">
+                <p className="text-white/60 text-sm mb-4 text-center">Quick select — or type your own amount below</p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  {QUICK_AMOUNTS.map(amt => (
+                    <button
+                      key={amt}
+                      onClick={() => { setCustomAmount(amt); setCustomInput(String(amt)); }}
+                      className={`px-4 py-2 rounded-full font-bold text-sm border-2 transition-all ${
+                        customAmount === amt
+                          ? "bg-[#FFD700] text-[#001f3f] border-[#FFD700]"
+                          : "border-white/20 text-white/70 hover:border-[#FFD700]/50 hover:text-white"
+                      }`}
+                    >
+                      ${amt >= 1000 ? `${amt / 1000}K` : amt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Custom amount input */}
+              <div className="max-w-xs mx-auto mb-8">
+                <Label className="text-white/70 mb-2 block text-center text-sm">Or enter any amount</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FFD700] font-bold text-lg">$</span>
+                  <Input
+                    type="number"
+                    min={5}
+                    value={customInput}
+                    onChange={e => {
+                      setCustomInput(e.target.value);
+                      const val = parseInt(e.target.value);
+                      if (!isNaN(val) && val >= 5) setCustomAmount(val);
                     }}
-                    className={`w-full mt-6 font-bold py-3 rounded-xl ${tier.highlight ? "bg-[#FFD700] text-[#001f3f] hover:bg-yellow-400" : "bg-white/10 text-white hover:bg-white/20"}`}
-                  >
-                    Reserve My Spot <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    className="bg-[#002855] border-[#FFD700]/40 text-white text-center text-xl font-bold pl-8 py-3"
+                    placeholder="100"
+                  />
+                </div>
+                <p className="text-white/40 text-xs text-center mt-1">Minimum $5</p>
+              </div>
+
+              {/* What this amount unlocks */}
+              {(() => {
+                const level = getAccessLevel(customAmount);
+                return (
+                  <div className={`rounded-2xl border-2 ${level.border} bg-black/20 p-6`}>
+                    <div className="flex flex-col md:flex-row md:items-start gap-6">
+                      <div className="flex-shrink-0 text-center">
+                        <div className="text-5xl font-black text-[#FFD700]">
+                          ${customAmount >= 1000 ? `${(customAmount / 1000).toFixed(customAmount % 1000 === 0 ? 0 : 1)}K` : customAmount}
+                        </div>
+                        <div className="text-white/50 text-xs mt-1">your investment</div>
+                        <Badge className={`mt-3 ${level.color} border ${level.border} bg-transparent font-bold`}>
+                          {level.label} Level
+                        </Badge>
+                        <div className="mt-3 text-emerald-400 text-xs font-semibold flex items-center justify-center gap-1">
+                          <Clock className="h-3.5 w-3.5" /> {level.timeline}
+                        </div>
+                      </div>
+                      <div className="flex-grow">
+                        <h3 className="text-white font-bold mb-3">What ${customAmount >= 1000 ? `${(customAmount / 1000).toFixed(customAmount % 1000 === 0 ? 0 : 1)}K` : customAmount} gets you:</h3>
+                        <ul className="space-y-2.5">
+                          {level.features.map((f, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-white/80">
+                              <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 flex-shrink-0" /> {f}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="mt-5 p-3 rounded-xl bg-[#FFD700]/10 border border-[#FFD700]/20">
+                          <p className="text-[#FFD700] text-xs font-semibold">
+                            💡 Your results come from applying what you learn — not from the company. 
+                            The more hours you put in, the faster your investment pays for itself.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-5 flex justify-center">
+                      <Button
+                        onClick={() => {
+                          setForm(f => ({ ...f, amount: String(customAmount) }));
+                          document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="bg-[#FFD700] text-[#001f3f] hover:bg-yellow-400 font-bold px-8 py-3 text-base"
+                      >
+                        Reserve My Spot at ${customAmount >= 1000 ? `${(customAmount / 1000).toFixed(customAmount % 1000 === 0 ? 0 : 1)}K` : customAmount} <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })()}
+            </CardContent>
+          </Card>
+
+          <p className="text-white/30 text-xs text-center">
+            Increase your investment any time — your access level upgrades automatically.
+          </p>
         </div>
 
         {/* Skill Tracks */}
@@ -353,12 +378,13 @@ export default function HustleIncubator() {
                 </thead>
                 <tbody className="space-y-3">
                   {[
-                    { tier: "Basic ($1,000)", m6: "$500–$1,500/mo", m12: "$1,000–$3,000/mo", m24: "$2,000–$5,000/mo", color: "text-blue-400" },
-                    { tier: "Growth ($2,500)", m6: "$1,500–$3,500/mo", m12: "$3,000–$7,000/mo", m24: "$6,000–$15,000/mo", color: "text-[#FFD700]" },
-                    { tier: "Elite ($5,000)", m6: "$3,000–$6,000/mo", m12: "$6,000–$15,000/mo", m24: "$15,000–$35,000/mo", color: "text-purple-400" },
+                    { tier: "Any amount · Digital Marketing", m6: "$300–$900/mo", m12: "$800–$2,500/mo", m24: "$1,500–$5,000/mo", color: "text-blue-400" },
+                    { tier: "Any amount · Affiliate Marketing", m6: "$200–$700/mo", m12: "$600–$2,000/mo", m24: "$1,200–$4,000/mo", color: "text-[#FFD700]" },
+                    { tier: "Any amount · Digital Products", m6: "$400–$1,200/mo", m12: "$1,000–$3,500/mo", m24: "$2,000–$8,000/mo", color: "text-purple-400" },
+                    { tier: "Any amount · AI Automation", m6: "$500–$1,500/mo", m12: "$1,200–$4,000/mo", m24: "$3,000–$10,000/mo", color: "text-emerald-400" },
                   ].map((row) => (
                     <tr key={row.tier} className="border-b border-white/10">
-                      <td className={`py-4 font-bold ${row.color}`}>{row.tier}</td>
+                      <td className={`py-4 font-bold ${row.color} text-sm`}>{row.tier}</td>
                       <td className="py-4 text-center text-white/80">{row.m6}</td>
                       <td className="py-4 text-center text-white/80">{row.m12}</td>
                       <td className="py-4 text-center text-emerald-400 font-semibold">{row.m24}</td>
@@ -486,18 +512,19 @@ export default function HustleIncubator() {
                     />
                   </div>
                   <div>
-                    <Label className="text-white/80 mb-2 block">Which Tier Interests You?</Label>
-                    <Select value={form.tier} onValueChange={val => setForm(f => ({ ...f, tier: val }))}>
-                      <SelectTrigger className="bg-[#002855] border-white/20 text-white">
-                        <SelectValue placeholder="Select a tier" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-[#002855] border-white/20 text-white">
-                        <SelectItem value="Basic">Basic — $1,000 (6–12 month roadmap)</SelectItem>
-                        <SelectItem value="Growth">Growth — $2,500 (6–18 month roadmap)</SelectItem>
-                        <SelectItem value="Elite">Elite — $5,000 (12–24 month roadmap)</SelectItem>
-                        <SelectItem value="Not sure yet">Not sure yet</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Label className="text-white/80 mb-2 block">How Much Are You Looking to Invest?</Label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FFD700] font-bold">$</span>
+                      <Input
+                        type="number"
+                        min={5}
+                        value={form.amount || customAmount}
+                        onChange={e => setForm(f => ({ ...f, amount: e.target.value }))}
+                        placeholder="100"
+                        className="bg-[#002855] border-white/20 text-white pl-7 placeholder:text-white/40"
+                      />
+                    </div>
+                    <p className="text-white/40 text-xs mt-1">Any amount from $5 — start with what you have</p>
                   </div>
                   <div>
                     <Label className="text-white/80 mb-2 block">Which Skill Track Excites You Most?</Label>
