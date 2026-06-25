@@ -5,7 +5,7 @@ import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
-import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, pocketBoosterWaitlist, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
+import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, pocketBoosterWaitlist, hustleInvestments, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
 import { sendWelcomeEmail } from "./services/email";
@@ -2303,6 +2303,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error deleting prospect:", error);
       res.status(500).json({ message: "Failed to delete prospect" });
+    }
+  });
+
+  // Hustle Investment Tracker
+  app.get("/api/hustle-investments/:memberId", async (req, res) => {
+    try {
+      const { memberId } = req.params;
+      const rows = await db.select().from(hustleInvestments).where(eq(hustleInvestments.memberId, memberId));
+      const investment = rows.find(r => r.status === "active") || rows[0] || null;
+      res.json({ investment });
+    } catch (error) {
+      console.error("Error fetching hustle investment:", error);
+      res.status(500).json({ message: "Failed to fetch investment" });
+    }
+  });
+
+  app.post("/api/hustle-investments", async (req, res) => {
+    try {
+      const schema = z.object({
+        memberId: z.string().min(1),
+        tier: z.enum(["Basic", "Growth", "Elite"]),
+        amount: z.number().int().positive(),
+        skillTrack: z.string().nullable().optional(),
+        status: z.string().optional(),
+        currentPhase: z.number().int().min(1).max(5).optional(),
+        notes: z.string().nullable().optional(),
+      });
+      const parsed = schema.parse(req.body);
+      const [entry] = await db.insert(hustleInvestments).values({
+        memberId: parsed.memberId,
+        tier: parsed.tier,
+        amount: parsed.amount,
+        skillTrack: parsed.skillTrack || null,
+        status: parsed.status || "active",
+        currentPhase: parsed.currentPhase || 1,
+        notes: parsed.notes || null,
+      }).returning();
+      res.json({ success: true, investment: entry });
+    } catch (error) {
+      console.error("Error creating hustle investment:", error);
+      res.status(500).json({ message: "Failed to create investment" });
+    }
+  });
+
+  app.patch("/api/hustle-investments/:id/phase", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { currentPhase } = req.body;
+      if (!currentPhase || currentPhase < 1 || currentPhase > 5) {
+        return res.status(400).json({ message: "Invalid phase" });
+      }
+      const [updated] = await db.update(hustleInvestments)
+        .set({ currentPhase })
+        .where(eq(hustleInvestments.id, id))
+        .returning();
+      res.json({ success: true, investment: updated });
+    } catch (error) {
+      console.error("Error updating phase:", error);
+      res.status(500).json({ message: "Failed to update phase" });
     }
   });
 

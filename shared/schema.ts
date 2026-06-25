@@ -809,6 +809,22 @@ export type InsertPocketBoosterWaitlist = z.infer<typeof insertPocketBoosterWait
 export type InsertProspect = z.infer<typeof insertProspectSchema>;
 export type Prospect = typeof prospects.$inferSelect;
 
+export const hustleInvestments = pgTable("hustle_investments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  memberId: varchar("member_id").notNull().references(() => members.id),
+  tier: text("tier").notNull(), // "Basic" | "Growth" | "Elite"
+  amount: integer("amount").notNull(), // in cents: 100000, 250000, 500000
+  skillTrack: text("skill_track"),
+  status: text("status").notNull().default("active"), // active | completed | paused
+  investedAt: timestamp("invested_at").notNull().defaultNow(),
+  currentPhase: integer("current_phase").notNull().default(1), // 1-5
+  notes: text("notes"),
+});
+
+export const insertHustleInvestmentSchema = createInsertSchema(hustleInvestments).omit({ id: true, investedAt: true });
+export type HustleInvestment = typeof hustleInvestments.$inferSelect;
+export type InsertHustleInvestment = z.infer<typeof insertHustleInvestmentSchema>;
+
 export interface CharitySearchResult {
   ein: string; // Employer Identification Number
   name: string; // Organization name
