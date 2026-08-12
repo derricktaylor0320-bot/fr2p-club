@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { FR2P_EMBLEMS, type Emblem } from "@/data/emblems";
+import { EmblemImage } from "@/components/EmblemImage";
 import { Button } from "@/components/ui/button";
 import { Sparkles, ChevronRight } from "lucide-react";
 
@@ -54,11 +55,13 @@ export function EmblemShowcase({ variant = "dashboard", showScroll = true }: Emb
             <div className="emblem-sphere-container mb-6">
               <div className="emblem-sphere-outer">
                 <div className="emblem-sphere-inner">
-                  <img
+                  <EmblemImage
                     key={active.id}
                     src={active.src}
+                    fallbackSrc={active.fallbackSrc}
                     alt={active.alt}
                     className="emblem-sphere-image"
+                    loading="eager"
                   />
                 </div>
               </div>
@@ -147,7 +150,7 @@ function EmblemThumb({
             : "border-[#FFD700]/30 group-hover:border-[#FFD700]/60"
         }`}
       >
-        <img src={emblem.src} alt={emblem.alt} className="w-full h-full object-cover" loading="lazy" />
+        <EmblemImage src={emblem.src} fallbackSrc={emblem.fallbackSrc} alt={emblem.alt} className="w-full h-full object-cover" />
       </div>
       <p className={`text-xs font-bold mt-2 text-center ${isActive ? "text-[#FFD700]" : "text-white/70"}`}>
         {emblem.name}
