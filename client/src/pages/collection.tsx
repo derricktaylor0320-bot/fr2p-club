@@ -3,6 +3,7 @@ import { SidebarNav } from "@/components/ui/sidebar-nav";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { EmblemShowcase } from "@/components/EmblemShowcase";
+import { EmblemImage } from "@/components/EmblemImage";
 import { FR2P_EMBLEMS } from "@/data/emblems";
 import { Gem, ShoppingBag } from "lucide-react";
 
@@ -64,8 +65,9 @@ export default function Collection() {
                   className="rounded-xl border border-[#d4af37]/30 bg-white/5 p-5"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <img
+                    <EmblemImage
                       src={emblem.src}
+                      fallbackSrc={emblem.fallbackSrc}
                       alt={emblem.alt}
                       className="w-14 h-14 rounded-lg border border-[#d4af37]/40 object-cover"
                     />
