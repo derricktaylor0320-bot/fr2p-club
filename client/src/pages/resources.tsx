@@ -873,7 +873,7 @@ export default function Resources() {
                   <h4 className="font-semibold text-blue-900 mb-3">📲 Quick Share Options</h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <Button variant="outline" className="text-blue-600 border-blue-300 text-sm" data-testid="button-share-text"
-                      onClick={() => window.open(`sms:?body=I want to share this with you — join The FR2P Club and start building permanent residual income: https://fr2pclub.com/join/${memberData?.member?.id || 'demo'}`, '_blank')}>
+                      onClick={() => window.open(`sms:?body=I want to share this with you — join The FR2P Club and start building permanent reoccurring income: https://fr2pclub.com/join/${memberData?.member?.id || 'demo'}`, '_blank')}>
                       💬 Text Message
                     </Button>
                     <Button variant="outline" className="text-green-600 border-green-300 text-sm" data-testid="button-share-whatsapp"
@@ -881,7 +881,7 @@ export default function Resources() {
                       📱 WhatsApp
                     </Button>
                     <Button variant="outline" className="text-blue-600 border-blue-300 text-sm" data-testid="button-share-email"
-                      onClick={() => window.open(`mailto:?subject=Join%20The%20FR2P%20Club%20-%20Financial%20Roadway%20to%20Prosperity&body=I%20want%20to%20share%20this%20opportunity%20with%20you.%20The%20FR2P%20Club%20offers%20%245%2Fmonth%20permanent%20residual%20income%20per%20referral.%0A%0AJoin%20here%3A%20https%3A%2F%2Ffr2pclub.com%2Fjoin%2F${memberData?.member?.id || 'demo'}`, '_blank')}>
+                      onClick={() => window.open(`mailto:?subject=Join%20The%20FR2P%20Club%20-%20Financial%20Roadway%20to%20Prosperity&body=I%20want%20to%20share%20this%20opportunity%20with%20you.%20The%20FR2P%20Club%20offers%20%245%2Fmonth%20permanent%20reoccurring%20income%20per%20referral.%0A%0AJoin%20here%3A%20https%3A%2F%2Ffr2pclub.com%2Fjoin%2F${memberData?.member?.id || 'demo'}`, '_blank')}>
                       📧 Email
                     </Button>
                     <Button variant="outline" className="text-purple-600 border-purple-300 text-sm" data-testid="button-share-social"

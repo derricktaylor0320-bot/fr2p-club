@@ -1547,7 +1547,7 @@ export default function Store() {
                 </div>
                 <CardTitle className="text-xl text-[#FFD700]">The FR2P Club Trifold Brochure</CardTitle>
                 <CardDescription className="text-white/70">
-                  A full-color trifold covering everything: what you get, membership options, healthcare & travel benefits, and residual income. Leave one anywhere — it tells the whole story without you saying a word.
+                  A full-color trifold covering everything: what you get, membership options, healthcare & travel benefits, and reoccurring income. Leave one anywhere — it tells the whole story without you saying a word.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1558,7 +1558,7 @@ export default function Store() {
                     <div className="rounded-xl overflow-hidden border-2 border-[#FFD700]/30 shadow-lg">
                       <img
                         src="/fr2p-brochure.jpeg"
-                        alt="The FR2P Club trifold brochure showing all four panels: welcome, what you get, membership options, healthcare and travel benefits, and residual income"
+                        alt="The FR2P Club trifold brochure showing all four panels: welcome, what you get, membership options, healthcare and travel benefits, and reoccurring income"
                         className="w-full object-cover"
                       />
                     </div>
@@ -1572,7 +1572,7 @@ export default function Store() {
                         <div>📋 <span className="font-medium text-white">Panel 2:</span> What You Get With The FR2P Club — full feature breakdown for both tiers</div>
                         <div>💳 <span className="font-medium text-white">Panel 3:</span> Membership Options — Standard $35/mo vs Premium $50/mo side by side</div>
                         <div>🏥 <span className="font-medium text-white">Panel 4:</span> Healthcare & Travel Benefits — affordable plans, virtual doctors, travel perks</div>
-                        <div>💰 <span className="font-medium text-white">Panel 5:</span> Residual Income That Follows You for Life — verified earning, lifetime passive income</div>
+                        <div>💰 <span className="font-medium text-white">Panel 5:</span> Reoccurring Income That Follows You for Life — verified earning, lifetime passive income</div>
                         <div>🔗 <span className="font-medium text-white">Back:</span> Your name, referral link, and "Join Us Today!" call to action</div>
                       </div>
                     </div>

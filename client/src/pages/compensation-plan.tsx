@@ -279,7 +279,7 @@ export default function CompensationPlan() {
             
             <div className="mt-6 p-4 bg-gradient-to-r from-green-900/50 to-green-800/50 rounded-lg border border-green-500/50 text-center">
               <p className="text-green-300 font-semibold text-lg">
-                ✨ One-Time Referral Work → Monthly Residual Paycheck ✨
+                ✨ One-Time Referral Work → Monthly Reoccurring Paycheck ✨
               </p>
               <p className="text-white/70 text-sm mt-1">
                 You refer them once, you get paid a recurring {isFoundingMember ? '$16-$22' : '$5'} commission each active month — based on your referral activity and effort.

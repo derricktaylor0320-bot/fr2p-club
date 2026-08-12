@@ -315,7 +315,7 @@ export default function Dashboard() {
                 <span className="text-[#FFD700] font-bold">The FR2P Club</span> exists to empower everyday individuals to build extraordinary income through multiple streams under one unified platform. We bridge the gap between where people are and where they want to be by providing a one‑stop wealth ecosystem that leverages innovation, AI‑driven learning, and real business opportunities.
               </p>
               <p className="text-white/90 leading-relaxed text-sm md:text-base mt-3">
-                Our mission is to help members master new skills faster, create sustainable prosperity, and build <span className="text-[#FFD700] font-semibold">residual income that lasts a lifetime</span> — all through the power of community, access, and self‑investment.
+                Our mission is to help members master new skills faster, create sustainable prosperity, and build <span className="text-[#FFD700] font-semibold">reoccurring income that lasts a lifetime</span> — all through the power of community, access, and self‑investment.
               </p>
               {/* Paycheck to Paycheck catchphrase */}
               <div className="mt-5 pt-4 border-t border-[#FFD700]/20">
@@ -1082,20 +1082,20 @@ export default function Dashboard() {
                     </div>
                     <div>
                       <p className="text-white font-bold text-sm leading-tight">Myron Golden</p>
-                      <p className="text-white/50 text-xs">Turn Your Passion Into Residual Income</p>
+                      <p className="text-white/50 text-xs">Turn Your Passion Into Reoccurring Income</p>
                     </div>
                   </div>
                   <p className="text-white/70 text-xs leading-relaxed mb-2">
                     How ordinary people turn their network into recurring income streams — without startup capital or a massive following.
                   </p>
                   <div className="bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-lg p-2">
-                    <p className="text-[#FFD700] text-[10px] font-semibold italic">"Residual income is getting paid for work you did once — over and over again."</p>
+                    <p className="text-[#FFD700] text-[10px] font-semibold italic">"Reoccurring income is getting paid for work you did once — over and over again."</p>
                   </div>
                 </div>
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/lmpv7CJz6so"
-                    title="Myron Golden — Residual Income"
+                    title="Myron Golden — Reoccurring Income"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
