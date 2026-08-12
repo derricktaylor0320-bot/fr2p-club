@@ -92,7 +92,7 @@ export default function Network() {
                 <li>• Daily volume and quarterly goals count <strong className="text-[#FFD700]">direct referrals only</strong></li>
                 <li>• $5/month per locked-in direct referral — FTC-compliant single-tier</li>
                 <li>• You personally find 5, teach them to find their 5</li>
-                <li>• Complete all 5 circles (3,906 network), then <strong className="text-[#FFD700]">start a new circle</strong></li>
+                <li>• Complete all 5 circles (3,905 network), then <strong className="text-[#FFD700]">start a new circle</strong></li>
               </ul>
             </div>
             <div className="bg-white/5 border border-white/20 rounded-lg p-5">
@@ -109,7 +109,7 @@ export default function Network() {
           <div className="bg-[#001f3f] border border-[#FFD700]/40 rounded-lg p-4 text-center">
             <p className="text-white/90 text-sm">
               <span className="font-bold text-[#FFD700]">The model:</span> You start → find your 5 → they find their 5 → 
-              the pattern repeats through 5 circles until your network is full (3,906 people). Then you begin again. 
+              the pattern repeats through 5 circles until your network is full (3,905 people). Then you begin again. 
               Similar structure to network marketing, but you are paid as an <span className="font-bold text-[#FFD700]">affiliate</span> on direct sales — not on downline volume.
             </p>
           </div>
@@ -175,7 +175,7 @@ export default function Network() {
                   </div>
                 </div>
                 <div className="text-center mt-4 text-white/90">
-                  = <span className="text-[#FFD700] font-bold text-2xl">3,906 Total Network</span> (Diamond Affiliate Ambassador)
+                  = <span className="text-[#FFD700] font-bold text-2xl">3,905 Total Network</span> (Diamond Affiliate Ambassador)
                 </div>
               </div>
 
@@ -323,7 +323,7 @@ export default function Network() {
                 </div>
               </div>
               <div className="mt-6 text-center border-t border-amber-400/30 pt-4">
-                <div className="text-2xl font-bold text-amber-300 mb-2">💎 Diamond Affiliate Ambassador = 3,906 Total Network</div>
+                <div className="text-2xl font-bold text-amber-300 mb-2">💎 Diamond Affiliate Ambassador = 3,905 Total Network</div>
                 <div className="text-sm text-blue-200 mb-1">Advance through all 5 tiers to achieve Diamond Affiliate Ambassador rank</div>
                 <div className="text-sm font-semibold text-amber-200">Bronze Affiliate Ambassador (5) → Silver Affiliate Ambassador (25) → Gold Affiliate Ambassador (125) → Platinum Affiliate Ambassador (625) → Diamond Affiliate Ambassador (3,125)</div>
                 <div className="text-sm text-blue-200 mt-2">Start as Affiliate Ambassador, then advance through each circle of influence!</div>
