@@ -441,12 +441,12 @@ export default function Store() {
                       <Badge className="bg-purple-400 text-[#001f3f] font-bold mb-2">SHOP THE EMPIRE</Badge>
                       <h3 className="text-2xl font-bold text-purple-300">The Consolidatus Empire</h3>
                       <p className="text-white/80 max-w-lg">
-                        FR2P is part of something bigger. Access Khomplete Khemistri Apparel & Accessories, GuardConnect Security, and more partner businesses.
+                        FR2P is part of something bigger. Access Khomplete Khemistri Apparel & Accessories, Empire Invest, Expense Advantage, Premium Choice Dogs, and more partner businesses through TCE Holdings.
                       </p>
                     </div>
                   </div>
                   <div className="flex flex-col items-center gap-3">
-                    <a href="https://kkmgllc2023-derricktaylor03.replit.app/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://tceholdings.org" target="_blank" rel="noopener noreferrer">
                       <Button 
                         className="bg-gradient-to-r from-purple-400 to-purple-600 text-white hover:from-purple-500 hover:to-purple-700 font-bold px-8"
                         data-testid="button-shop-apparel"

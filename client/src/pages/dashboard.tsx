@@ -383,7 +383,7 @@ export default function Dashboard() {
                 <Badge className="bg-purple-400 text-[#001f3f] font-bold mb-1">PART OF SOMETHING BIGGER</Badge>
                 <h3 className="text-xl font-bold text-purple-300">The Consolidatus Empire</h3>
                 <p className="text-white/80 text-sm max-w-md">
-                  Access the entire empire: Khomplete Khemistri Apparel, GuardConnect Security, Studio Business & more.
+                  Access the entire empire: Khomplete Khemistri Apparel, Empire Invest, Expense Advantage, Premium Choice Dogs & more.
                 </p>
               </div>
             </div>
