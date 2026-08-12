@@ -1670,25 +1670,30 @@ export default function Store() {
             </Card>
 
             {/* Pro tips footer */}
-            <Card className="border-2 border-[#FFD700]/40 bg-[#001f3f]">
+            <Card
+              className="border-2 border-[#FFD700]/40 shadow-lg"
+              style={{ backgroundColor: "#001f3f", color: "#ffffff" }}
+            >
               <CardContent className="pt-5 pb-5">
-                <p className="text-[#FFD700] font-bold mb-3 text-center">💡 Marketing Pro Tips from The FR2P Club</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-white">
+                <p className="font-bold mb-3 text-center" style={{ color: "#FFD700" }}>
+                  💡 Marketing Pro Tips from The FR2P Club
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
                   <div className="flex items-start gap-2">
-                    <span className="text-[#FFD700] font-bold shrink-0">01.</span>
-                    <span>Always put your personal referral link and QR code on every piece — that's how sign-ups get tracked back to you.</span>
+                    <span className="font-bold shrink-0" style={{ color: "#FFD700" }}>01.</span>
+                    <span style={{ color: "#ffffff" }}>Always put your personal referral link and QR code on every piece — that's how sign-ups get tracked back to you at The FR2P Club.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[#FFD700] font-bold shrink-0">02.</span>
-                    <span>Leave postcards at barbershops, nail salons, churches, gyms, and community centers — anywhere people gather and wait.</span>
+                    <span className="font-bold shrink-0" style={{ color: "#FFD700" }}>02.</span>
+                    <span style={{ color: "#ffffff" }}>Leave postcards at barbershops, nail salons, churches, gyms, and community centers — anywhere people gather and wait.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[#FFD700] font-bold shrink-0">03.</span>
-                    <span>Hand your business card out every time someone asks "what do you do?" — let the card do the talking before you even explain.</span>
+                    <span className="font-bold shrink-0" style={{ color: "#FFD700" }}>03.</span>
+                    <span style={{ color: "#ffffff" }}>Hand your business card out every time someone asks "what do you do?" — let the card do the talking before you even explain.</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-[#FFD700] font-bold shrink-0">04.</span>
-                    <span>The brochure tells the whole story. Leave stacks at libraries, laundromats, waiting rooms, and anywhere people sit and read.</span>
+                    <span className="font-bold shrink-0" style={{ color: "#FFD700" }}>04.</span>
+                    <span style={{ color: "#ffffff" }}>The brochure tells the whole story. Leave stacks at libraries, laundromats, waiting rooms, and anywhere people sit and read.</span>
                   </div>
                 </div>
               </CardContent>
