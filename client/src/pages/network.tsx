@@ -77,6 +77,44 @@ export default function Network() {
           </p>
         </div>
 
+        {/* Affiliate Marketing vs Network Marketing - Key Distinction */}
+        <div className="bg-gradient-to-br from-[#001f3f] to-[#003366] rounded-lg shadow-xl border-2 border-[#FFD700] p-8 mb-8">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-[#FFD700] mb-2">How the FR2P Affiliate Program Works</h2>
+            <p className="text-white/90">Affiliate marketing with a duplication model — not network marketing</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div className="bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-lg p-5">
+              <h3 className="font-bold text-[#FFD700] mb-3">✅ What Makes This Affiliate Marketing</h3>
+              <ul className="space-y-2 text-white/90 text-sm">
+                <li>• You earn commissions from <strong className="text-[#FFD700]">your direct sales only</strong></li>
+                <li>• Daily volume and quarterly goals count <strong className="text-[#FFD700]">direct referrals only</strong></li>
+                <li>• $5/month per locked-in direct referral — FTC-compliant single-tier</li>
+                <li>• You personally find 5, teach them to find their 5</li>
+                <li>• Complete all 5 circles (3,906 network), then <strong className="text-[#FFD700]">start a new circle</strong></li>
+              </ul>
+            </div>
+            <div className="bg-white/5 border border-white/20 rounded-lg p-5">
+              <h3 className="font-bold text-white mb-3">🌊 Spillover & Founding Members</h3>
+              <ul className="space-y-2 text-white/90 text-sm">
+                <li>• <strong className="text-[#FFD700]">Spillover</strong>: Refer 6+ in a month? Extras are placed under your team — not paid as upline commissions</li>
+                <li>• <strong className="text-[#FFD700]">Founding Members</strong> (first 500): 2x circle completion bonuses + priority spillover placement</li>
+                <li>• Your network grows through duplication, but your paycheck comes from direct sales</li>
+                <li>• <a href="/network-diagram.html" target="_blank" className="text-[#FFD700] underline">View the printable network diagram →</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-[#001f3f] border border-[#FFD700]/40 rounded-lg p-4 text-center">
+            <p className="text-white/90 text-sm">
+              <span className="font-bold text-[#FFD700]">The model:</span> You start → find your 5 → they find their 5 → 
+              the pattern repeats through 5 circles until your network is full (3,906 people). Then you begin again. 
+              Similar structure to network marketing, but you are paid as an <span className="font-bold text-[#FFD700]">affiliate</span> on direct sales — not on downline volume.
+            </p>
+          </div>
+        </div>
+
         {/* Get 5, Teach 5 Philosophy - Duplication Model */}
         <div className="bg-gradient-to-br from-[#001f3f] to-[#003366] rounded-lg shadow-xl border-2 border-[#FFD700] p-8 mb-8">
           <div className="text-center mb-6">

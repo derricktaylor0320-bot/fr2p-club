@@ -62,8 +62,8 @@ export default function Certifications() {
       color: "from-green-700 to-green-900",
       borderColor: "border-green-400",
       badgeColor: "bg-green-400 text-green-900",
-      textColor: "text-green-100",
-      accentColor: "text-green-300",
+      textColor: "text-white/90",
+      accentColor: "text-[#FFD700]",
       btnColor: "bg-green-400 hover:bg-green-500 text-green-900",
       topics: [
         "Budgeting & saving strategies",
@@ -82,8 +82,8 @@ export default function Certifications() {
       color: "from-navy-900 to-navy-800",
       borderColor: "border-gold-400",
       badgeColor: "bg-gold-600 text-navy-900",
-      textColor: "text-gold-100",
-      accentColor: "text-gold-400",
+      textColor: "text-white/90",
+      accentColor: "text-[#FFD700]",
       btnColor: "bg-gold-600 hover:bg-gold-700 text-navy-900",
       topics: [
         "Building your personal brand",
@@ -102,8 +102,8 @@ export default function Certifications() {
       color: "from-purple-800 to-purple-900",
       borderColor: "border-purple-400",
       badgeColor: "bg-purple-400 text-purple-900",
-      textColor: "text-purple-100",
-      accentColor: "text-purple-300",
+      textColor: "text-white/90",
+      accentColor: "text-[#FFD700]",
       btnColor: "bg-purple-400 hover:bg-purple-500 text-purple-900",
       topics: [
         "Business plan development",
@@ -160,22 +160,22 @@ export default function Certifications() {
             <div>
               <GraduationCap className="h-10 w-10 text-[#FFD700] mx-auto mb-2" />
               <div className="text-2xl font-bold text-[#FFD700]">4</div>
-              <div className="text-sm text-white/70">Certification Programs</div>
+              <div className="text-sm text-white">Certification Programs</div>
             </div>
             <div>
               <BookOpen className="h-10 w-10 text-[#FFD700] mx-auto mb-2" />
               <div className="text-2xl font-bold text-[#FFD700]">Self-Paced</div>
-              <div className="text-sm text-white/70">Learn on your schedule</div>
+              <div className="text-sm text-white">Learn on your schedule</div>
             </div>
             <div>
               <Award className="h-10 w-10 text-[#FFD700] mx-auto mb-2" />
               <div className="text-2xl font-bold text-[#FFD700]">Certificate</div>
-              <div className="text-sm text-white/70">Digital credential included</div>
+              <div className="text-sm text-white">Digital credential included</div>
             </div>
             <div>
               <DollarSign className="h-10 w-10 text-[#FFD700] mx-auto mb-2" />
               <div className="text-2xl font-bold text-[#FFD700]">One-Time</div>
-              <div className="text-sm text-white/70">No recurring fees</div>
+              <div className="text-sm text-white">No recurring fees</div>
             </div>
           </div>
         </div>
@@ -260,28 +260,28 @@ export default function Certifications() {
         </Card>
 
         {/* Why Certifications */}
-        <div className="bg-white/5 border border-white/10 rounded-xl p-8 text-center">
+        <div className="bg-[#001f3f] border-2 border-[#FFD700]/40 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold text-[#FFD700] mb-4">Why FR2P Certifications?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <CheckCircle className="h-8 w-8 text-[#FFD700] mx-auto mb-2" />
               <h3 className="font-bold text-white mb-1">No Membership Required</h3>
-              <p className="text-white/70 text-sm">Anyone can purchase a certification - you don't need to be an FR2P member</p>
+              <p className="text-white text-sm">Anyone can purchase a certification - you don't need to be an FR2P member</p>
             </div>
             <div>
               <DollarSign className="h-8 w-8 text-[#FFD700] mx-auto mb-2" />
               <h3 className="font-bold text-white mb-1">Real Skills, Real Results</h3>
-              <p className="text-white/70 text-sm">Practical knowledge you can apply immediately to build wealth</p>
+              <p className="text-white text-sm">Practical knowledge you can apply immediately to build wealth</p>
             </div>
             <div>
               <Users className="h-8 w-8 text-[#FFD700] mx-auto mb-2" />
               <h3 className="font-bold text-white mb-1">Earn as an Affiliate</h3>
-              <p className="text-white/70 text-sm">Share certifications with your network and earn commissions on every sale</p>
+              <p className="text-white text-sm">Share certifications with your network and earn commissions on every sale</p>
             </div>
           </div>
         </div>
 
-        <div className="text-center mt-12 text-white/60 text-sm">
+        <div className="text-center mt-12 text-white text-sm">
           <p>FR2P Certification Program - Invest in Knowledge, Build Generational Wealth</p>
         </div>
       </div>
