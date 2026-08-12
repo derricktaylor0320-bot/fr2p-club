@@ -1,6 +1,7 @@
 export interface Emblem {
   id: string;
   src: string;
+  fallbackSrc: string;
   alt: string;
   name: string;
   meaning: string;
@@ -10,7 +11,8 @@ export interface Emblem {
 export const FR2P_EMBLEMS: Emblem[] = [
   {
     id: "triangle",
-    src: "/emblems/triangle.svg",
+    src: "/emblems/triangle.jpeg",
+    fallbackSrc: "/emblems/triangle.svg",
     alt: "FR2P Triangle Emblem",
     name: "Triangle",
     meaning: "Structure",
@@ -19,7 +21,8 @@ export const FR2P_EMBLEMS: Emblem[] = [
   },
   {
     id: "pentagon",
-    src: "/emblems/pentagon.svg",
+    src: "/emblems/pentagon.jpeg",
+    fallbackSrc: "/emblems/pentagon.svg",
     alt: "FR2P Pentagonal Emblem",
     name: "Pentagon",
     meaning: "Balance",
@@ -28,7 +31,8 @@ export const FR2P_EMBLEMS: Emblem[] = [
   },
   {
     id: "spiral",
-    src: "/emblems/spiral.svg",
+    src: "/emblems/spiral.jpeg",
+    fallbackSrc: "/emblems/spiral.svg",
     alt: "FR2P Spiral Emblem",
     name: "Spiral",
     meaning: "Growth",
@@ -37,7 +41,8 @@ export const FR2P_EMBLEMS: Emblem[] = [
   },
   {
     id: "gomboc",
-    src: "/emblems/gomboc.svg",
+    src: "/emblems/gomboc.jpeg",
+    fallbackSrc: "/emblems/gomboc.svg",
     alt: "FR2P Gomboc Emblem",
     name: "Gomboc",
     meaning: "Resilience",
@@ -46,7 +51,8 @@ export const FR2P_EMBLEMS: Emblem[] = [
   },
   {
     id: "cube",
-    src: "/emblems/cube.svg",
+    src: "/emblems/cube.jpeg",
+    fallbackSrc: "/emblems/cube.svg",
     alt: "FR2P Cube Emblem",
     name: "Cube",
     meaning: "Unity",
