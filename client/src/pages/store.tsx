@@ -778,7 +778,10 @@ export default function Store() {
                       </div>
                       <CardTitle className="text-xl text-[#FFD700]">The FR2P Club Official Merchandise</CardTitle>
                       <CardDescription className="text-white/80">
-                        Represent The FR2P Club everywhere you go. Every piece is a conversation starter — and a walking advertisement for your business.
+                        Represent The FR2P Club everywhere you go. Every piece is a conversation starter — and a walking advertisement for your business.{" "}
+                        <a href="/collection" className="text-[#FFD700] underline hover:text-yellow-300">
+                          Explore the emblem collection →
+                        </a>
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
