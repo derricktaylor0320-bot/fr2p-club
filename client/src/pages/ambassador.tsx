@@ -118,7 +118,7 @@ const whyPartner = [
   {
     icon: Heart,
     title: "Serve Your Audience",
-    description: "Give your followers a real opportunity to build residual income without selling products or pressuring friends."
+    description: "Give your followers a real opportunity to build reoccurring income without selling products or pressuring friends."
   },
   {
     icon: Star,
@@ -342,7 +342,7 @@ export default function Ambassador() {
             <p className="text-white/90 text-lg italic leading-relaxed">
               "I found this exclusive membership community called The FR2P Club. It's about building wealth together 
               through a simple system - no selling products, no inventory, just $35/month membership and you earn 
-              $5/month for every person you refer. It's clean, simple, and actually helps people build real residual income. 
+              $5/month for every person you refer. It's clean, simple, and actually helps people build real reoccurring income. 
               I'm partnering with them because I believe in what they're building. Check it out through my link."
             </p>
           </div>

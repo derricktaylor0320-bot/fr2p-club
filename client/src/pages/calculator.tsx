@@ -383,7 +383,7 @@ export default function Calculator() {
           <div className="grid md:grid-cols-2 gap-8 mb-8">
             {/* Monthly Residual - Complete Network */}
             <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-xl p-8 text-center shadow-lg transform hover:scale-105 transition-transform">
-              <div className="text-white text-xl font-bold mb-3">MONTHLY RESIDUAL</div>
+              <div className="text-white text-xl font-bold mb-3">MONTHLY REOCCURRING</div>
               <div className="bg-white rounded-lg p-6 mb-4">
                 <div className="text-green-700 text-6xl font-bold">$19,525</div>
                 <div className="text-gray-600 text-sm mt-2">Complete 5×5 Network Value</div>
@@ -395,7 +395,7 @@ export default function Calculator() {
             
             {/* Annual Residual - Complete Network */}
             <div className="bg-gradient-to-br from-[#FFD700] to-amber-600 rounded-xl p-8 text-center shadow-lg transform hover:scale-105 transition-transform">
-              <div className="text-[#001f3f] text-xl font-bold mb-3">ANNUAL RESIDUAL</div>
+              <div className="text-[#001f3f] text-xl font-bold mb-3">ANNUAL REOCCURRING</div>
               <div className="bg-white rounded-lg p-6 mb-4">
                 <div className="text-[#001f3f] text-6xl font-bold">$234,300</div>
                 <div className="text-gray-600 text-sm mt-2">Complete 5×5 Network Value Per Year</div>

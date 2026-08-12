@@ -93,7 +93,7 @@ export default function Investments() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
             {[
-              { icon: Users, label: "Membership Residuals", sub: "$5/mo per referral", status: "ACTIVE", color: "green" },
+              { icon: Users, label: "Membership Reoccurring Income", sub: "$5/mo per referral", status: "ACTIVE", color: "green" },
               { icon: DollarSign, label: "Digital Products", sub: "One-time sales", status: "ACTIVE", color: "green" },
               { icon: Building, label: "Real Estate", sub: "Quarterly dividends", status: "COMING SOON", color: "amber" },
               { icon: BarChart3, label: "Broker & ETFs", sub: "Portfolio growth", status: "COMING SOON", color: "amber" },
@@ -429,7 +429,7 @@ export default function Investments() {
               </thead>
               <tbody>
                 {[
-                  ["Membership Residuals (growing referrals)", "$250/mo", "$600/mo", "$1,200/mo"],
+                  ["Membership Reoccurring Income (growing referrals)", "$250/mo", "$600/mo", "$1,200/mo"],
                   ["Digital Product Sales", "$100/mo", "$300/mo", "$500/mo"],
                   ["Certification Commissions", "$75/mo", "$200/mo", "$400/mo"],
                   ["Real Estate Dividends", "$25/qtr", "$150/qtr", "$400/qtr"],

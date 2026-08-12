@@ -330,7 +330,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             status: "holding",
             earnedAt: new Date(),
             availableAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30-day hold
-            description: `Permanent residual commission locked in from ${member.firstName} ${member.lastName}`,
+            description: `Permanent reoccurring commission locked in from ${member.firstName} ${member.lastName}`,
           });
           
           console.log(`🔒 Permanent referral locked in: ${sponsor.username} now has ${(sponsor.permanentReferralCount || 0) + 1} permanent referrals earning $5/month each FOREVER`);
@@ -841,7 +841,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             status: "holding",
             earnedAt: new Date(),
             availableAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30-day hold
-            description: `Monthly permanent residual income: $${(monthlyCommission / 100).toFixed(2)} ($5 × ${referralCount} locked-in referrals)`,
+            description: `Monthly permanent reoccurring income: $${(monthlyCommission / 100).toFixed(2)} ($5 × ${referralCount} locked-in referrals)`,
           });
 
           commissionsGenerated++;
@@ -890,10 +890,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         yearlyResidual,
         message: permanentReferrals > 0
           ? `You earn $${monthlyResidual.toFixed(2)}/month FOREVER from ${permanentReferrals} locked-in referral${permanentReferrals > 1 ? 's' : ''}. This never stops, even if they cancel.`
-          : `Refer your first member to start earning $5/month permanent residual income. Once locked in, it never stops!`,
+          : `Refer your first member to start earning $5/month permanent reoccurring income. Once locked in, it never stops!`,
       });
     } catch (error: any) {
-      res.status(500).json({ message: "Error fetching residual income: " + error.message });
+      res.status(500).json({ message: "Error fetching reoccurring income: " + error.message });
     }
   });
 
