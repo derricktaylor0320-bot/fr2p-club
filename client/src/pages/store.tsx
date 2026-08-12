@@ -1670,10 +1670,10 @@ export default function Store() {
             </Card>
 
             {/* Pro tips footer */}
-            <Card className="border border-[#FFD700]/20 bg-[#FFD700]/5">
+            <Card className="border-2 border-[#FFD700]/40 bg-[#001f3f]">
               <CardContent className="pt-5 pb-5">
                 <p className="text-[#FFD700] font-bold mb-3 text-center">💡 Marketing Pro Tips from The FR2P Club</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-white/80">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-white">
                   <div className="flex items-start gap-2">
                     <span className="text-[#FFD700] font-bold shrink-0">01.</span>
                     <span>Always put your personal referral link and QR code on every piece — that's how sign-ups get tracked back to you.</span>

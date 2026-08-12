@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="FR2P Cube Emblem">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4D03F"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0b1d3a"/>
+      <stop offset="100%" stop-color="#001428"/>
+    </linearGradient>
+    <linearGradient id="face" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#001428" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" rx="24" fill="url(#navy)"/>
+  <circle cx="200" cy="200" r="170" fill="url(#glow)"/>
+  <circle cx="200" cy="200" r="175" fill="none" stroke="url(#gold)" stroke-width="4"/>
+  <polygon points="120,220 200,160 280,220 200,280" fill="url(#face)" stroke="url(#gold)" stroke-width="4"/>
+  <polygon points="120,220 200,280 200,340 120,280" fill="#1e3a8a" stroke="url(#gold)" stroke-width="3"/>
+  <polygon points="200,280 280,220 280,280 200,340" fill="#1d4ed8" stroke="url(#gold)" stroke-width="3"/>
+  <path d="M200 205 L212 220 L200 235 L188 220 Z" fill="url(#gold)"/>
+  <text x="200" y="355" text-anchor="middle" fill="#D4AF37" font-family="Arial,sans-serif" font-size="22" font-weight="bold" letter-spacing="4">UNITY</text>
+</svg>

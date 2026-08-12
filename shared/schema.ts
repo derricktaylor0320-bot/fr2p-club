@@ -318,7 +318,7 @@ export const TIER_REQUIREMENTS = {
   [AFFILIATE_TIERS.SILVER]: { minSales: 5, maxSales: 24, commissionRate: 15, spilloverRate: 3, name: 'Silver Affiliate Ambassador', circle: 2, totalNetwork: 30, networkRequired: 25 },
   [AFFILIATE_TIERS.GOLD]: { minSales: 25, maxSales: 124, commissionRate: 17, spilloverRate: 4, name: 'Gold Affiliate Ambassador', circle: 3, totalNetwork: 155, networkRequired: 125 },
   [AFFILIATE_TIERS.PLATINUM]: { minSales: 125, maxSales: 624, commissionRate: 18, spilloverRate: 5, name: 'Platinum Affiliate Ambassador', circle: 4, totalNetwork: 780, networkRequired: 625 },
-  [AFFILIATE_TIERS.DIAMOND]: { minSales: 625, maxSales: Infinity, commissionRate: 20, spilloverRate: 6, name: 'Diamond Affiliate Ambassador', circle: 5, totalNetwork: 3906, networkRequired: 3125 }
+  [AFFILIATE_TIERS.DIAMOND]: { minSales: 625, maxSales: Infinity, commissionRate: 20, spilloverRate: 6, name: 'Diamond Affiliate Ambassador', circle: 5, totalNetwork: 3905, networkRequired: 3125 }
 } as const;
 
 // CIRCLE COMPLETION BONUSES (One-time rewards when completing each circle)

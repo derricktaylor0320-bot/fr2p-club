@@ -634,24 +634,24 @@ export default function Resources() {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-navy-900 p-4 rounded-lg border-2 border-navy-900">
               <h3 className="font-bold text-gold-400 mb-3 flex items-center gap-2">
-                💰 Enhanced Commissions
+                💰 Enhanced Direct-Sales Commissions
               </h3>
               <div className="space-y-2 text-sm text-gold-200">
                 <div className="flex justify-between">
                   <span>Regular Members:</span>
-                  <span className="font-medium">$25 per referral</span>
+                  <span className="font-medium">$5/month per direct referral</span>
                 </div>
                 <div className="flex justify-between text-navy-900 font-bold bg-gold-400 px-2 py-1 rounded">
                   <span>Founding Members:</span>
-                  <span>$50 per referral (2x)</span>
+                  <span>2x Circle Bonuses on all tiers</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Regular Spillover:</span>
-                  <span className="font-medium">5% commission</span>
+                  <span>Commission Source:</span>
+                  <span className="font-medium">Your direct sales only</span>
                 </div>
                 <div className="flex justify-between text-navy-900 font-bold bg-gold-400 px-2 py-1 rounded">
                   <span>Founding Spillover:</span>
-                  <span>10% commission (2x)</span>
+                  <span>Priority team placement (6+ refs/mo)</span>
                 </div>
               </div>
             </div>
@@ -700,30 +700,28 @@ export default function Resources() {
               <span className="text-xs bg-gold-400 text-navy-900 px-2 py-1 rounded-full font-bold">FOUNDING</span>
             </div>
             
-            {/* Activity-Based Spillover Notice */}
+            {/* Spillover Placement Notice */}
             <div className="mt-6 p-4 bg-navy-900 border-2 border-navy-900 rounded-lg">
-              <h4 className="font-bold text-gold-400 mb-2">💸 FR2P Spillover Structure: Where Effort Meets Reward</h4>
-              <div className="text-sm">
-                <div className="grid grid-cols-2 gap-4 mt-3">
-                  <div className="bg-gold-400 p-3 rounded border-2 border-gold-400">
-                    <div className="font-semibold text-navy-900">Inactive Members</div>
-                    <div className="text-xs text-navy-800">No monthly engagement</div>
-                    <div className="font-bold text-navy-900 mt-1">
-                      {memberData?.member?.isFoundingMember ? '4%' : '2%'} Baseline Spillover
-                    </div>
-                  </div>
-                  <div className="bg-navy-900 p-3 rounded border-2 border-gold-400">
-                    <div className="font-semibold text-gold-400">Active Members</div>
-                    <div className="text-xs text-gold-200">Monthly logins, referrals, or purchases</div>
-                    <div className="font-bold text-gold-400 mt-1">
-                      {memberData?.member?.isFoundingMember ? '10%' : '5%'} Enhanced Spillover
-                    </div>
-                  </div>
+              <h4 className="font-bold text-gold-400 mb-2">🌊 FR2P Spillover: Team Placement, Not Upline Commissions</h4>
+              <p className="text-sm text-gold-200 mb-3">
+                When you refer more than 5 people in a month, extra members spill over to your downline team — helping them grow their circles. 
+                You still earn commissions only on your direct referrals. This is affiliate marketing, not network marketing.
+              </p>
+              <div className="grid grid-cols-2 gap-4 mt-3">
+                <div className="bg-gold-400 p-3 rounded border-2 border-gold-400">
+                  <div className="font-semibold text-navy-900">Regular Members</div>
+                  <div className="text-xs text-navy-800">Extra referrals placed under your team</div>
+                  <div className="font-bold text-navy-900 mt-1">Standard Spillover Placement</div>
                 </div>
-                <div className="text-center mt-3 text-gold-300 font-medium">
-                  "At FR2P, everyone benefits—but the active builders earn more. Your effort fuels your reward."
+                <div className="bg-navy-900 p-3 rounded border-2 border-gold-400">
+                  <div className="font-semibold text-gold-400">Founding Members</div>
+                  <div className="text-xs text-gold-200">Priority placement for your team's spillover</div>
+                  <div className="font-bold text-gold-400 mt-1">Enhanced Spillover Priority</div>
                 </div>
               </div>
+            </div>
+            <div className="text-center mt-3 text-gold-300 font-medium">
+              "At FR2P, everyone benefits—but the active builders earn more. Your effort fuels your reward."
             </div>
           </div>
         </div>

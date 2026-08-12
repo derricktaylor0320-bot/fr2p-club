@@ -14,6 +14,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { MusicPlayer } from "@/components/ui/music-player";
 import { InstallPWA } from "@/components/InstallPWA";
+import { EmblemShowcase } from "@/components/EmblemShowcase";
 
 import { getLoggedInMemberId } from "@/lib/auth";
 const DEMO_USER_ID = getLoggedInMemberId();
@@ -231,6 +232,11 @@ export default function Dashboard() {
 
           {/* ── ROTATING TAGLINES ── */}
           <TaglineRotator />
+
+          {/* ── FR2P EMBLEM SHOWCASE ── */}
+          <div className="mt-8 max-w-6xl mx-auto">
+            <EmblemShowcase variant="dashboard" showScroll={true} />
+          </div>
           
           {/* Membership Level Badge */}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
@@ -824,37 +830,41 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Spillover Tier System - "Where Effort Meets Reward" */}
+        {/* Spillover Placement System */}
         <div className="mb-6 bg-gradient-to-r from-navy-50 to-cream-50 border border-navy-200 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div className="flex-1">
               <h3 className="font-semibold text-navy-900 flex items-center gap-2">
-                🏆 FR2P Spillover System: "Where Effort Meets Reward"
+                🌊 FR2P Spillover: Team Placement Program
               </h3>
               <div className="text-sm text-navy-700 mt-1">
-                <div className="grid grid-cols-2 gap-4 mt-2">
-                  <div className={`p-2 rounded border ${member.isActiveMember ? 'bg-green-100 border-green-300' : 'bg-gray-100 border-gray-300'}`}>
-                    <div className="font-medium">Active Members</div>
-                    <div className="text-xs">Monthly engagement required</div>
-                    <div className="font-bold text-green-700">{member.isFoundingMember ? '10%' : '5%'} Spillover Rate</div>
+                <p className="mt-2">
+                  Refer more than <strong>5 people in a month</strong>? Extra members spill over to your downline team, 
+                  helping them fill their circles. You earn commissions only on <strong>your direct sales</strong> — 
+                  spillover is about team growth, not upline payouts.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mt-3">
+                  <div className="p-2 rounded border bg-green-100 border-green-300">
+                    <div className="font-medium">Your Direct Referrals (1–5)</div>
+                    <div className="text-xs">You earn $5/month per direct referral</div>
+                    <div className="font-bold text-green-700">Direct Sales Commission</div>
                   </div>
-                  <div className={`p-2 rounded border ${!member.isActiveMember ? 'bg-yellow-100 border-yellow-300' : 'bg-gray-100 border-gray-300'}`}>
-                    <div className="font-medium">Inactive Members</div>
-                    <div className="text-xs">Baseline participation</div>
-                    <div className="font-bold text-yellow-700">{member.isFoundingMember ? '4%' : '2%'} Spillover Rate</div>
+                  <div className={`p-2 rounded border ${member.isFoundingMember ? 'bg-gold-100 border-gold-400' : 'bg-blue-100 border-blue-300'}`}>
+                    <div className="font-medium">Spillover (6+ per month)</div>
+                    <div className="text-xs">Placed under your team members</div>
+                    <div className={`font-bold ${member.isFoundingMember ? 'text-gold-700' : 'text-blue-700'}`}>
+                      {member.isFoundingMember ? 'Priority Placement' : 'Standard Placement'}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="ml-4 text-center">
-              <div className={`text-xs font-bold mb-1 ${member.isActiveMember ? 'text-green-600' : 'text-yellow-600'}`}>
-                Your Status: {member.isActiveMember ? 'ACTIVE' : 'INACTIVE'}
+            <div className="ml-4 text-center hidden sm:block">
+              <div className="text-xs font-bold mb-1 text-navy-600">
+                {member.isFoundingMember ? 'FOUNDING MEMBER' : 'MEMBER'}
               </div>
-              <div className={`text-lg font-bold ${member.isActiveMember ? 'text-green-700' : 'text-yellow-700'}`}>
-                {member.isFoundingMember 
-                  ? (member.isActiveMember ? '10%' : '4%')
-                  : (member.isActiveMember ? '5%' : '2%')
-                } Spillover
+              <div className="text-lg font-bold text-navy-900">
+                {member.isFoundingMember ? '⭐ Enhanced' : '✓ Active'}
               </div>
             </div>
           </div>
