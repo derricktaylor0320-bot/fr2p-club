@@ -7,14 +7,18 @@ import {
   Building2, 
   ShoppingBag, 
   Shield, 
-  Mic2, 
   ExternalLink,
   Star,
   Users,
   Sparkles,
   Globe,
-  Rocket
+  Rocket,
+  TrendingUp,
+  Receipt,
+  PawPrint
 } from "lucide-react";
+
+const TCE_HOLDINGS_URL = "https://tceholdings.org";
 
 const empireBusinesses = [
   {
@@ -36,10 +40,46 @@ const empireBusinesses = [
     icon: ShoppingBag,
     color: "from-purple-500 to-purple-600",
     borderColor: "border-purple-500",
-    url: "https://khomplete-khemistri-apparel.up.railway.app/",
+    url: TCE_HOLDINGS_URL,
     isInternal: false,
     highlight: "SHOP",
     features: ["Exclusive apparel", "Premium accessories", "Member discounts"]
+  },
+  {
+    name: "Empire Invest",
+    tagline: "Strategic Wealth Building",
+    description: "Investment opportunities and financial growth strategies designed to help members build lasting wealth within the Consolidatus Empire ecosystem.",
+    icon: TrendingUp,
+    color: "from-amber-500 to-amber-600",
+    borderColor: "border-amber-500",
+    url: TCE_HOLDINGS_URL,
+    isInternal: false,
+    highlight: "INVEST",
+    features: ["Investment opportunities", "Wealth strategies", "Empire growth"]
+  },
+  {
+    name: "Expense Advantage",
+    tagline: "Smart Financial Management",
+    description: "Tools and services to help members manage expenses, maximize savings, and gain a financial edge in their personal and business finances.",
+    icon: Receipt,
+    color: "from-cyan-500 to-cyan-600",
+    borderColor: "border-cyan-500",
+    url: TCE_HOLDINGS_URL,
+    isInternal: false,
+    highlight: "FINANCE",
+    features: ["Expense tracking", "Savings optimization", "Financial tools"]
+  },
+  {
+    name: "Premium Choice Dogs",
+    tagline: "Quality Canine Services",
+    description: "Premium dog breeding, training, and care services. Connecting families with quality canine companions and professional pet services.",
+    icon: PawPrint,
+    color: "from-orange-500 to-orange-600",
+    borderColor: "border-orange-500",
+    url: TCE_HOLDINGS_URL,
+    isInternal: false,
+    highlight: "PETS",
+    features: ["Premium breeding", "Dog training", "Pet services"]
   },
   {
     name: "GuardConnect DMV",
@@ -51,21 +91,9 @@ const empireBusinesses = [
     url: "",
     isInternal: false,
     isComingSoon: true,
+    isHidden: true,
     highlight: "SECURITY",
     features: ["Security networking", "Professional connections", "DMV coverage"]
-  },
-  {
-    name: "Studio Business",
-    tagline: "Creative Production",
-    description: "Full-service creative studio for content creation, podcasting, and media production. Bring your vision to life.",
-    icon: Mic2,
-    color: "from-pink-500 to-pink-600",
-    borderColor: "border-pink-500",
-    url: "",
-    isInternal: false,
-    isComingSoon: true,
-    highlight: "CREATIVE",
-    features: ["Content creation", "Podcast production", "Media services"]
   },
   {
     name: "Pocket Booster",
@@ -74,7 +102,7 @@ const empireBusinesses = [
     icon: Rocket,
     color: "from-emerald-500 to-emerald-600",
     borderColor: "border-emerald-500",
-    url: "https://tceholdings.org",
+    url: TCE_HOLDINGS_URL,
     isInternal: false,
     isComingSoon: true,
     highlight: "FINTECH",
@@ -123,7 +151,7 @@ export default function Empire() {
           <Building2 className="h-12 w-12 text-[#FFD700] mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-[#FFD700] mb-3">Founded by Derrick Taylor</h2>
           <p className="text-white/90 text-lg max-w-2xl mx-auto">
-            The Consolidatus Empire brings together apparel, security, creative production, and 
+            The Consolidatus Empire brings together apparel, investments, financial services, and 
             wealth-building under one umbrella. As an FR2P member, you're not just joining a club — 
             you're becoming part of a movement with access to an entire ecosystem.
           </p>
@@ -132,7 +160,7 @@ export default function Empire() {
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-[#FFD700] text-center mb-8">Our Businesses</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            {empireBusinesses.map((business, index) => {
+            {empireBusinesses.filter((business) => !business.isHidden).map((business, index) => {
               const Icon = business.icon;
               return (
                 <Card 
@@ -224,7 +252,7 @@ export default function Empire() {
                 Join FR2P Now
               </Button>
             </a>
-            <a href="https://khomplete-khemistri-apparel.up.railway.app/" target="_blank" rel="noopener noreferrer">
+            <a href={TCE_HOLDINGS_URL} target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700]/10 px-8" data-testid="button-shop-apparel">
                 <ShoppingBag className="h-5 w-5 mr-2" />
                 Shop Apparel

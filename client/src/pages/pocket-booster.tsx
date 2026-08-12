@@ -869,7 +869,7 @@ export default function PocketBooster() {
               <Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">TCE Holdings</Badge>
             </a>
             <Link href="/"><Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">The FR2P Club</Badge></Link>
-            <a href="https://khomplete-khemistri-apparel.up.railway.app" target="_blank" rel="noopener noreferrer">
+            <a href={TCE_HOLDINGS_URL} target="_blank" rel="noopener noreferrer">
               <Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">KK Apparel</Badge>
             </a>
             <Link href="/empire"><Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">Empire Hub</Badge></Link>

@@ -108,7 +108,7 @@ export function SidebarNav({ className }: SidebarNavProps) {
       >
         {/* Consolidatus Empire Hub Bar */}
         <a
-          href="https://khomplete-khemistri-apparel.up.railway.app/hub"
+          href="https://tceholdings.org"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-amber-700/40 to-amber-600/30 border-b border-[#FFD700]/30 hover:bg-[#FFD700]/20 transition-colors group"
