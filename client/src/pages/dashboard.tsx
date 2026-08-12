@@ -14,6 +14,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { MusicPlayer } from "@/components/ui/music-player";
 import { InstallPWA } from "@/components/InstallPWA";
+import { EmblemShowcase } from "@/components/EmblemShowcase";
 
 import { getLoggedInMemberId } from "@/lib/auth";
 const DEMO_USER_ID = getLoggedInMemberId();
@@ -231,6 +232,11 @@ export default function Dashboard() {
 
           {/* ── ROTATING TAGLINES ── */}
           <TaglineRotator />
+
+          {/* ── FR2P EMBLEM SHOWCASE ── */}
+          <div className="mt-8 max-w-6xl mx-auto">
+            <EmblemShowcase variant="dashboard" showScroll={true} />
+          </div>
           
           {/* Membership Level Badge */}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-3">

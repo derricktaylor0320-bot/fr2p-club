@@ -2,45 +2,9 @@ import { Link } from "wouter";
 import { SidebarNav } from "@/components/ui/sidebar-nav";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Gem, Sparkles, ShoppingBag } from "lucide-react";
-
-const emblems = [
-  {
-    src: "/attachments/CBz3uXtNb8qBFmgDAs9AF.jpeg",
-    alt: "FR2P Triangle Emblem",
-    name: "Triangle",
-    meaning: "Structure",
-    description: "The foundation of every empire — clear lines, sharp focus, unshakeable direction.",
-  },
-  {
-    src: "/attachments/MBpwk3MCU2TJRnwxmTgYg.jpeg",
-    alt: "FR2P Pentagonal Emblem",
-    name: "Pentagon",
-    meaning: "Balance",
-    description: "Five points of harmony — wealth, power, prestige, growth, and unity in perfect proportion.",
-  },
-  {
-    src: "/attachments/1dKfesnc2wxchnPxZCmYk.jpeg",
-    alt: "FR2P Spiral Emblem",
-    name: "Spiral",
-    meaning: "Growth",
-    description: "The upward path of prosperity — each turn building on the last, compounding success.",
-  },
-  {
-    src: "/attachments/cN7RtfrYN7sfpxazMyrMJ.jpeg",
-    alt: "FR2P Gomboc Emblem",
-    name: "Gomboc",
-    meaning: "Resilience",
-    description: "Self-righting strength — no matter the setback, true leaders always rise again.",
-  },
-  {
-    src: "/attachments/PAecUhfTf5adgq8hTMGVk.jpeg",
-    alt: "FR2P Cube Emblem",
-    name: "Cube",
-    meaning: "Unity",
-    description: "The sphere of togetherness — every member connected through the blue diamond of prosperity.",
-  },
-];
+import { EmblemShowcase } from "@/components/EmblemShowcase";
+import { FR2P_EMBLEMS } from "@/data/emblems";
+import { Gem, ShoppingBag } from "lucide-react";
 
 export default function Collection() {
   return (
@@ -50,7 +14,7 @@ export default function Collection() {
       <div className="md:ml-64">
         <section
           id="fr2p-collection"
-          className="text-center px-5 py-16 md:py-20"
+          className="text-center px-5 py-12 md:py-16"
           style={{ backgroundColor: "#0b0c2a", color: "#f5f5f5" }}
         >
           <div className="max-w-5xl mx-auto">
@@ -58,7 +22,6 @@ export default function Collection() {
               className="mb-4 text-sm font-bold px-4 py-1"
               style={{ backgroundColor: "#d4af37", color: "#0b0c2a" }}
             >
-              <Sparkles className="w-3.5 h-3.5 mr-1.5 inline" />
               The Geometry of Success
             </Badge>
 
@@ -69,38 +32,23 @@ export default function Collection() {
               The FR2P Club
             </h1>
 
-            <p className="max-w-3xl mx-auto text-lg md:text-xl leading-relaxed mb-12 text-white/90">
+            <p className="max-w-3xl mx-auto text-lg md:text-xl leading-relaxed mb-10 text-white/90">
               The FR2P Club is where ambition meets affluence. Each emblem represents a different
               facet of success — from the spiral of growth to the sphere of unity — all centered
               around the blue diamond of prosperity. More than a brand, it's a movement that stands
               for{" "}
               <strong className="text-[#d4af37]">money, power, wealth, and prestige</strong>.
-              Every design tells the story of those who rise, earn, and lead.
             </p>
+          </div>
+        </section>
 
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
-              {emblems.map((emblem) => (
-                <div key={emblem.name} className="group w-[220px]">
-                  <div
-                    className="overflow-hidden rounded-[10px] border-2 transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#d4af37]/20"
-                    style={{ borderColor: "#d4af37" }}
-                  >
-                    <img
-                      src={emblem.src}
-                      alt={emblem.alt}
-                      className="w-full aspect-square object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="mt-3 text-left">
-                    <p className="font-bold text-[#d4af37]">{emblem.name}</p>
-                    <p className="text-sm text-white/60 italic">{emblem.meaning}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className="md:ml-0 px-4 md:px-8 pb-8" style={{ backgroundColor: "#0b0c2a" }}>
+          <EmblemShowcase variant="full" showScroll={true} />
+        </div>
 
-            <p className="text-base md:text-lg text-[#c0c0c0] max-w-3xl mx-auto mb-10">
+        <section className="px-5 py-12" style={{ backgroundColor: "#0b0c2a", color: "#f5f5f5" }}>
+          <div className="max-w-5xl mx-auto">
+            <p className="text-base md:text-lg text-[#c0c0c0] max-w-3xl mx-auto mb-10 text-center">
               Each symbol — triangle, pentagon, spiral, Gomboc, and cube — embodies The FR2P
               Club's evolution:{" "}
               <em className="text-[#d4af37]">
@@ -110,15 +58,24 @@ export default function Collection() {
             </p>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left mb-12">
-              {emblems.map((emblem) => (
+              {FR2P_EMBLEMS.map((emblem) => (
                 <div
                   key={`detail-${emblem.name}`}
                   className="rounded-xl border border-[#d4af37]/30 bg-white/5 p-5"
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Gem className="w-4 h-4 text-[#d4af37]" />
-                    <span className="font-semibold text-[#d4af37]">{emblem.name}</span>
-                    <span className="text-white/40 text-sm">— {emblem.meaning}</span>
+                  <div className="flex items-center gap-3 mb-3">
+                    <img
+                      src={emblem.src}
+                      alt={emblem.alt}
+                      className="w-14 h-14 rounded-lg border border-[#d4af37]/40 object-cover"
+                    />
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <Gem className="w-4 h-4 text-[#d4af37]" />
+                        <span className="font-semibold text-[#d4af37]">{emblem.name}</span>
+                      </div>
+                      <span className="text-white/40 text-sm">{emblem.meaning}</span>
+                    </div>
                   </div>
                   <p className="text-sm text-white/70 leading-relaxed">{emblem.description}</p>
                 </div>
