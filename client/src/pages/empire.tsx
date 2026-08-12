@@ -69,8 +69,8 @@ const empireBusinesses = [
   },
   {
     name: "Pocket Booster",
-    tagline: "Micro-Loans for Entrepreneurs",
-    description: "Community-backed micro-loans from $100 to $1,000 for Consolidatus Empire members. No hard credit pull, fast decisions. Get the capital boost you need to launch, restock, or grow.",
+    tagline: "Micro-Loans for Everyone",
+    description: "Community-backed micro-loans from $100 to $1,000 — open to anyone through TCE Holdings. No hard credit pull, payroll-deducted repayments. Use funds for business or personal needs.",
     icon: Rocket,
     color: "from-emerald-500 to-emerald-600",
     borderColor: "border-emerald-500",
@@ -78,7 +78,7 @@ const empireBusinesses = [
     isInternal: false,
     isComingSoon: true,
     highlight: "FINTECH",
-    features: ["$100–$1,000 micro-loans", "FR2P members get priority", "Build credit history"]
+    features: ["$100–$1,000 micro-loans", "Open to anyone — no membership required", "Payroll-deducted repayments"]
   }
 ];
 

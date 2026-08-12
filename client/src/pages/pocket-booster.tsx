@@ -87,7 +87,7 @@ const emptyLoanForm = {
   // Step 2
   employerName: "", employerAddress: "", employerPhone: "",
   hrContactName: "", hrContactEmail: "",
-  jobTitle: "", employmentStartDate: "", payFrequency: "",
+  jobTitle: "", employmentStartDate: "", payFrequency: "", nextPayDate: "",
   // Step 3
   bankName: "", routingNumber: "", accountNumber: "", accountType: "",
   authorizedDeduction: false,
@@ -138,8 +138,8 @@ export default function PocketBooster() {
     if (step === 1) {
       if (!form.employerName || !form.employerAddress || !form.employerPhone)
         return "Please fill in your employer name, address, and phone.";
-      if (!form.jobTitle || !form.employmentStartDate || !form.payFrequency)
-        return "Please fill in your job title, start date, and pay frequency.";
+      if (!form.jobTitle || !form.employmentStartDate || !form.payFrequency || !form.nextPayDate)
+        return "Please fill in your job title, start date, pay frequency, and next pay date.";
     }
     if (step === 2) {
       if (!form.bankName || !form.routingNumber || !form.accountNumber || !form.accountType)
@@ -190,7 +190,7 @@ export default function PocketBooster() {
           </h1>
           <p className="text-xl text-white/70 mb-2 font-medium">Your Financial Acceleration Ecosystem</p>
           <p className="text-white/50 text-sm mb-8 max-w-xl mx-auto">
-            Inside The FR2P Club · Powered by Consolidatus Empire · Built for the 9-to-5 worker ready to level up
+            Open to Everyone · Standalone at TCE Holdings · Also inside The FR2P Club · Built for the 9-to-5 worker ready to level up
           </p>
 
           {/* Two CTAs */}
@@ -337,9 +337,23 @@ export default function PocketBooster() {
             </Badge>
             <h2 className="text-3xl md:text-4xl font-black text-white mb-2">Pocket Micro-Loan Program</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
-              Community-backed micro-loans from $100 to $1,000. No hard credit pull. No FICO score needed.
-              Repaid via payroll deduction — built on trust you <em>earn</em>.
+              Community-backed micro-loans from $100 to $1,000 — open to anyone, not just FR2P members.
+              No hard credit pull. No FICO score needed. Repaid via payroll deduction — you choose your pay dates in the application.
             </p>
+          </div>
+
+          {/* Standalone access callout */}
+          <div className="rounded-2xl p-5 mb-8 border flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left" style={{ background: `${TEAL}08`, borderColor: `${TEAL}30` }}>
+            <div className="rounded-xl p-3 flex-shrink-0" style={{ background: `${TEAL}15` }}>
+              <Unlock className="h-6 w-6" style={{ color: TEAL }} />
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm mb-1">Open to Everyone — No Membership Required</p>
+              <p className="text-white/60 text-xs leading-relaxed">
+                Access Pocket Booster directly through <span className="text-white font-semibold">TCE Holdings</span> or from inside The FR2P Club.
+                Same program, same experience — FR2P members simply get priority access as a membership perk.
+              </p>
+            </div>
           </div>
 
           {/* Philosophy banner */}
@@ -494,11 +508,12 @@ export default function PocketBooster() {
                     <CheckCircle className="h-4 w-4" /> You Likely Qualify If...
                   </h3>
                   <ul className="space-y-2 text-white/70 text-sm">
-                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Active member of The FR2P Club in good standing</li>
-                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> 60+ days as a paid member (2 consecutive payments)</li>
-                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Clear entrepreneurial purpose for the loan</li>
+                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Open to anyone — no FR2P Club membership required</li>
+                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Steady employment with payroll deduction available</li>
+                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Clear purpose for the loan — business or personal use</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> No default history within the Consolidatus community</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Mobile phone + internet access (that's all you need)</li>
+                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-[#FFD700] flex-shrink-0 mt-0.5" /> FR2P members in good standing get priority access</li>
                   </ul>
                 </div>
                 <div>
@@ -508,7 +523,8 @@ export default function PocketBooster() {
                   <ul className="space-y-2 text-white/70 text-sm">
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" /> Pre-launch — final terms set at launch</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" /> Waitlist does NOT guarantee approval</li>
-                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" /> Funds are for business use, not personal debt</li>
+                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" /> Funds can be used for business or personal needs</li>
+                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" /> All repayments via payroll deduction — select your pay dates in the application</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" /> Pay early = better odds of advancing faster</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" /> Max $1,000 now — may increase to $2,000 as momentum builds</li>
                   </ul>
@@ -535,7 +551,7 @@ export default function PocketBooster() {
                     <p className="text-white/60 text-sm flex items-start gap-2"><CheckCircle className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Decision sent to your email</p>
                   </div>
                   <p className="text-white/40 text-xs">
-                    Keep building your FR2P network — active members with more referrals move to the front of the approval line.
+                    Your selected pay dates will be used to schedule payroll deductions. FR2P members with referrals may receive priority review.
                   </p>
                 </CardContent>
               </Card>
@@ -630,9 +646,9 @@ export default function PocketBooster() {
                         </div>
                       </div>
                       <div>
-                        <Label className="text-white/70 mb-1.5 block text-sm">What will you use it for? *</Label>
+                        <Label className="text-white/70 mb-1.5 block text-sm">What will you use it for? (business or personal) *</Label>
                         <Textarea value={form.loanPurpose} onChange={e => set("loanPurpose", e.target.value)}
-                          placeholder="e.g., Run ads for my side hustle, restock inventory, pay for a certification course..."
+                          placeholder="e.g., Run ads for my side hustle, cover an unexpected bill, restock inventory, pay for a certification course..."
                           className="bg-[#001520] border-white/20 text-white placeholder:text-white/30 min-h-[80px]" />
                       </div>
                     </>}
@@ -697,6 +713,14 @@ export default function PocketBooster() {
                             </SelectContent>
                           </Select>
                         </div>
+                      </div>
+                      <div>
+                        <Label className="text-white/70 mb-1.5 block text-sm">Next Pay Date *</Label>
+                        <Input type="date" value={form.nextPayDate} onChange={e => set("nextPayDate", e.target.value)}
+                          className="bg-[#001520] border-white/20 text-white" />
+                        <p className="text-white/40 text-xs mt-1.5">
+                          Payroll deductions will align with your pay schedule. Select your upcoming pay date so we know when to deduct.
+                        </p>
                       </div>
                     </>}
 
@@ -821,13 +845,14 @@ export default function PocketBooster() {
         {/* ── EMPIRE FOOTER ── */}
         <div className="rounded-2xl p-8 border text-center" style={{ background: `${TEAL}08`, borderColor: `${TEAL}20` }}>
           <Handshake className="h-8 w-8 mx-auto mb-3" style={{ color: TEAL }} />
-          <h3 className="text-white font-black text-xl mb-2">Part of the Consolidatus Empire</h3>
+          <h3 className="text-white font-black text-xl mb-2">Standalone at TCE Holdings · Part of the Consolidatus Empire</h3>
           <p className="text-white/50 text-sm max-w-2xl mx-auto mb-5">
-            Pocket Booster lives inside The FR2P Club but operates as its own brand — 
-            alongside Khomplete Khemistri Apparel, GuardConnect DMV Security, and Studio Business. 
-            One community. Multiple paths to prosperity.
+            Pocket Booster is open to anyone through TCE Holdings — no membership required.
+            It also lives inside The FR2P Club as a member benefit, with priority access for active members.
+            One program, two ways in. Multiple paths to prosperity.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
+            <Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5">TCE Holdings</Badge>
             <Link href="/"><Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">The FR2P Club</Badge></Link>
             <a href="https://khomplete-khemistri-apparel.up.railway.app" target="_blank" rel="noopener noreferrer">
               <Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">KK Apparel</Badge>

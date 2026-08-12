@@ -863,6 +863,7 @@ export const microLoanApplications = pgTable("micro_loan_applications", {
   jobTitle: text("job_title").notNull(),
   employmentStartDate: text("employment_start_date").notNull(), // stored as text e.g. "2022-03"
   payFrequency: text("pay_frequency").notNull(), // "weekly" | "biweekly" | "semimonthly" | "monthly"
+  nextPayDate: text("next_pay_date"), // ISO date e.g. "2026-08-15"
   // Banking for payroll deduction
   bankName: text("bank_name").notNull(),
   routingNumber: text("routing_number").notNull(),
