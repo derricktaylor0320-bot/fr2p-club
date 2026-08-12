@@ -132,7 +132,7 @@ export default function Collection() {
                   style={{ backgroundColor: "#d4af37", color: "#0b0c2a" }}
                 >
                   <ShoppingBag className="w-4 h-4 mr-2" />
-                  Shop FR2P Merchandise
+                  Shop The FR2P Club Merchandise
                 </Button>
               </Link>
               <Link href="/join">

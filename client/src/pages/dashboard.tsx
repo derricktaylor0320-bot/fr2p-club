@@ -312,7 +312,7 @@ export default function Dashboard() {
             <div className="relative px-8 py-6 text-center">
               <p className="text-xs font-bold tracking-[0.25em] text-[#FFD700]/70 uppercase mb-3">Our Unified Mission</p>
               <p className="text-white/95 leading-relaxed text-sm md:text-base">
-                <span className="text-[#FFD700] font-bold">THE FR2P Club</span> exists to empower everyday individuals to build extraordinary income through multiple streams under one unified platform. We bridge the gap between where people are and where they want to be by providing a one‑stop wealth ecosystem that leverages innovation, AI‑driven learning, and real business opportunities.
+                <span className="text-[#FFD700] font-bold">The FR2P Club</span> exists to empower everyday individuals to build extraordinary income through multiple streams under one unified platform. We bridge the gap between where people are and where they want to be by providing a one‑stop wealth ecosystem that leverages innovation, AI‑driven learning, and real business opportunities.
               </p>
               <p className="text-white/90 leading-relaxed text-sm md:text-base mt-3">
                 Our mission is to help members master new skills faster, create sustainable prosperity, and build <span className="text-[#FFD700] font-semibold">residual income that lasts a lifetime</span> — all through the power of community, access, and self‑investment.

@@ -789,7 +789,7 @@ export default function Store() {
                       <div className="rounded-xl overflow-hidden border-2 border-[#FFD700]/40 shadow-lg mb-5">
                         <img
                           src="/fr2p-tshirts.png"
-                          alt="FR2P Club T-Shirts — Navy, Black, Gray, Maroon with gold FR2P logo"
+                          alt="The The FR2P Club T-Shirts — Navy, Black, Gray, Maroon with gold FR2P logo"
                           className="w-full object-cover max-h-64 object-top"
                         />
                       </div>
@@ -800,7 +800,7 @@ export default function Store() {
                         {/* T-Shirt */}
                         <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl p-5 flex flex-col justify-between gap-3">
                           <div>
-                            <p className="text-[#FFD700] font-bold text-base mb-1">FR2P Club T-Shirt</p>
+                            <p className="text-[#FFD700] font-bold text-base mb-1">The FR2P Club T-Shirt</p>
                             <p className="text-white/70 text-xs mb-3">Gold FR2P logo on premium heavyweight cotton. Navy, Black, Gray & Maroon.</p>
                             <div className="space-y-1 text-sm text-white/80">
                               <div>👕 Sizes: S – 5XL</div>
@@ -814,7 +814,7 @@ export default function Store() {
                             <Button
                               className="w-full bg-[#FFD700] text-[#001f3f] hover:bg-[#FFC700] font-bold"
                               data-testid="button-order-tshirt"
-                              onClick={() => handlePurchase('FR2P Club T-Shirt', '$35', 'product')}
+                              onClick={() => handlePurchase('The FR2P Club T-Shirt', '$35', 'product')}
                             >
                               <ShoppingCart className="w-4 h-4 mr-2" />
                               Order T-Shirt ($35)
@@ -825,7 +825,7 @@ export default function Store() {
                         {/* Ring */}
                         <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl p-5 flex flex-col justify-between gap-3">
                           <div>
-                            <p className="text-[#FFD700] font-bold text-base mb-1">FR2P Club Ring</p>
+                            <p className="text-[#FFD700] font-bold text-base mb-1">The FR2P Club Ring</p>
                             <p className="text-white/70 text-xs mb-3">Bold FR2P branded rings. 4 unique designs — wear your prosperity on your hand.</p>
                             <div className="space-y-1 text-sm text-white/80">
                               <div>💍 4 exclusive designs</div>
@@ -839,7 +839,7 @@ export default function Store() {
                             <Button
                               className="w-full bg-[#FFD700] text-[#001f3f] hover:bg-[#FFC700] font-bold"
                               data-testid="button-order-ring"
-                              onClick={() => handlePurchase('FR2P Club Ring', '$60', 'product')}
+                              onClick={() => handlePurchase('The FR2P Club Ring', '$60', 'product')}
                             >
                               <Gem className="w-4 h-4 mr-2" />
                               Order Ring ($60)
@@ -1410,7 +1410,7 @@ export default function Store() {
                   <Badge className="bg-[#FFD700] text-[#001f3f] font-bold">💼 Business Cards</Badge>
                   <Badge className="bg-green-600 text-white text-xs">Standard 3.5" × 2"</Badge>
                 </div>
-                <CardTitle className="text-xl text-[#FFD700]">FR2P Club Business Card</CardTitle>
+                <CardTitle className="text-xl text-[#FFD700]">The FR2P Club Business Card</CardTitle>
                 <CardDescription className="text-white/70">
                   Front: The FR2P Club branding, membership tiers, and pricing. Back: Your name, title, phone, email, referral link, and QR code.
                 </CardDescription>
@@ -1423,7 +1423,7 @@ export default function Store() {
                     <div className="rounded-xl overflow-hidden border-2 border-[#FFD700]/30 shadow-lg">
                       <img
                         src="/fr2p-business-card.jpeg"
-                        alt="FR2P Club Business Card — front shows branding and pricing, back shows member contact info and QR code"
+                        alt="The FR2P Club Business Card — front shows branding and pricing, back shows member contact info and QR code"
                         className="w-full object-cover"
                       />
                     </div>
@@ -1477,7 +1477,7 @@ export default function Store() {
                   <Badge className="bg-[#FFD700] text-[#001f3f] font-bold">📮 Postcards</Badge>
                   <Badge className="bg-blue-600 text-white text-xs">4" × 6" Standard Postcard</Badge>
                 </div>
-                <CardTitle className="text-xl text-[#FFD700]">FR2P Club Postcard — 4×6</CardTitle>
+                <CardTitle className="text-xl text-[#FFD700]">The FR2P Club Postcard — 4×6</CardTitle>
                 <CardDescription className="text-white/70">
                   Front: Bold "Multiple Streams. One Road to Success!" with membership options. Back: Your personal message, contact info, referral link & QR code.
                 </CardDescription>
@@ -1490,7 +1490,7 @@ export default function Store() {
                     <div className="rounded-xl overflow-hidden border-2 border-[#FFD700]/30 shadow-lg">
                       <img
                         src="/fr2p-postcard.jpeg"
-                        alt="FR2P Club 4x6 Postcard — front shows bold branding and membership pricing, back has message area, contact fields, and QR code"
+                        alt="The FR2P Club 4x6 Postcard — front shows bold branding and membership pricing, back has message area, contact fields, and QR code"
                         className="w-full object-cover"
                       />
                     </div>
@@ -1545,7 +1545,7 @@ export default function Store() {
                   <Badge className="bg-[#FFD700] text-[#001f3f] font-bold">📄 Trifold Brochure</Badge>
                   <Badge className="bg-purple-600 text-white text-xs">8.5" × 11" Folded to 3 Panels</Badge>
                 </div>
-                <CardTitle className="text-xl text-[#FFD700]">FR2P Club Trifold Brochure</CardTitle>
+                <CardTitle className="text-xl text-[#FFD700]">The FR2P Club Trifold Brochure</CardTitle>
                 <CardDescription className="text-white/70">
                   A full-color trifold covering everything: what you get, membership options, healthcare & travel benefits, and residual income. Leave one anywhere — it tells the whole story without you saying a word.
                 </CardDescription>
@@ -1558,7 +1558,7 @@ export default function Store() {
                     <div className="rounded-xl overflow-hidden border-2 border-[#FFD700]/30 shadow-lg">
                       <img
                         src="/fr2p-brochure.jpeg"
-                        alt="FR2P Club trifold brochure showing all four panels: welcome, what you get, membership options, healthcare and travel benefits, and residual income"
+                        alt="The FR2P Club trifold brochure showing all four panels: welcome, what you get, membership options, healthcare and travel benefits, and residual income"
                         className="w-full object-cover"
                       />
                     </div>
@@ -1615,9 +1615,9 @@ export default function Store() {
                   <Badge className="bg-[#FFD700] text-[#001f3f] font-bold">📋 Flyer</Badge>
                   <Badge className="bg-orange-600 text-white text-xs">8.5" × 11" Single Page</Badge>
                 </div>
-                <CardTitle className="text-xl text-[#FFD700]">FR2P Club Promotional Flyer</CardTitle>
+                <CardTitle className="text-xl text-[#FFD700]">The FR2P Club Promotional Flyer</CardTitle>
                 <CardDescription className="text-white/70">
-                  A bold single-page flyer highlighting the FR2P Club opportunity. Perfect for bulletin boards, windshields, hand-outs, and anywhere you want to make an impression fast.
+                  A bold single-page flyer highlighting The FR2P Club opportunity. Perfect for bulletin boards, windshields, hand-outs, and anywhere you want to make an impression fast.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1628,7 +1628,7 @@ export default function Store() {
                     <div className="rounded-xl overflow-hidden border-2 border-[#FFD700]/30 shadow-lg">
                       <img
                         src="/fr2p-flyer.jpeg"
-                        alt="FR2P Club promotional flyer — Multiple Streams, One Road to Success with membership pricing, benefits, and personal referral link"
+                        alt="The FR2P Club promotional flyer — Multiple Streams, One Road to Success with membership pricing, benefits, and personal referral link"
                         className="w-full object-cover"
                       />
                     </div>
