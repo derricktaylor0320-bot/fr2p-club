@@ -74,7 +74,7 @@ const empireBusinesses = [
     icon: Rocket,
     color: "from-emerald-500 to-emerald-600",
     borderColor: "border-emerald-500",
-    url: "https://khomplete-khemistri-apparel.up.railway.app/pocket-booster",
+    url: "https://tceholdings.org",
     isInternal: false,
     isComingSoon: true,
     highlight: "FINTECH",

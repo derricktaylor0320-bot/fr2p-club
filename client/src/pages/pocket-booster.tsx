@@ -23,6 +23,7 @@ const DEMO_USER_ID = getLoggedInMemberId();
 
 const TEAL = "#00C2CB";
 const TEAL_DARK = "#008F96";
+const TCE_HOLDINGS_URL = "https://tceholdings.org";
 
 const loanLadder = [
   {
@@ -190,7 +191,11 @@ export default function PocketBooster() {
           </h1>
           <p className="text-xl text-white/70 mb-2 font-medium">Your Financial Acceleration Ecosystem</p>
           <p className="text-white/50 text-sm mb-8 max-w-xl mx-auto">
-            Open to Everyone · Standalone at TCE Holdings · Also inside The FR2P Club · Built for the 9-to-5 worker ready to level up
+            Open to Everyone · Standalone at{" "}
+            <a href={TCE_HOLDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white underline underline-offset-2">
+              TCE Holdings
+            </a>
+            {" "}· Also inside The FR2P Club · Built for the 9-to-5 worker ready to level up
           </p>
 
           {/* Two CTAs */}
@@ -350,7 +355,11 @@ export default function PocketBooster() {
             <div>
               <p className="text-white font-bold text-sm mb-1">Open to Everyone — No Membership Required</p>
               <p className="text-white/60 text-xs leading-relaxed">
-                Access Pocket Booster directly through <span className="text-white font-semibold">TCE Holdings</span> or from inside The FR2P Club.
+                Access Pocket Booster directly through{" "}
+                <a href={TCE_HOLDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-white font-semibold hover:underline">
+                  TCE Holdings
+                </a>{" "}
+                or from inside The FR2P Club.
                 Same program, same experience — FR2P members simply get priority access as a membership perk.
               </p>
             </div>
@@ -847,12 +856,18 @@ export default function PocketBooster() {
           <Handshake className="h-8 w-8 mx-auto mb-3" style={{ color: TEAL }} />
           <h3 className="text-white font-black text-xl mb-2">Standalone at TCE Holdings · Part of the Consolidatus Empire</h3>
           <p className="text-white/50 text-sm max-w-2xl mx-auto mb-5">
-            Pocket Booster is open to anyone through TCE Holdings — no membership required.
+            Pocket Booster is open to anyone through{" "}
+            <a href={TCE_HOLDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white underline underline-offset-2">
+              TCE Holdings
+            </a>
+            {" "}— no membership required.
             It also lives inside The FR2P Club as a member benefit, with priority access for active members.
             One program, two ways in. Multiple paths to prosperity.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5">TCE Holdings</Badge>
+            <a href={TCE_HOLDINGS_URL} target="_blank" rel="noopener noreferrer">
+              <Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">TCE Holdings</Badge>
+            </a>
             <Link href="/"><Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">The FR2P Club</Badge></Link>
             <a href="https://khomplete-khemistri-apparel.up.railway.app" target="_blank" rel="noopener noreferrer">
               <Badge className="bg-white/5 text-white/60 border border-white/10 px-4 py-1.5 hover:bg-white/10 cursor-pointer">KK Apparel</Badge>
