@@ -28,7 +28,8 @@ import {
   Brain,
   BarChart3,
   LogIn,
-  LogOut
+  LogOut,
+  Shapes
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -57,6 +58,7 @@ const navigation = [
   { name: "Pocket Booster", href: "/pocket-booster", icon: Rocket, highlight: true },
   { name: "Achievements", href: "/achievements", icon: Trophy },
   { name: "Store", href: "/store", icon: Store },
+  { name: "Emblem Collection", href: "/collection", icon: Shapes, highlight: true },
   { name: "Chat", href: "/chat", icon: MessageCircle },
   { name: "Resources", href: "/resources", icon: BookOpen },
   { name: "Profile", href: "/profile", icon: User },

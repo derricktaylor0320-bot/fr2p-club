@@ -115,7 +115,7 @@ function PrintModal({ material, info, onClose }: PrintModalProps) {
               <img src="${window.location.origin}${material.file}" class="template-img" />
               <div class="info-card">
                 <h2>${info.name || "Your Name"}</h2>
-                <div class="title">${info.title || "FR2P Club Member"}</div>
+                <div class="title">${info.title || "The FR2P Club Member"}</div>
                 <div class="divider"></div>
                 ${info.phone ? `<div class="info-row"><span>📞 Phone:</span> ${info.phone}</div>` : ""}
                 ${info.email ? `<div class="info-row"><span>✉️ Email:</span> ${info.email}</div>` : ""}
@@ -173,7 +173,7 @@ function PrintModal({ material, info, onClose }: PrintModalProps) {
             <div className="bg-[#002855] p-5 space-y-3">
               <div>
                 <p className="text-[#FFD700] font-bold text-xl">{info.name || <span className="text-white/30 italic">Your Name</span>}</p>
-                <p className="text-white/60 text-sm">{info.title || "FR2P Club Member"}</p>
+                <p className="text-white/60 text-sm">{info.title || "The FR2P Club Member"}</p>
               </div>
               <div className="border-t border-[#FFD700]/20 pt-3 space-y-2">
                 {info.phone && (
@@ -255,7 +255,7 @@ export default function MarketingTools() {
 
   const [info, setInfo] = useState<MemberInfo>({
     name: "",
-    title: "FR2P Club Member",
+    title: "The FR2P Club Member",
     phone: "",
     email: "",
     website: "",

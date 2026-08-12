@@ -494,7 +494,7 @@ export default function PocketBooster() {
                     <CheckCircle className="h-4 w-4" /> You Likely Qualify If...
                   </h3>
                   <ul className="space-y-2 text-white/70 text-sm">
-                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Active FR2P Club member in good standing</li>
+                    <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Active member of The FR2P Club in good standing</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> 60+ days as a paid member (2 consecutive payments)</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> Clear entrepreneurial purpose for the loan</li>
                     <li className="flex items-start gap-2"><ChevronRight className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" /> No default history within the Consolidatus community</li>

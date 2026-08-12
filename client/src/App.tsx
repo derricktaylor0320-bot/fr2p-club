@@ -32,6 +32,7 @@ import MarketingTools from "@/pages/marketing-tools";
 import PocketBooster from "@/pages/pocket-booster";
 import HustleIncubator from "@/pages/hustle-incubator";
 import InvestmentTracker from "@/pages/investment-tracker";
+import Collection from "@/pages/collection";
 import Login from "@/pages/login";
 import NotFound from "@/pages/not-found";
 
@@ -72,6 +73,7 @@ function Router() {
       <Route path="/pocket-booster" component={PocketBooster} />
       <Route path="/hustle-incubator" component={HustleIncubator} />
       <Route path="/investment-tracker" component={InvestmentTracker} />
+      <Route path="/collection" component={Collection} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
