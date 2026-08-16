@@ -1017,7 +1017,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 mt-5">
 
               {/* Video 1 — Robert Kiyosaki */}
               <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl overflow-hidden flex flex-col">
@@ -1106,6 +1106,36 @@ export default function Dashboard() {
                   <iframe
                     src="https://www.youtube.com/embed/lmpv7CJz6so"
                     title="Myron Golden — Reoccurring Income"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+
+              {/* Video 4 — Master P */}
+              <div className="bg-white/5 border border-[#FFD700]/30 rounded-xl overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-white/10 flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-[#FFD700] font-black text-xs">MP</span>
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-sm leading-tight">Master P</p>
+                      <p className="text-white/50 text-xs">How Much Am I Really Worth?</p>
+                    </div>
+                  </div>
+                  <p className="text-white/70 text-xs leading-relaxed mb-2">
+                    Walked away from a million-dollar deal because he knew his worth. Sold CDs from his trunk, built his own empire — and proved that ownership beats a paycheck every time.
+                  </p>
+                  <div className="bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-lg p-2">
+                    <p className="text-[#FFD700] text-[10px] font-semibold italic">"Never do business when you're desperate. Know your worth and your value."</p>
+                  </div>
+                </div>
+                <div className="aspect-video">
+                  <iframe
+                    src="https://www.youtube.com/embed/vCXavvpeXaM"
+                    title="Master P — How Much Am I Really Worth?"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
