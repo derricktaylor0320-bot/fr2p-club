@@ -1,13 +1,13 @@
 # The FR2P Club - Financial Roadway 2 Prosperity
 
 ## Overview
-The FR2P Club is an **affiliate marketing investment platform and movement** focused on digital education, professional training, industry certifications, and wealth-building. It operates on a "Get 5, Teach 5" duplication model, empowering members to achieve financial freedom by referring just five individuals and teaching them to do the same. The platform offers a simple $5/month flat commission per direct referral, enhanced commissions for early "Founding Members," and achievement tier recognition. Inspired by a legacy of "everybody can win" business models, FR2P integrates wealth-building opportunities with lifestyle benefits, aiming to create a community built on brotherhood, harmony, and entrepreneurship. The long-term vision includes an exclusive Executive Investor Tier and securing grant funding for sustained growth and competitive commission payout terms.
+The FR2P Club is an **affiliate marketing investment platform and movement** focused on digital education, professional training, industry certifications, and wealth-building. It operates on a "Get 5, Teach 5" duplication model, empowering members to achieve financial freedom by referring just five individuals and teaching them to do the same. The platform offers a reoccurring $5/month flat commission per direct referral, enhanced commissions for early "Founding Members," and achievement tier recognition. Inspired by a model of "everybody can win" business models, The FR2P Club integrates wealth-building opportunities with lifestyle benefits, aiming to create a community built on brotherhood  harmony, and entrepreneurship. The long-term vision includes an exclusive Executive Investor Tier and securing grant funding advertising and marketing for sustained growth and competitive commission payout terms.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 
 ## System Architecture
-FR2P employs a monorepo architecture with distinct client, server, and shared components.
+The FR2P Club employs a monorepo architecture with distinct client, server, and shared components.
 
 **UI/UX:** The platform features a **navy blue (#001f3f) and metallic gold (#FFD700) luxury theme** with high-contrast design, PWA capabilities, and a real-time community chat. All core UI elements use consistent branding with navy gradient backgrounds and gold accents.
 
@@ -17,23 +17,23 @@ FR2P employs a monorepo architecture with distinct client, server, and shared co
 *   **Database:** PostgreSQL with Drizzle ORM for type-safe operations, including `Members` (with sponsor relationships), `Network Stats`, `Transactions`, `chat_messages`, and `online_presence`.
 
 **Feature Specifications:**
-*   **Authentication:** Standard username/password registration and login. Auth state stored in localStorage via `client/src/lib/auth.ts`. Login page at `/login`. All member pages read `getLoggedInMemberId()` — falls back to `fr2p-founder` if not logged in. Logout button in sidebar footer. Trial/founding50 members auto-logged in after registration.
-*   **Referral System:** Unique referral links, direct sign-ups, and manual referrer search. Includes a "sizzle call" CTA for prospects.
-*   **Financial System:** Integrates Stripe for secure payments and subscriptions.
+*   **Authentication:** Standard username/password registration and login. Auth state stored in localStorage via `client/src/lib/auth.ts`. Login page at `/login`. All member pages read `getLoggedInMemberId()` — falls back to `The FR2P Club-Founder` if not logged in. Logout button in sidebar footer. Trial/founding50 members auto-logged in after registration.
+*   **Referral System:** Unique referral links, direct sign-ups, and manual referrer search. Includes a "sizzle call" CTA for prospects. 667-268-1022
+*   **Financial System:** Integrates Square for secure payments and subscriptions.
     *   **2-Tier Membership:** Standard ($35/month or $350/year) and Premium ($50/month or $500/year).
-    *   **FTC-Compliant Single-Tier Commission:** Flat $5/month per direct referral — **PERMANENT residual income** that continues forever even if the referral cancels their membership. Referrals are "locked in" on first payment. Future goal: increase from $5 to $25 as momentum builds.
+    *   **FTC-Compliant Single-Tier Commission:** Flat $5/month per direct referral — **Reoccurring that continues as long as the member retains their active membership. **Referrals are "locked in" on the first payment. Future goal: increase from $5 to $25 as momentum builds.
     *   **Founding Member Enhanced Rates:** Tier-based enhanced commissions (e.g., $16-$22/referral) and 2x achievement bonuses for the first 500 members.
     *   **Achievement Tier Bonuses:** One-time recognition bonuses for reaching referral milestones (Bronze to Diamond).
     *   **Commission Eligibility:** Members must be enrolled and paid for 2 consecutive months (60 days) before they're eligible to earn commissions. "Separating the curious from the serious."
     *   **Commission Hold:** 30-day hold period.
     *   **Account Grace Period:** If a member stops paying, their account stays in the system for 90 days. They can log back in and pick up where they left off. After 90 days, they must rejoin as a new member.
-    *   **Automated Savings:** Automatic $35 deduction from commissions into a "Financial Asset Savings" account — only applies when monthly commission reaches $70+ (14+ referrals). Must earn at least double the deduction amount to qualify. $35 × 12 = $420/year, covering the annual membership cost.
+    *   **Automated Savings Account:** Automatic $35 deduction from commissions into a "Financial Asset Savings" account — only applies when monthly commission reaches $70+ (14+ referrals). Must earn at least double the deduction amount to qualify. $35 × 12 = $420/year, covering the annual membership cost.
 *   **Network Management:** Visual representation of downline members across 5 circles of influence with a **5-tier achievement affiliate system** (Bronze to Diamond Affiliate Ambassador). Tracks real-time affiliate stats.
 *   **Achievement Certificates:** Personalized navy and gold digital certificates awarded for each tier milestone, viewable and downloadable by members.
 *   **FTC Compliance:** Strictly single-tier affiliate model, earning only from direct referrals.
 *   **Profile Management:** Member profile updates, including charity preferences via ProPublica API, and profile picture storage readiness.
 *   **Email System:** Automated welcome emails via Resend with referral links and member numbers.
-*   **Donation System:** Stripe-powered page for contributions to the business.
+*   **Donation System:** Square powered page for contributions to the business.
 *   **Legal Compliance:** Comprehensive Terms & Conditions outlining IBO status, tax reporting, commission hold, capital reserve, and charity options.
 *   **Content:** Educational resources (e.g., tax deductions article) and product updates.
 *   **Professional Development:** Curated recommendations for 6 professional learning platforms (Coursera, LinkedIn Learning, edX, Skillshare, Khan Academy, Google Career Certificates).
@@ -41,7 +41,7 @@ FR2P employs a monorepo architecture with distinct client, server, and shared co
 *   **Store Products:** Curated merchandise (NFC business cards, rings), affiliate products (TexterGram SMS), and digital resources.
 *   **Financial Model Tool:** Interactive HTML spreadsheet (`/fr2p-financial-model.html`) demonstrating financial projections and commission mechanics.
 *   **Ambassador Partnership Program:** Dedicated `/ambassador` page (also accessible at `/partner`) for influencer outreach. Features 3 tiers: FR2P Ambassador (100+ followers), Brand Architect (1K+ followers), and Founding Partner (10K+ followers). Includes application form capturing name, email, social handles, follower count, niche, and motivation. Designed to attract influencers before funding by offering status, titles, and future benefits instead of upfront payment. Ambassadors join as paying members and earn commissions on their referrals.
-*   **Consolidatus Empire Integration:** FR2P is part of the larger Consolidatus Empire founded by Derrick Taylor. Includes hub page at `/empire` (also `/consolidators`) showcasing all partner businesses: Khomplete Khemistri Apparel & Accessories (https://kkmgllc2023-derricktaylor03.replit.app/), GuardConnect DMV Security, and Studio Business. Empire links appear in sidebar navigation, dashboard, and store page. Members get cross-platform access and discounts across all empire businesses.
+*   **The Consolidatus Empire LLC Integration:** The FR2P Club is part of the The Consolidatus Empire LLC which was created and founded by Derrick Taylor. It includes hub page at `/empire` (also `/consolidatus`) showcasing all partner businesses: Khomplete Khemistri Apparel & Accessories (https://kkmgllc2023-derricktaylor03.replit.app/)
 *   **Digital Products:** One-time purchase digital products in the store ($7-$297) including Financial Reset Starter Kit, Side Hustle Blueprint, Credit Boost Accelerator, Budgeting Mastery Toolkit, Money Mindset Audio Series, and Lifetime Access Bundle. These generate income regardless of membership retention.
 *   **FR2P Certification Program:** Dedicated `/certifications` page with 4 certification levels: Financial Literacy Fundamentals ($49), Affiliate Marketing Mastery ($99), Digital Entrepreneurship ($149), and Wealth Building & Legacy ($199). Complete bundle available for $399. One-time purchase, no membership required.
 *   **Investment & Wealth Building:** Comprehensive `/investments` (also `/wealth-building`) page showcasing the full FR2P financial ecosystem. Sections include: Derrick Taylor's vision statement, multi-stream ecosystem overview (6 income streams), Real Estate (Fundrise + Roots REIT coming soon), FR2P Broker Access (ETF/index funds, retirement accounts), Banking & Lending Access (mortgages/auto/business loans via warm banker introductions), Invest Into FR2P Itself (future transparency dashboard with fund allocation breakdown), "Why It Costs More to Leave Than Stay" comparison, and multi-stream income projection table (Year 1/3/5).
