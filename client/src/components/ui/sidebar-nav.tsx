@@ -29,7 +29,8 @@ import {
   BarChart3,
   LogIn,
   LogOut,
-  Shapes
+  Shapes,
+  Fuel
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -43,6 +44,7 @@ const navigation = [
   { name: "Dashboard", href: "/", icon: Home },
   { name: "Prospect Manager", href: "/prospects", icon: Target },
   { name: "Marketing Tools", href: "/marketing-tools", icon: FileImage, highlight: true },
+  { name: "The FR2P Club Fuel Rewards", href: "/fuel-rewards", icon: Fuel, highlight: true },
   { name: "Why Join FR2P", href: "/why-join", icon: Lightbulb, highlight: true },
   { name: "Member Marketplace", href: "/marketplace", icon: ShoppingBag, highlight: true },
   { name: "Advertise With Us", href: "/advertise", icon: Megaphone, highlight: true },
