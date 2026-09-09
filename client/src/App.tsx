@@ -29,6 +29,7 @@ import Marketplace from "@/pages/marketplace";
 import Advertise from "@/pages/advertise";
 import Prospects from "@/pages/prospects";
 import MarketingTools from "@/pages/marketing-tools";
+import FuelRewards from "@/pages/fuel-rewards";
 import PocketBooster from "@/pages/pocket-booster";
 import HustleIncubator from "@/pages/hustle-incubator";
 import InvestmentTracker from "@/pages/investment-tracker";
@@ -70,6 +71,7 @@ function Router() {
       <Route path="/advertise" component={Advertise} />
       <Route path="/prospects" component={Prospects} />
       <Route path="/marketing-tools" component={MarketingTools} />
+      <Route path="/fuel-rewards" component={FuelRewards} />
       <Route path="/pocket-booster" component={PocketBooster} />
       <Route path="/hustle-incubator" component={HustleIncubator} />
       <Route path="/investment-tracker" component={InvestmentTracker} />
