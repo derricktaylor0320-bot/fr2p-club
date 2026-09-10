@@ -8,20 +8,21 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import type { MemberResponse } from "@shared/schema";
-import { FUEL_REWARDS_TIERS } from "@shared/schema";
+import { FUEL_REWARDS_TIERS, HIHELLO_APP_STORE_URL, HIHELLO_GOOGLE_PLAY_URL, GOTPRINT_URL, VISTAPRINT_URL } from "@shared/schema";
 import { getLoggedInMemberId } from "@/lib/auth";
 import {
   Fuel, Crown, Star, Zap, QrCode, MapPin, Car, Handshake,
   DollarSign, Users, TrendingUp, CheckCircle2, ChevronRight,
-  Megaphone, ExternalLink,
+  Megaphone, ExternalLink, Smartphone, Printer, FileImage,
 } from "lucide-react";
 import { Link } from "wouter";
 
 const MEMBER_ID = getLoggedInMemberId();
 
-const tierIcons = [Fuel, Star, Crown];
+const tierIcons = [Fuel, Star, Zap, Crown];
 const tierColors = [
   { border: "border-slate-400", badge: "bg-slate-400 text-slate-900", btn: "bg-slate-400 hover:bg-slate-500 text-slate-900" },
+  { border: "border-emerald-400", badge: "bg-emerald-400 text-emerald-900", btn: "bg-emerald-500 hover:bg-emerald-600 text-white" },
   { border: "border-sky-400", badge: "bg-sky-400 text-sky-900", btn: "bg-sky-500 hover:bg-sky-600 text-white" },
   { border: "border-[#FFD700]", badge: "bg-[#FFD700] text-[#001f3f]", btn: "bg-[#FFD700] hover:bg-yellow-300 text-[#001f3f]" },
 ];
@@ -224,15 +225,110 @@ export default function FuelRewards() {
               </CardContent>
             </Card>
 
+            {/* Marketing Back Office Overview */}
+            <Card className="bg-gradient-to-br from-[#001f3f] to-[#002855] border-2 border-[#FFD700]/40 mb-8">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <FileImage className="h-5 w-5 text-[#FFD700]" />
+                  Marketing Back Office & Marketing Tools
+                </CardTitle>
+                <p className="text-white/60 text-sm mt-1">
+                  Included with Pro ($29.99/mo) and Elite Premium ($39.99/mo) — your command center for growing your Fuel Rewards business.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                  {[
+                    {
+                      icon: Printer,
+                      title: "Print Materials",
+                      desc: "Business cards, postcards, gas pump QR signs, and car magnet templates — customize with your info and print.",
+                    },
+                    {
+                      icon: QrCode,
+                      title: "HiHello Digital Card",
+                      desc: "Free app for iPhone (Apple App Store) and Android (Google Play Store). Add your role, contact info, and referral link — share your QR anywhere.",
+                    },
+                    {
+                      icon: ExternalLink,
+                      title: "GotPrint.com",
+                      desc: "Order professional postcards starting at $49. Best for single-run and local direct-mail fuel savings campaigns.",
+                    },
+                    {
+                      icon: ExternalLink,
+                      title: "VistaPrint",
+                      desc: "Best for bulk business cards, car magnets, and large quantity runs — not ideal for single one-off items.",
+                    },
+                  ].map(item => (
+                    <div key={item.title} className="bg-white/5 rounded-xl p-4 border border-white/10">
+                      <item.icon className="h-5 w-5 text-[#FFD700] mb-2" />
+                      <p className="text-white font-semibold text-sm">{item.title}</p>
+                      <p className="text-white/50 text-xs mt-1 leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-xl p-4">
+                  <p className="text-[#FFD700] font-bold text-sm mb-3 flex items-center gap-2">
+                    <Smartphone className="h-4 w-4" />
+                    HiHello — Digital Business Card App
+                  </p>
+                  <p className="text-white/70 text-xs leading-relaxed mb-3">
+                    Download HiHello on your phone, enter your name, role, phone number, and Fuel Rewards referral link,
+                    then share your QR code via text, email, Bluetooth, WhatsApp, or any app. Your QR updates automatically — no reprinting needed.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <a
+                      href={HIHELLO_APP_STORE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-black hover:bg-gray-900 text-white text-xs font-bold px-4 py-2 rounded-lg border border-white/20 transition-colors"
+                    >
+                      <Smartphone className="h-3.5 w-3.5" />
+                      Apple App Store (iPhone)
+                    </a>
+                    <a
+                      href={HIHELLO_GOOGLE_PLAY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors"
+                    >
+                      <Smartphone className="h-3.5 w-3.5" />
+                      Google Play Store (Android)
+                    </a>
+                    <a
+                      href={GOTPRINT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-lg border border-white/20 transition-colors"
+                    >
+                      GotPrint.com →
+                    </a>
+                    <a
+                      href={VISTAPRINT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-lg border border-white/20 transition-colors"
+                    >
+                      VistaPrint.com →
+                    </a>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Subscription Tiers */}
             <div className="mb-4">
-              <h2 className="text-2xl font-bold text-white mb-1">Choose Your Tier</h2>
-              <p className="text-white/60 text-sm mb-6">
-                Three tiers designed for every level — from getting started to dominating your local market.
+              <h2 className="text-2xl font-bold text-white mb-1">Choose Your Tier — Monthly Breakdown</h2>
+              <p className="text-white/60 text-sm mb-2">
+                Four options — from free with FR2P membership to Elite Premium at $39.99/month. Each tier shows exactly what you get every month.
+              </p>
+              <p className="text-[#FFD700] text-xs font-semibold mb-6">
+                Paid tiers: Starter $19.99/mo · Pro $29.99/mo (Marketing Back Office) · Elite Premium $39.99/mo
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
               {FUEL_REWARDS_TIERS.map((tier, i) => {
                 const Icon = tierIcons[i];
                 const colors = tierColors[i];
@@ -259,15 +355,39 @@ export default function FuelRewards() {
                         <span className="text-3xl font-black text-[#FFD700]">{tier.price}</span>
                         {!isIncluded && <span className="text-white/50 text-sm">/month</span>}
                       </div>
+                      {!isIncluded && (
+                        <p className="text-white/40 text-[10px] mt-1">{tier.billingNote}</p>
+                      )}
                       <p className="text-white/60 text-xs mt-2 leading-relaxed">{tier.description}</p>
                     </CardHeader>
                     <CardContent className="space-y-4">
+                      <div className="bg-white/5 rounded-lg p-3 border border-[#FFD700]/20">
+                        <p className="text-[#FFD700] text-xs font-bold uppercase tracking-wide mb-2">
+                          What You Get Every Month
+                        </p>
+                        <ul className="space-y-1.5">
+                          {tier.monthlyIncludes.map(item => (
+                            <li key={item} className="flex items-start gap-2 text-white/75 text-[11px] leading-relaxed">
+                              <CheckCircle2 className="h-3 w-3 text-green-400 flex-shrink-0 mt-0.5" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
                       <div>
                         <p className="text-[#FFD700] text-xs font-bold uppercase tracking-wide mb-2">How You Earn</p>
                         <p className="text-white/70 text-xs leading-relaxed">{tier.earnDescription}</p>
                       </div>
 
-                      <ul className="space-y-2">
+                      {tier.hasMarketingBackOffice && (
+                        <div className="flex items-center gap-1.5 bg-sky-500/10 border border-sky-400/30 rounded-lg px-2 py-1.5">
+                          <FileImage className="h-3.5 w-3.5 text-sky-300" />
+                          <span className="text-sky-200 text-[10px] font-semibold">Includes Marketing Back Office</span>
+                        </div>
+                      )}
+
+                      <ul className="space-y-1.5">
                         {tier.features.map(f => (
                           <li key={f} className="flex items-start gap-2 text-white/80 text-xs">
                             <CheckCircle2 className="h-3.5 w-3.5 text-green-400 flex-shrink-0 mt-0.5" />
@@ -297,34 +417,40 @@ export default function FuelRewards() {
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-8">
               <h3 className="text-white font-bold mb-3 flex items-center gap-2">
                 <Users className="h-5 w-5 text-[#FFD700]" />
-                Tier Comparison — What Each Level Unlocks
+                Tier Comparison — Monthly Features
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs text-white/70">
                   <thead>
                     <tr className="border-b border-white/10">
-                      <th className="text-left py-2 pr-4 text-[#FFD700]">Feature</th>
+                      <th className="text-left py-2 pr-4 text-[#FFD700]">Feature / Month</th>
                       <th className="text-center py-2 px-2">Member</th>
-                      <th className="text-center py-2 px-2">Pro $19.99</th>
-                      <th className="text-center py-2 px-2">Elite $39.99</th>
+                      <th className="text-center py-2 px-2">$19.99</th>
+                      <th className="text-center py-2 px-2">$29.99</th>
+                      <th className="text-center py-2 px-2">$39.99</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
                     {[
-                      ["Fuel savings access", "✓", "✓", "✓"],
-                      ["Personal referral link", "✓", "✓", "✓"],
-                      ["Basic marketing materials", "✓", "✓", "✓"],
-                      ["Marketing Back Office", "—", "✓", "✓"],
-                      ["HiHello digital QR card", "—", "✓", "✓"],
-                      ["Gas pump QR signage", "—", "✓", "✓"],
-                      ["Car magnet templates", "—", "—", "✓"],
-                      ["Priority commission rate", "—", "—", "✓"],
-                      ["Station partnership toolkit", "—", "—", "✓"],
-                      ["GotPrint & VistaPrint guides", "—", "✓", "✓"],
-                    ].map(([feature, m, p, e]) => (
+                      ["Fuel savings access", "✓", "✓", "✓", "✓"],
+                      ["Personal referral link", "✓", "✓", "✓", "✓"],
+                      ["Starter commission rate", "—", "✓", "✓", "✓"],
+                      ["Basic business card template", "—", "✓", "✓", "✓"],
+                      ["Marketing Back Office", "—", "—", "✓", "✓"],
+                      ["Marketing Tools (print & customize)", "—", "—", "✓", "✓"],
+                      ["HiHello digital QR card (App Store & Google Play)", "—", "—", "✓", "✓"],
+                      ["GotPrint.com postcard guide (from $49)", "—", "—", "✓", "✓"],
+                      ["VistaPrint bulk print guide", "—", "—", "✓", "✓"],
+                      ["Gas pump QR signage", "—", "—", "✓", "✓"],
+                      ["Car magnet templates", "—", "—", "—", "✓"],
+                      ["Station partnership toolkit", "—", "—", "—", "✓"],
+                      ["Priority commission rate (highest)", "—", "—", "—", "✓"],
+                      ["Elite partner badge & support", "—", "—", "—", "✓"],
+                    ].map(([feature, m, s, p, e]) => (
                       <tr key={feature}>
                         <td className="py-2 pr-4">{feature}</td>
                         <td className="text-center py-2 px-2">{m}</td>
+                        <td className="text-center py-2 px-2">{s}</td>
                         <td className="text-center py-2 px-2">{p}</td>
                         <td className="text-center py-2 px-2 text-[#FFD700] font-semibold">{e}</td>
                       </tr>
@@ -333,7 +459,7 @@ export default function FuelRewards() {
                 </table>
               </div>
               <p className="text-white/40 text-[10px] mt-4">
-                Member Access is included free with any active The FR2P Club membership. Pro and Elite tiers are standalone add-ons available to anyone.
+                Member Access is free with active FR2P membership. Starter ($19.99), Pro ($29.99 with Marketing Back Office), and Elite Premium ($39.99) are monthly subscriptions — cancel anytime.
               </p>
             </div>
 
@@ -367,9 +493,10 @@ export default function FuelRewards() {
                 Enter your info once, customize every material, and start marketing at gas stations and on the road.
               </p>
               <p className="text-orange-200/70 text-xs mt-2">
-                Pro ($19.99/mo) and Elite ($39.99/mo) tiers include full access.{" "}
+                Pro ($29.99/mo) and Elite Premium ($39.99/mo) include full Marketing Back Office access.
+                Uses HiHello (App Store & Google Play), GotPrint.com, and VistaPrint.{" "}
                 <button onClick={() => setActiveSection("overview")} className="text-[#FFD700] underline hover:text-yellow-300">
-                  View tier details →
+                  View tier breakdown →
                 </button>
               </p>
             </div>

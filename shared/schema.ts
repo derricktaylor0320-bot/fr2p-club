@@ -364,8 +364,14 @@ export const KONNECTMD_LIFESTYLE_PRICE = 9999; // $99.99/month - paid directly t
 export const KONNECTMD_AMBASSADOR_LINK = 'https://konnectmdagency.com/index.aspx?ReferringDealerID=816491';
 
 // The FR2P Club Fuel Rewards — Standalone affiliate program (also inside FR2P Club)
-export const FUEL_REWARDS_PRO_PRICE = 1999; // $19.99/month Pro tier in cents
+export const FUEL_REWARDS_STARTER_PRICE = 1999; // $19.99/month Starter tier in cents
+export const FUEL_REWARDS_PRO_PRICE = 2999; // $29.99/month Pro tier in cents (Marketing Back Office)
 export const FUEL_REWARDS_ELITE_PRICE = 3999; // $39.99/month Elite Premium tier in cents
+
+export const HIHELLO_APP_STORE_URL = 'https://apps.apple.com/us/app/hihello-digital-business-card/id1453874447';
+export const HIHELLO_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=me.hihello.mobile';
+export const GOTPRINT_URL = 'https://www.gotprint.com';
+export const VISTAPRINT_URL = 'https://www.vistaprint.com';
 
 export const FUEL_REWARDS_TIERS = [
   {
@@ -374,56 +380,107 @@ export const FUEL_REWARDS_TIERS = [
     tag: 'Included with FR2P',
     price: 'Included',
     priceDisplay: 'Free',
+    billingNote: 'Included with active The FR2P Club membership — no additional monthly fee.',
     description: 'Get started with fuel savings and your personal referral link — included free with any active The FR2P Club membership.',
     earnDescription: 'Earn base affiliate commissions on every Fuel Rewards signup through your link. Share by text, email, or social media.',
-    features: [
+    monthlyIncludes: [
       'Personal Fuel Rewards referral link',
-      'Fuel savings program access',
-      'Basic program overview & training',
-      'Share link via text, email, or social',
-      'Included with active FR2P membership',
+      'Fuel savings program access each month',
+      'Program overview & affiliate training',
+      'Share your link via text, email, or social media',
+    ],
+    features: [
+      'Referral link & fuel savings access',
+      'Basic program training',
+      'Upgrade anytime for Marketing Back Office',
     ],
     featured: false,
+    hasMarketingBackOffice: false,
+  },
+  {
+    id: 'starter',
+    name: 'Starter Partner',
+    tag: '$19.99 / Month',
+    price: '$19.99',
+    priceDisplay: '$19.99',
+    billingNote: 'Billed $19.99 every month. Cancel anytime.',
+    description: 'Your entry into Fuel Rewards affiliate marketing — referral tools, fuel savings, and starter marketing materials every month.',
+    earnDescription: 'Earn starter affiliate commissions on every signup through your link. Build your base while learning the program.',
+    monthlyIncludes: [
+      'Personal Fuel Rewards referral link (active every month)',
+      'Fuel savings program access for you and referrals',
+      'Starter affiliate commission rate',
+      'Monthly program updates & training resources',
+      'Basic business card template — download & print',
+      'Share referral link via text, email & social media',
+    ],
+    features: [
+      'Fuel savings + referral link',
+      'Starter commission rate',
+      'Basic business card template',
+      'Monthly training resources',
+    ],
+    featured: false,
+    hasMarketingBackOffice: false,
   },
   {
     id: 'pro',
     name: 'Pro Partner',
-    tag: 'Most Popular',
-    price: '$19.99',
-    priceDisplay: '$19.99',
-    description: 'Full Marketing Back Office access — business cards, postcards, HiHello QR digital cards, and gas pump signage templates.',
-    earnDescription: 'Earn enhanced affiliate commissions plus access to print-ready materials. Market at gas stations with QR pump signs and professional collateral.',
+    tag: '$29.99 / Month · Marketing Back Office',
+    price: '$29.99',
+    priceDisplay: '$29.99',
+    billingNote: 'Billed $29.99 every month. Includes full Marketing Back Office & Marketing Tools.',
+    description: 'Full Marketing Back Office every month — business cards, postcards, HiHello digital QR card, gas pump signs, and print vendor guides.',
+    earnDescription: 'Earn enhanced affiliate commissions plus full Marketing Back Office access. Market at gas stations with QR pump signs and professional collateral.',
+    monthlyIncludes: [
+      'Full Marketing Back Office & Marketing Tools — every month',
+      'Customize & print business cards and postcards',
+      'HiHello digital business card app — free on iPhone (Apple App Store) & Android (Google Play Store)',
+      'Add your name, role, phone & Fuel Rewards referral link in HiHello',
+      'Share HiHello QR via text, email, Bluetooth, WhatsApp & more',
+      'Gas pump QR sign templates for station partnerships',
+      'GotPrint.com ordering guide — postcards starting at $49',
+      'VistaPrint ordering guide — bulk business cards & large print runs',
+      'Enhanced affiliate commission rate',
+    ],
     features: [
-      'Everything in Member Access',
-      'Full Marketing Back Office',
-      'Business cards & postcard templates',
-      'HiHello digital QR business card',
-      'Gas pump QR sign templates',
-      'GotPrint & VistaPrint vendor guides',
-      'Share QR via text, email, Bluetooth & more',
-      'Enhanced commission rate',
+      'Marketing Back Office + Marketing Tools',
+      'HiHello app (App Store & Google Play)',
+      'GotPrint.com & VistaPrint partners',
+      'Gas pump QR signage templates',
     ],
     featured: false,
+    hasMarketingBackOffice: true,
   },
   {
     id: 'elite',
     name: 'Elite Premium',
-    tag: 'Top Tier',
+    tag: 'Top Tier · $39.99 / Month',
     price: '$39.99',
     priceDisplay: '$39.99',
-    description: 'The ultimate Fuel Rewards partner package — car magnet marketing, station partnership toolkit, and highest commission rates.',
-    earnDescription: 'Maximize income with priority commissions, car magnet templates, and a complete gas station partnership playbook. Dominate your local market.',
-    features: [
-      'Everything in Pro Partner',
-      'Car magnet marketing templates',
-      'Gas station partnership playbook',
-      'Priority affiliate commission rate',
+    billingNote: 'Billed $39.99 every month. Premium tier with highest commissions and all marketing tools.',
+    description: 'The ultimate Fuel Rewards partner package — everything in Pro plus car magnets, station toolkit, and the highest commission rate.',
+    earnDescription: 'Maximize income with priority commissions, car magnet templates, and a complete gas station partnership playbook.',
+    monthlyIncludes: [
+      'Everything in Pro Partner ($29.99) — every month',
+      'Full Marketing Back Office & all Marketing Tools unlocked',
+      'HiHello digital business card (Apple App Store for iPhone · Google Play Store for Android)',
+      'Car magnet marketing templates — rolling advertisement on your vehicle',
+      'Gas station partnership playbook & pump QR toolkit',
+      'GotPrint.com — postcards from $49 for local mail campaigns',
+      'VistaPrint — bulk orders for cards, magnets & large runs (not single items)',
+      'Priority affiliate commission rate — highest tier earnings',
       'Elite partner badge & recognition',
-      'Advanced field marketing strategies',
-      'Bulk print guidance (VistaPrint)',
-      'Dedicated Elite support channel',
+      'Dedicated Elite partner support channel',
+    ],
+    features: [
+      'All Pro Marketing Back Office tools',
+      'HiHello · GotPrint · VistaPrint included',
+      'Car magnets & station partnership toolkit',
+      'Highest priority commission rate',
     ],
     featured: true,
+    hasMarketingBackOffice: true,
   },
 ] as const;
 
