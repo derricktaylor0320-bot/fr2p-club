@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import type { MemberResponse } from "@shared/schema";
+import { HIHELLO_APP_STORE_URL, HIHELLO_GOOGLE_PLAY_URL } from "@shared/schema";
 import { getLoggedInMemberId } from "@/lib/auth";
 import {
   Download, Printer, QrCode, Smartphone, ExternalLink,
@@ -393,21 +394,41 @@ export function MarketingToolsHub({ config }: MarketingToolsHubProps) {
                 <QrCode className="h-7 w-7 text-[#FFD700]" />
               </div>
               <div>
-                <h2 className="text-[#FFD700] font-bold text-base">HiHello — Smart QR Digital Card</h2>
+                <h2 className="text-[#FFD700] font-bold text-base">HiHello — Smart QR Digital Business Card</h2>
                 <p className="text-white/60 text-xs mt-0.5">
-                  Create your digital business card, add your role and referral link, then share your QR code anywhere — no reprinting needed
+                  Free app on iPhone (Apple App Store) and Android (Google Play Store). Add your role, contact info, and referral link — share your QR anywhere.
                 </p>
               </div>
             </div>
-            <a
-              href="https://www.hihello.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-[#FFD700] hover:bg-yellow-300 text-[#001f3f] font-bold px-4 py-2.5 rounded-xl transition-colors text-sm flex-shrink-0"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Get Free HiHello Card
-            </a>
+            <div className="flex flex-wrap gap-2 flex-shrink-0">
+              <a
+                href={HIHELLO_APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-black hover:bg-gray-900 text-white font-bold px-3 py-2 rounded-xl transition-colors text-xs border border-white/20"
+              >
+                <Smartphone className="h-3.5 w-3.5" />
+                App Store (iPhone)
+              </a>
+              <a
+                href={HIHELLO_GOOGLE_PLAY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white font-bold px-3 py-2 rounded-xl transition-colors text-xs"
+              >
+                <Smartphone className="h-3.5 w-3.5" />
+                Google Play (Android)
+              </a>
+              <a
+                href="https://www.hihello.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-[#FFD700] hover:bg-yellow-300 text-[#001f3f] font-bold px-3 py-2 rounded-xl transition-colors text-xs"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+                HiHello.me
+              </a>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
@@ -749,12 +770,13 @@ export const FUEL_REWARDS_MARKETING_CONFIG: MarketingToolsConfig = {
       link: "https://www.vistaprint.com",
     },
     {
-      title: "Gas Pump QR Signs",
-      detail: "Print on cardstock or weather-resistant material. Partner with station managers to display at pumps.",
+      title: "HiHello App",
+      detail: "Download free on Apple App Store (iPhone) or Google Play Store (Android). Digital QR business card that updates automatically.",
+      link: "https://www.hihello.me",
     },
     {
-      title: "Car Magnets",
-      detail: "Order through VistaPrint (bulk) or a local sign shop. Include your HiHello QR for scan-and-save marketing.",
+      title: "Gas Pump QR Signs",
+      detail: "Print on cardstock or weather-resistant material. Partner with station managers to display at pumps.",
     },
   ],
 };

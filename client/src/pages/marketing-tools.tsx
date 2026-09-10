@@ -1,7 +1,6 @@
 import { SidebarNav } from "@/components/ui/sidebar-nav";
-import { MarketingToolsHub, FUEL_REWARDS_MARKETING_CONFIG } from "@/components/marketing-tools-hub";
+import { MarketingToolsHub, FR2P_MARKETING_CONFIG } from "@/components/marketing-tools-hub";
 import { FileImage } from "lucide-react";
-import { FR2P_MARKETING_CONFIG } from "@/components/marketing-tools-hub";
 
 export default function MarketingTools() {
   return (
