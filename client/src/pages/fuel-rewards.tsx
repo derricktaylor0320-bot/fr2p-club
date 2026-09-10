@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import type { MemberResponse } from "@shared/schema";
-import { FUEL_REWARDS_TIERS, HIHELLO_APP_STORE_URL, HIHELLO_GOOGLE_PLAY_URL, GOTPRINT_URL, VISTAPRINT_URL } from "@shared/schema";
+import { FUEL_REWARDS_TIERS, FUEL_REWARDS_PAID_TIERS, FUEL_REWARDS_PAYOUT_EXPLAINER, FUEL_REWARDS_PROGRAM_TYPE, HIHELLO_APP_STORE_URL, HIHELLO_GOOGLE_PLAY_URL, GOTPRINT_URL, VISTAPRINT_URL } from "@shared/schema";
 import { getLoggedInMemberId } from "@/lib/auth";
 import {
   Fuel, Crown, Star, Zap, QrCode, MapPin, Car, Handshake,
   DollarSign, Users, TrendingUp, CheckCircle2, ChevronRight,
   Megaphone, ExternalLink, Smartphone, Printer, FileImage,
+  Shield, AlertCircle, ArrowUp, ArrowDown, CreditCard,
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -103,9 +104,10 @@ export default function FuelRewards() {
             </div>
 
             <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-3xl mb-6">
-              The FR2P Club Fuel Rewards is an affiliate marketing program that helps everyday drivers save money on fuel
-              while giving you a real business opportunity. Share your personal referral link, place QR codes at gas stations,
-              put magnets on your car, and build recurring income — all while helping people cut their fuel costs.
+              The FR2P Club Fuel Rewards is an affiliate marketing program — not crowdfunding or an investment.
+              Share your referral link, market locally with QR codes and print materials, and build{" "}
+              <strong className="text-white">potential recurring</strong> income when people join through you.
+              Subscription payments are processed by Stripe; potential commissions come from the platform revenue pool, not anyone's personal pocket.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -160,7 +162,7 @@ export default function FuelRewards() {
                     { icon: QrCode, title: "QR Code Marketing", desc: "Place your QR at gas pumps so drivers scan while they wait" },
                     { icon: Car, title: "Car Magnets", desc: "Turn your vehicle into a rolling ad with your referral QR" },
                     { icon: Handshake, title: "Station Partnerships", desc: "Partner with gas station managers to display your sign" },
-                    { icon: DollarSign, title: "Affiliate Income", desc: "Earn commissions on every person who joins through you" },
+                    { icon: DollarSign, title: "Potential Recurring Income", desc: "Potential recurring commissions on active referrals — funded from subscription revenue, not personal payouts" },
                   ].map(item => (
                     <div key={item.title} className="bg-white/5 rounded-xl p-4 border border-white/10">
                       <item.icon className="h-5 w-5 text-[#FFD700] mb-2" />
@@ -172,12 +174,71 @@ export default function FuelRewards() {
               </CardContent>
             </Card>
 
+            {/* How The Program Works */}
+            <Card className="bg-[#001f3f]/90 border-2 border-sky-400/30 mb-8">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-sky-400" />
+                  How The Program Works — Transparent Breakdown
+                </CardTitle>
+                <p className="text-white/50 text-xs mt-1">{FUEL_REWARDS_PROGRAM_TYPE}</p>
+              </CardHeader>
+              <CardContent className="space-y-5 text-sm">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-[#FFD700] font-bold text-xs uppercase tracking-wide mb-2">What This Is</p>
+                    <p className="text-white/75 text-xs leading-relaxed">
+                      Fuel Rewards is an <strong className="text-white">affiliate marketing program</strong>. You share your personal
+                      referral link, help people save on fuel, and may earn <strong className="text-white">potential recurring</strong> commissions
+                      when people you refer maintain active paid subscriptions. This is <strong className="text-white">not crowdfunding</strong> —
+                      you are not investing in a company or buying shares.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[#FFD700] font-bold text-xs uppercase tracking-wide mb-2">What This Is Not</p>
+                    <ul className="text-white/75 text-xs space-y-1.5">
+                      <li className="flex items-start gap-2"><AlertCircle className="h-3.5 w-3.5 text-orange-400 flex-shrink-0 mt-0.5" /> Not a guaranteed income opportunity</li>
+                      <li className="flex items-start gap-2"><AlertCircle className="h-3.5 w-3.5 text-orange-400 flex-shrink-0 mt-0.5" /> Not crowdfunding or an investment product</li>
+                      <li className="flex items-start gap-2"><AlertCircle className="h-3.5 w-3.5 text-orange-400 flex-shrink-0 mt-0.5" /> Commissions are not paid from anyone's personal pocket</li>
+                      <li className="flex items-start gap-2"><AlertCircle className="h-3.5 w-3.5 text-orange-400 flex-shrink-0 mt-0.5" /> Results vary — your effort and referral activity determine outcomes</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                  <p className="text-white font-bold text-sm mb-3 flex items-center gap-2">
+                    <CreditCard className="h-4 w-4 text-[#FFD700]" />
+                    How Money Flows — Subscriptions & Potential Payouts
+                  </p>
+                  <ol className="space-y-2">
+                    {FUEL_REWARDS_PAYOUT_EXPLAINER.howMoneyFlows.map((step, i) => (
+                      <li key={i} className="flex items-start gap-3 text-white/70 text-xs leading-relaxed">
+                        <span className="w-5 h-5 rounded-full bg-[#FFD700]/20 text-[#FFD700] text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <div className="bg-green-500/10 border border-green-400/30 rounded-xl p-4">
+                  <p className="text-green-300 font-semibold text-xs mb-1">Stripe Handles Payments & Payouts</p>
+                  <p className="text-white/70 text-xs leading-relaxed">{FUEL_REWARDS_PAYOUT_EXPLAINER.stripeRole}</p>
+                </div>
+
+                <p className="text-white/40 text-[10px] italic border-t border-white/10 pt-3">
+                  Disclaimer: All commission figures and percentages shown on this page are illustrative examples of potential recurring earnings only.
+                  No specific income is guaranteed. Past results do not predict future performance. Your potential recurring commissions depend on
+                  your tier level, the number of active referrals you maintain, and their continued subscription payments.
+                </p>
+              </CardContent>
+            </Card>
+
             {/* How To Make Money */}
             <Card className="bg-[#002855]/80 border border-[#FFD700]/20 mb-8">
               <CardHeader>
                 <CardTitle className="text-white flex items-center gap-2">
                   <TrendingUp className="h-5 w-5 text-[#FFD700]" />
-                  How You Make Money
+                  How You May Build Potential Recurring Income
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -195,8 +256,8 @@ export default function FuelRewards() {
                     },
                     {
                       step: "3",
-                      title: "Earn Recurring Income",
-                      desc: "Every active member you refer generates monthly affiliate commissions. Higher tiers unlock bigger commission rates and premium marketing tools.",
+                      title: "Potential Recurring Commissions",
+                      desc: "Each active referral who pays their subscription may generate potential recurring commissions for you — based on your tier's commission share. Higher tiers = higher potential recurring percentage.",
                     },
                   ].map(s => (
                     <div key={s.step} className="relative bg-white/5 rounded-xl p-5 border border-white/10">
@@ -218,9 +279,56 @@ export default function FuelRewards() {
                     <li>Visit a local gas station and ask to speak with the manager or business owner.</li>
                     <li>Explain that your QR code helps their customers save money on fuel — it's a value-add for their pumps.</li>
                     <li>Offer a small sign or sticker with your QR code for the pump area (use the Gas Pump QR Sign in the Marketing Back Office).</li>
-                    <li>While someone is filling up, they scan your code, sign up for Fuel Rewards, and start saving — and you earn.</li>
+                    <li>While someone is filling up, they scan your code, sign up for Fuel Rewards, and start saving — and you may earn potential recurring commissions if they maintain an active subscription.</li>
                     <li>Repeat at multiple stations in your area to build a local network of referral points.</li>
                   </ol>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Three Paid Tiers — Tier Differences */}
+            <Card className="bg-[#002855]/80 border border-[#FFD700]/20 mb-8">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <ArrowUp className="h-5 w-5 text-[#FFD700]" />
+                  Three Paid Tiers — How Each One Is Different
+                </CardTitle>
+                <p className="text-white/60 text-sm mt-1">
+                  When you click to subscribe, here's exactly how each tier differs from the one below and above it — including potential recurring commission share.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {FUEL_REWARDS_PAID_TIERS.map((tier, i) => (
+                    <div key={tier.id} className="bg-white/5 rounded-xl p-4 border border-white/10">
+                      <Badge className={`mb-2 ${i === 2 ? "bg-[#FFD700] text-[#001f3f]" : i === 1 ? "bg-sky-400 text-sky-900" : "bg-emerald-400 text-emerald-900"}`}>
+                        Tier {i + 1} · {tier.priceDisplay}/mo
+                      </Badge>
+                      <p className="text-white font-bold text-sm mb-1">{tier.name}</p>
+                      <p className="text-[#FFD700] text-xs font-semibold mb-2">{tier.potentialCommissionLabel}</p>
+                      <p className="text-white/50 text-[10px] leading-relaxed mb-3">{tier.potentialCommissionDetail}</p>
+
+                      {tier.vsTierBelow && (
+                        <div className="mb-2">
+                          <p className="text-emerald-400 text-[10px] font-bold flex items-center gap-1 mb-1">
+                            <ArrowUp className="h-3 w-3" /> vs Tier Below
+                          </p>
+                          <p className="text-white/60 text-[10px] leading-relaxed">{tier.vsTierBelow}</p>
+                        </div>
+                      )}
+                      {tier.vsTierAbove && (
+                        <div>
+                          <p className="text-sky-300 text-[10px] font-bold flex items-center gap-1 mb-1">
+                            <ArrowDown className="h-3 w-3" /> vs Tier Above
+                          </p>
+                          <p className="text-white/60 text-[10px] leading-relaxed">{tier.vsTierAbove}</p>
+                        </div>
+                      )}
+                      {!tier.vsTierAbove && (
+                        <p className="text-[#FFD700] text-[10px] font-semibold">Highest tier — maximum potential recurring commission share on the platform.</p>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -319,12 +427,12 @@ export default function FuelRewards() {
 
             {/* Subscription Tiers */}
             <div className="mb-4">
-              <h2 className="text-2xl font-bold text-white mb-1">Choose Your Tier — Monthly Breakdown</h2>
+              <h2 className="text-2xl font-bold text-white mb-1">Choose Your Tier — Monthly & Annual Breakdown</h2>
               <p className="text-white/60 text-sm mb-2">
-                Four options — from free with FR2P membership to Elite Premium at $39.99/month. Each tier shows exactly what you get every month.
+                Three paid tiers ($19.99 · $29.99 · $39.99) plus free Member Access with FR2P. Each card shows what you get every month and over a full year of utilizing the program.
               </p>
               <p className="text-[#FFD700] text-xs font-semibold mb-6">
-                Paid tiers: Starter $19.99/mo · Pro $29.99/mo (Marketing Back Office) · Elite Premium $39.99/mo
+                Potential recurring commission rates increase with each tier — illustrative examples only, not guaranteed.
               </p>
             </div>
 
@@ -356,11 +464,24 @@ export default function FuelRewards() {
                         {!isIncluded && <span className="text-white/50 text-sm">/month</span>}
                       </div>
                       {!isIncluded && (
-                        <p className="text-white/40 text-[10px] mt-1">{tier.billingNote}</p>
+                        <>
+                          <p className="text-white/50 text-xs mt-1">
+                            Annual cost if billed monthly: <strong className="text-white">{tier.annualCost}</strong>/year
+                          </p>
+                          <p className="text-white/40 text-[10px] mt-0.5">{tier.billingNote}</p>
+                        </>
                       )}
                       <p className="text-white/60 text-xs mt-2 leading-relaxed">{tier.description}</p>
                     </CardHeader>
                     <CardContent className="space-y-4">
+                      <div className="bg-[#FFD700]/10 rounded-lg p-3 border border-[#FFD700]/20">
+                        <p className="text-[#FFD700] text-xs font-bold uppercase tracking-wide mb-1">
+                          Potential Recurring Commissions
+                        </p>
+                        <p className="text-white font-semibold text-xs">{tier.potentialCommissionLabel}</p>
+                        <p className="text-white/50 text-[10px] mt-1 leading-relaxed">{tier.potentialCommissionDetail}</p>
+                      </div>
+
                       <div className="bg-white/5 rounded-lg p-3 border border-[#FFD700]/20">
                         <p className="text-[#FFD700] text-xs font-bold uppercase tracking-wide mb-2">
                           What You Get Every Month
@@ -375,8 +496,22 @@ export default function FuelRewards() {
                         </ul>
                       </div>
 
+                      <div className="bg-white/5 rounded-lg p-3 border border-sky-400/20">
+                        <p className="text-sky-300 text-xs font-bold uppercase tracking-wide mb-2">
+                          What You Get Over 12 Months (If Active All Year)
+                        </p>
+                        <ul className="space-y-1.5">
+                          {tier.annualIncludes.map(item => (
+                            <li key={item} className="flex items-start gap-2 text-white/65 text-[11px] leading-relaxed">
+                              <CheckCircle2 className="h-3 w-3 text-sky-400 flex-shrink-0 mt-0.5" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
                       <div>
-                        <p className="text-[#FFD700] text-xs font-bold uppercase tracking-wide mb-2">How You Earn</p>
+                        <p className="text-[#FFD700] text-xs font-bold uppercase tracking-wide mb-2">How Potential Recurring Earnings Work</p>
                         <p className="text-white/70 text-xs leading-relaxed">{tier.earnDescription}</p>
                       </div>
 
@@ -417,34 +552,33 @@ export default function FuelRewards() {
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6 mb-8">
               <h3 className="text-white font-bold mb-3 flex items-center gap-2">
                 <Users className="h-5 w-5 text-[#FFD700]" />
-                Tier Comparison — Monthly Features
+                Tier Comparison — Monthly, Annual & Potential Recurring Commissions
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs text-white/70">
                   <thead>
                     <tr className="border-b border-white/10">
-                      <th className="text-left py-2 pr-4 text-[#FFD700]">Feature / Month</th>
+                      <th className="text-left py-2 pr-4 text-[#FFD700]">Feature</th>
                       <th className="text-center py-2 px-2">Member</th>
-                      <th className="text-center py-2 px-2">$19.99</th>
-                      <th className="text-center py-2 px-2">$29.99</th>
-                      <th className="text-center py-2 px-2">$39.99</th>
+                      <th className="text-center py-2 px-2">$19.99/mo</th>
+                      <th className="text-center py-2 px-2">$29.99/mo</th>
+                      <th className="text-center py-2 px-2">$39.99/mo</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
                     {[
+                      ["Monthly subscription cost", "Free*", "$19.99", "$29.99", "$39.99"],
+                      ["Annual cost (if billed monthly)", "Free*", "$239.88", "$359.88", "$479.88"],
+                      ["Potential recurring commission share", "Base", "~15%", "~20%", "~25%"],
                       ["Fuel savings access", "✓", "✓", "✓", "✓"],
                       ["Personal referral link", "✓", "✓", "✓", "✓"],
-                      ["Starter commission rate", "—", "✓", "✓", "✓"],
                       ["Basic business card template", "—", "✓", "✓", "✓"],
                       ["Marketing Back Office", "—", "—", "✓", "✓"],
-                      ["Marketing Tools (print & customize)", "—", "—", "✓", "✓"],
-                      ["HiHello digital QR card (App Store & Google Play)", "—", "—", "✓", "✓"],
-                      ["GotPrint.com postcard guide (from $49)", "—", "—", "✓", "✓"],
-                      ["VistaPrint bulk print guide", "—", "—", "✓", "✓"],
+                      ["HiHello (App Store & Google Play)", "—", "—", "✓", "✓"],
+                      ["GotPrint.com & VistaPrint guides", "—", "—", "✓", "✓"],
                       ["Gas pump QR signage", "—", "—", "✓", "✓"],
                       ["Car magnet templates", "—", "—", "—", "✓"],
                       ["Station partnership toolkit", "—", "—", "—", "✓"],
-                      ["Priority commission rate (highest)", "—", "—", "—", "✓"],
                       ["Elite partner badge & support", "—", "—", "—", "✓"],
                     ].map(([feature, m, s, p, e]) => (
                       <tr key={feature}>
@@ -459,7 +593,8 @@ export default function FuelRewards() {
                 </table>
               </div>
               <p className="text-white/40 text-[10px] mt-4">
-                Member Access is free with active FR2P membership. Starter ($19.99), Pro ($29.99 with Marketing Back Office), and Elite Premium ($39.99) are monthly subscriptions — cancel anytime.
+                *Member Access is free with active FR2P membership. Commission percentages are illustrative potential recurring shares only — not guaranteed.
+                Paid tiers bill monthly through Stripe. Cancel anytime. Potential recurring commissions depend on active referrals maintaining paid subscriptions.
               </p>
             </div>
 
