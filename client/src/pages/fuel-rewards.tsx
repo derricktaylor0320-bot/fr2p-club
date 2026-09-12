@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { SidebarNav } from "@/components/ui/sidebar-nav";
 import { MarketingToolsHub, FUEL_REWARDS_MARKETING_CONFIG } from "@/components/marketing-tools-hub";
+import {
+  FeatureGuideDialog, ClickableFeatureCard, ClickableFeatureListItem,
+  FUEL_REWARDS_FEATURE_GUIDES, type FuelRewardsFeatureId,
+} from "@/components/fuel-rewards-feature-guides";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,7 +18,7 @@ import {
   Fuel, Crown, Star, Zap, QrCode, MapPin, Car, Handshake,
   DollarSign, Users, TrendingUp, CheckCircle2, ChevronRight,
   Megaphone, ExternalLink, Smartphone, Printer, FileImage,
-  Shield, AlertCircle, ArrowUp, ArrowDown, CreditCard,
+  Shield, AlertCircle, ArrowUp, ArrowDown, CreditCard, Info,
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -31,6 +35,20 @@ const tierColors = [
 export default function FuelRewards() {
   const { toast } = useToast();
   const [activeSection, setActiveSection] = useState<"overview" | "marketing">("overview");
+  const [activeGuide, setActiveGuide] = useState<FuelRewardsFeatureId | null>(null);
+  const [marketingMaterialId, setMarketingMaterialId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("tab") === "marketing") {
+      setActiveSection("marketing");
+    }
+  }, []);
+
+  const openMarketing = (materialId?: string) => {
+    setActiveSection("marketing");
+    setMarketingMaterialId(materialId ?? null);
+  };
 
   const { data: memberData } = useQuery<MemberResponse>({
     queryKey: ["/api/member", MEMBER_ID],
@@ -76,6 +94,11 @@ export default function FuelRewards() {
 
   return (
     <div className="min-h-screen flex" style={{ background: "linear-gradient(135deg, #001a2e 0%, #002040 50%, #001a2e 100%)" }}>
+      <FeatureGuideDialog
+        guideId={activeGuide}
+        onClose={() => setActiveGuide(null)}
+        onOpenMarketing={openMarketing}
+      />
       <SidebarNav />
 
       <div className="flex-1 md:ml-64 p-6">
@@ -158,18 +181,34 @@ export default function FuelRewards() {
                 </p>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-                  {[
-                    { icon: QrCode, title: "QR Code Marketing", desc: "Place your QR at gas pumps so drivers scan while they wait" },
-                    { icon: Car, title: "Car Magnets", desc: "Turn your vehicle into a rolling ad with your referral QR" },
-                    { icon: Handshake, title: "Station Partnerships", desc: "Partner with gas station managers to display your sign" },
-                    { icon: DollarSign, title: "Potential Recurring Income", desc: "Potential recurring commissions on active referrals — funded from subscription revenue, not personal payouts" },
-                  ].map(item => (
-                    <div key={item.title} className="bg-white/5 rounded-xl p-4 border border-white/10">
-                      <item.icon className="h-5 w-5 text-[#FFD700] mb-2" />
-                      <p className="text-white font-semibold text-sm">{item.title}</p>
-                      <p className="text-white/50 text-xs mt-1">{item.desc}</p>
-                    </div>
-                  ))}
+                  <ClickableFeatureCard
+                    icon={QrCode}
+                    title="QR Code Marketing"
+                    desc="Place your QR at gas pumps so drivers scan while they wait"
+                    guideId="qr-marketing"
+                    onOpenGuide={setActiveGuide}
+                  />
+                  <ClickableFeatureCard
+                    icon={Car}
+                    title="Car Magnets"
+                    desc="Turn your vehicle into a rolling ad with your referral QR"
+                    guideId="car-magnets"
+                    onOpenGuide={setActiveGuide}
+                  />
+                  <ClickableFeatureCard
+                    icon={Handshake}
+                    title="Station Partnerships"
+                    desc="Partner with gas station managers to display your sign"
+                    guideId="station-partnerships"
+                    onOpenGuide={setActiveGuide}
+                  />
+                  <ClickableFeatureCard
+                    icon={DollarSign}
+                    title="Potential Recurring Income"
+                    desc="Potential recurring commissions on active referrals — funded from subscription revenue, not personal payouts"
+                    guideId="recurring-commissions"
+                    onOpenGuide={setActiveGuide}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -220,10 +259,17 @@ export default function FuelRewards() {
                   </ol>
                 </div>
 
-                <div className="bg-green-500/10 border border-green-400/30 rounded-xl p-4">
-                  <p className="text-green-300 font-semibold text-xs mb-1">Stripe Handles Payments & Payouts</p>
+                <button
+                  type="button"
+                  onClick={() => setActiveGuide("community-fuel-pool")}
+                  className="w-full bg-green-500/10 border border-green-400/30 rounded-xl p-4 hover:bg-green-500/20 hover:border-green-400/50 transition-all text-left group"
+                >
+                  <p className="text-green-300 font-semibold text-xs mb-1 flex items-center justify-between">
+                    Community Fuel Pool — How Commissions Get Paid
+                    <span className="text-[#FFD700] text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">Tap to learn →</span>
+                  </p>
                   <p className="text-white/70 text-xs leading-relaxed">{FUEL_REWARDS_PAYOUT_EXPLAINER.stripeRole}</p>
-                </div>
+                </button>
 
                 <p className="text-white/40 text-[10px] italic border-t border-white/10 pt-3">
                   Disclaimer: All commission figures and percentages shown on this page are illustrative examples of potential recurring earnings only.
@@ -346,34 +392,34 @@ export default function FuelRewards() {
               </CardHeader>
               <CardContent>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                  {[
-                    {
-                      icon: Printer,
-                      title: "Print Materials",
-                      desc: "Business cards, postcards, gas pump QR signs, and car magnet templates — customize with your info and print.",
-                    },
-                    {
-                      icon: QrCode,
-                      title: "HiHello Digital Card",
-                      desc: "Free app for iPhone (Apple App Store) and Android (Google Play Store). Add your role, contact info, and referral link — share your QR anywhere.",
-                    },
-                    {
-                      icon: ExternalLink,
-                      title: "GotPrint.com",
-                      desc: "Order professional postcards starting at $49. Best for single-run and local direct-mail fuel savings campaigns.",
-                    },
-                    {
-                      icon: ExternalLink,
-                      title: "VistaPrint",
-                      desc: "Best for bulk business cards, car magnets, and large quantity runs — not ideal for single one-off items.",
-                    },
-                  ].map(item => (
-                    <div key={item.title} className="bg-white/5 rounded-xl p-4 border border-white/10">
-                      <item.icon className="h-5 w-5 text-[#FFD700] mb-2" />
-                      <p className="text-white font-semibold text-sm">{item.title}</p>
-                      <p className="text-white/50 text-xs mt-1 leading-relaxed">{item.desc}</p>
-                    </div>
-                  ))}
+                  <ClickableFeatureCard
+                    icon={Printer}
+                    title="Print Materials"
+                    desc="Business cards, postcards, gas pump QR signs, and car magnet templates — customize with your info and print."
+                    guideId="print-materials"
+                    onOpenGuide={setActiveGuide}
+                  />
+                  <ClickableFeatureCard
+                    icon={QrCode}
+                    title="HiHello Digital Card"
+                    desc="Free app for iPhone (Apple App Store) and Android (Google Play Store). Add your role, contact info, and referral link — share your QR anywhere."
+                    guideId="digital-business-suite"
+                    onOpenGuide={setActiveGuide}
+                  />
+                  <ClickableFeatureCard
+                    icon={ExternalLink}
+                    title="GotPrint.com"
+                    desc="Order professional postcards starting at $49. Best for single-run and local direct-mail fuel savings campaigns."
+                    guideId="print-materials"
+                    onOpenGuide={setActiveGuide}
+                  />
+                  <ClickableFeatureCard
+                    icon={ExternalLink}
+                    title="VistaPrint"
+                    desc="Best for bulk business cards, car magnets, and large quantity runs — not ideal for single one-off items."
+                    guideId="car-magnets"
+                    onOpenGuide={setActiveGuide}
+                  />
                 </div>
 
                 <div className="bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-xl p-4">
@@ -488,10 +534,11 @@ export default function FuelRewards() {
                         </p>
                         <ul className="space-y-1.5">
                           {tier.monthlyIncludes.map(item => (
-                            <li key={item} className="flex items-start gap-2 text-white/75 text-[11px] leading-relaxed">
-                              <CheckCircle2 className="h-3 w-3 text-green-400 flex-shrink-0 mt-0.5" />
-                              {item}
-                            </li>
+                            <ClickableFeatureListItem
+                              key={item}
+                              text={item}
+                              onOpenGuide={setActiveGuide}
+                            />
                           ))}
                         </ul>
                       </div>
@@ -524,10 +571,11 @@ export default function FuelRewards() {
 
                       <ul className="space-y-1.5">
                         {tier.features.map(f => (
-                          <li key={f} className="flex items-start gap-2 text-white/80 text-xs">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-green-400 flex-shrink-0 mt-0.5" />
-                            {f}
-                          </li>
+                          <ClickableFeatureListItem
+                            key={f}
+                            text={f}
+                            onOpenGuide={setActiveGuide}
+                          />
                         ))}
                       </ul>
 
@@ -598,9 +646,42 @@ export default function FuelRewards() {
               </p>
             </div>
 
+            {/* How It Works — Feature Guides */}
+            <Card className="bg-[#002855]/80 border border-[#FFD700]/20 mb-8">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Info className="h-5 w-5 text-[#FFD700]" />
+                  How Each Feature Works — Tap to Learn
+                </CardTitle>
+                <p className="text-white/60 text-sm mt-1">
+                  Car magnets, station partnerships, digital business suite, and the community fuel pool — click any card for a step-by-step guide.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {FUEL_REWARDS_FEATURE_GUIDES.map(guide => {
+                    const Icon = guide.icon;
+                    return (
+                      <button
+                        key={guide.id}
+                        type="button"
+                        onClick={() => setActiveGuide(guide.id)}
+                        className="bg-white/5 rounded-xl p-4 border border-white/10 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all text-left group"
+                      >
+                        <Icon className="h-5 w-5 text-[#FFD700] mb-2" />
+                        <p className="text-white font-semibold text-sm">{guide.title}</p>
+                        <p className="text-white/50 text-xs mt-1 leading-relaxed">{guide.subtitle}</p>
+                        <p className="text-[#FFD700] text-[10px] font-semibold mt-2">See how it works →</p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
             <div className="text-center">
               <Button
-                onClick={() => setActiveSection("marketing")}
+                onClick={() => openMarketing()}
                 className="bg-[#FFD700] hover:bg-yellow-300 text-[#001f3f] font-bold px-8"
               >
                 Open Marketing Back Office
@@ -636,7 +717,10 @@ export default function FuelRewards() {
               </p>
             </div>
 
-            <MarketingToolsHub config={FUEL_REWARDS_MARKETING_CONFIG} />
+            <MarketingToolsHub
+              config={FUEL_REWARDS_MARKETING_CONFIG}
+              initialMaterialId={marketingMaterialId}
+            />
 
             <div className="mt-8 rounded-2xl border border-[#FFD700]/20 bg-[#002855]/50 p-6">
               <h3 className="text-white font-bold mb-3 flex items-center gap-2">
