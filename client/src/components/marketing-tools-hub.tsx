@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -221,9 +221,10 @@ function PrintModal({ material, info, config, onClose }: PrintModalProps) {
 
 interface MarketingToolsHubProps {
   config: MarketingToolsConfig;
+  initialMaterialId?: string | null;
 }
 
-export function MarketingToolsHub({ config }: MarketingToolsHubProps) {
+export function MarketingToolsHub({ config, initialMaterialId }: MarketingToolsHubProps) {
   const { toast } = useToast();
   const memberId = getLoggedInMemberId();
   const [filter, setFilter] = useState("All");
@@ -247,6 +248,17 @@ export function MarketingToolsHub({ config }: MarketingToolsHubProps) {
   });
 
   const [autoFilled, setAutoFilled] = useState(false);
+  const [initialMaterialHandled, setInitialMaterialHandled] = useState(false);
+
+  useEffect(() => {
+    if (!initialMaterialId || initialMaterialHandled) return;
+    const material = config.materials.find(m => m.id === initialMaterialId);
+    if (material) {
+      setPreviewMaterial(material);
+      setInitialMaterialHandled(true);
+    }
+  }, [initialMaterialId, initialMaterialHandled, config.materials]);
+
   if (member && !autoFilled) {
     setAutoFilled(true);
     setInfo(prev => ({
