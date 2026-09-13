@@ -4,8 +4,8 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
-import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, pocketBoosterWaitlist, hustleInvestments, incubatorSuccessStories, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
+import { eq, desc, gte, sql, count, and } from "drizzle-orm";
+import { loginSchema, insertMemberSchema, insertCharityPreferenceSchema, insertBankingInformationSchema, insertMetalBusinessCardOrderSchema, insertSavingsAccountSchema, insertSavingsTransactionSchema, insertMagazineSubscriberSchema, memberPlaylists, prospects, insertProspectSchema, pocketBoosterWaitlist, hustleInvestments, incubatorSuccessStories, siteVisits, insertSiteVisitSchema, customerFeedback, insertCustomerFeedbackSchema, magazineSubscribers, businessListings, metalBusinessCardOrders, microLoanApplications, members, type ChatMessage, type OnlinePresence, type CharitySearchResult, type CharitySearchResponse, TIER_REQUIREMENTS, AFFILIATE_TIERS, getTierFromSales, getCommissionRate, getCommissionAmount, getSpilloverRate, calculateEligibleBonuses, calculateSpilloverEligibility, isMembershipCurrent, isCommissionEligible, getDaysUntilCommissionEligible, getAccountStatus, getGracePeriodDaysRemaining, COMMISSION_TYPES, PERMANENT_RESIDUAL_RATE, COMMISSION_ELIGIBILITY_DAYS, ACCOUNT_GRACE_PERIOD_DAYS } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
 import { sendWelcomeEmail } from "./services/email";
@@ -2538,6 +2538,331 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ applications: apps });
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch applications" });
+    }
+  });
+
+  // ── Site Visitor Tracking ──────────────────────────────────────────
+  function getClientIp(req: express.Request): string {
+    const forwarded = req.headers["x-forwarded-for"];
+    if (typeof forwarded === "string") return forwarded.split(",")[0].trim();
+    return req.socket.remoteAddress || "unknown";
+  }
+
+  function parseBrowser(userAgent: string): string {
+    if (/Edg\//i.test(userAgent)) return "Edge";
+    if (/Chrome/i.test(userAgent)) return "Chrome";
+    if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) return "Safari";
+    if (/Firefox/i.test(userAgent)) return "Firefox";
+    return "Other";
+  }
+
+  function parseDeviceType(userAgent: string): string {
+    if (/Mobile|Android|iPhone|iPad/i.test(userAgent)) return "mobile";
+    if (/Tablet|iPad/i.test(userAgent)) return "tablet";
+    return "desktop";
+  }
+
+  function requireAdminKey(req: express.Request, res: express.Response): boolean {
+    const adminKey = process.env.ADMIN_SECRET;
+    if (!adminKey) {
+      res.status(503).json({ message: "Admin access not configured. Set ADMIN_SECRET env variable." });
+      return false;
+    }
+    const provided = req.headers["x-admin-key"] as string;
+    if (provided !== adminKey) {
+      res.status(401).json({ message: "Unauthorized" });
+      return false;
+    }
+    return true;
+  }
+
+  app.post("/api/visitors/track", async (req, res) => {
+    try {
+      const parsed = insertSiteVisitSchema.safeParse(req.body);
+      if (!parsed.success) return res.status(400).json({ message: "Invalid tracking data" });
+
+      const userAgent = parsed.data.userAgent || req.headers["user-agent"] || "";
+      const [visit] = await db.insert(siteVisits).values({
+        ...parsed.data,
+        userAgent,
+        browser: parsed.data.browser || parseBrowser(userAgent),
+        deviceType: parsed.data.deviceType || parseDeviceType(userAgent),
+        ipAddress: getClientIp(req),
+      }).returning();
+
+      res.json({ success: true, id: visit.id });
+    } catch (error) {
+      console.error("Error tracking visit:", error);
+      res.status(500).json({ message: "Failed to track visit" });
+    }
+  });
+
+  app.post("/api/visitors/capture-email", async (req, res) => {
+    try {
+      const { sessionId, email, firstName, pagePath } = req.body;
+      if (!sessionId || !email || !pagePath) {
+        return res.status(400).json({ message: "sessionId, email, and pagePath are required" });
+      }
+
+      const userAgent = req.headers["user-agent"] || "";
+      const [visit] = await db.insert(siteVisits).values({
+        sessionId,
+        eventType: "email_capture",
+        pagePath,
+        email,
+        firstName: firstName || null,
+        memberId: req.body.memberId || null,
+        referrer: req.body.referrer || null,
+        userAgent,
+        browser: parseBrowser(userAgent),
+        deviceType: parseDeviceType(userAgent),
+        ipAddress: getClientIp(req),
+      }).returning();
+
+      res.json({ success: true, id: visit.id });
+    } catch (error) {
+      console.error("Error capturing email:", error);
+      res.status(500).json({ message: "Failed to capture email" });
+    }
+  });
+
+  app.get("/api/admin/visitors", async (req, res) => {
+    if (!requireAdminKey(req, res)) return;
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const since = new Date();
+      since.setDate(since.getDate() - days);
+
+      const recentVisits = await db.select().from(siteVisits)
+        .where(gte(siteVisits.visitedAt, since))
+        .orderBy(desc(siteVisits.visitedAt))
+        .limit(200);
+
+      const [totalViews] = await db.select({ count: count() }).from(siteVisits)
+        .where(gte(siteVisits.visitedAt, since));
+
+      const [uniqueSessions] = await db.select({ count: sql<number>`count(distinct ${siteVisits.sessionId})` })
+        .from(siteVisits)
+        .where(gte(siteVisits.visitedAt, since));
+
+      const [emailCaptures] = await db.select({ count: count() }).from(siteVisits)
+        .where(and(gte(siteVisits.visitedAt, since), eq(siteVisits.eventType, "email_capture")));
+
+      const topPages = await db.select({
+        pagePath: siteVisits.pagePath,
+        views: count(),
+      }).from(siteVisits)
+        .where(gte(siteVisits.visitedAt, since))
+        .groupBy(siteVisits.pagePath)
+        .orderBy(desc(count()))
+        .limit(10);
+
+      res.json({
+        stats: {
+          totalViews: totalViews.count,
+          uniqueSessions: Number(uniqueSessions.count),
+          emailCaptures: emailCaptures.count,
+          days,
+        },
+        topPages,
+        recentVisits,
+      });
+    } catch (error) {
+      console.error("Error fetching visitor data:", error);
+      res.status(500).json({ message: "Failed to fetch visitor data" });
+    }
+  });
+
+  // ── Customer Feedback (public submit + admin review) ─────────────────
+  app.post("/api/feedback", async (req, res) => {
+    try {
+      const parsed = insertCustomerFeedbackSchema.safeParse(req.body);
+      if (!parsed.success) return res.status(400).json({ message: "Invalid feedback", errors: parsed.error.errors });
+      const [created] = await db.insert(customerFeedback).values(parsed.data).returning();
+      res.json({ success: true, id: created.id });
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      res.status(500).json({ message: "Failed to submit feedback" });
+    }
+  });
+
+  app.get("/api/admin/feedback", async (req, res) => {
+    if (!requireAdminKey(req, res)) return;
+    try {
+      const rows = await db.select().from(customerFeedback).orderBy(desc(customerFeedback.createdAt)).limit(100);
+      res.json(rows);
+    } catch (error) {
+      console.error("Error fetching feedback:", error);
+      res.status(500).json({ message: "Failed to fetch feedback" });
+    }
+  });
+
+  app.patch("/api/admin/feedback/:id", async (req, res) => {
+    if (!requireAdminKey(req, res)) return;
+    try {
+      const { status, adminNotes } = req.body;
+      const [updated] = await db.update(customerFeedback)
+        .set({ status, adminNotes })
+        .where(eq(customerFeedback.id, req.params.id))
+        .returning();
+      if (!updated) return res.status(404).json({ message: "Feedback not found" });
+      res.json(updated);
+    } catch (error) {
+      console.error("Error updating feedback:", error);
+      res.status(500).json({ message: "Failed to update feedback" });
+    }
+  });
+
+  // ── Consolidatus Empire Back Office Dashboard ────────────────────────
+  app.get("/api/admin/empire-dashboard", async (req, res) => {
+    if (!requireAdminKey(req, res)) return;
+    try {
+      const days = parseInt(req.query.days as string) || 30;
+      const since = new Date();
+      since.setDate(since.getDate() - days);
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+
+      const allMembers = await storage.getAllMembers();
+      const activeMembers = allMembers.filter(m => m.isActive && m.subscriptionStatus === "active");
+      const inactiveMembers = allMembers.filter(m => !m.isActive || m.subscriptionStatus !== "active");
+      const newThisWeek = allMembers.filter(m => new Date(m.joinDate) >= weekAgo);
+
+      const [totalViews] = await db.select({ count: count() }).from(siteVisits).where(gte(siteVisits.visitedAt, since));
+      const [uniqueVisitors] = await db.select({ count: sql<number>`count(distinct ${siteVisits.sessionId})` })
+        .from(siteVisits).where(gte(siteVisits.visitedAt, since));
+      const [emailCaptures] = await db.select({ count: count() }).from(siteVisits)
+        .where(and(gte(siteVisits.visitedAt, since), eq(siteVisits.eventType, "email_capture")));
+
+      const [magazineCount] = await db.select({ count: count() }).from(magazineSubscribers)
+        .where(eq(magazineSubscribers.isSubscribed, true));
+      const [pocketBoosterWaitlistCount] = await db.select({ count: count() }).from(pocketBoosterWaitlist);
+      const [marketplaceCount] = await db.select({ count: count() }).from(businessListings)
+        .where(eq(businessListings.isActive, true));
+      const [cardOrdersCount] = await db.select({ count: count() }).from(metalBusinessCardOrders);
+      const [loanAppsCount] = await db.select({ count: count() }).from(microLoanApplications);
+      const [feedbackNewCount] = await db.select({ count: count() }).from(customerFeedback)
+        .where(eq(customerFeedback.status, "new"));
+
+      const allProspects = await db.select().from(prospects);
+      const prospectStats = {
+        total: allProspects.length,
+        interested: allProspects.filter(p => p.status === "interested").length,
+        joined: allProspects.filter(p => p.status === "joined").length,
+        new: allProspects.filter(p => p.status === "new").length,
+        notInterested: allProspects.filter(p => p.status === "not_interested").length,
+      };
+
+      const recentMembers = allMembers
+        .sort((a, b) => new Date(b.joinDate).getTime() - new Date(a.joinDate).getTime())
+        .slice(0, 10)
+        .map(m => ({
+          id: m.id,
+          name: `${m.firstName} ${m.lastName}`,
+          email: m.email,
+          isActive: m.isActive,
+          subscriptionStatus: m.subscriptionStatus,
+          joinDate: m.joinDate,
+          membershipPlan: m.membershipPlan,
+        }));
+
+      const recentVisits = await db.select().from(siteVisits)
+        .orderBy(desc(siteVisits.visitedAt)).limit(15);
+
+      const recentFeedback = await db.select().from(customerFeedback)
+        .orderBy(desc(customerFeedback.createdAt)).limit(10);
+
+      const ventures = [
+        {
+          id: "fr2p",
+          name: "The FR2P Club",
+          status: "live",
+          metric: `${activeMembers.length} active members`,
+          secondaryMetric: `${allMembers.length} total enrolled`,
+          url: "/dashboard",
+          isInternal: true,
+        },
+        {
+          id: "magazine",
+          name: "FR2P Wealth Monthly",
+          status: "live",
+          metric: `${magazineCount.count} subscribers`,
+          url: "/magazine",
+          isInternal: true,
+        },
+        {
+          id: "marketplace",
+          name: "Member Marketplace",
+          status: "live",
+          metric: `${marketplaceCount.count} active listings`,
+          url: "/marketplace",
+          isInternal: true,
+        },
+        {
+          id: "pocket-booster",
+          name: "Pocket Booster",
+          status: "coming_soon",
+          metric: `${pocketBoosterWaitlistCount.count} on waitlist`,
+          url: "/pocket-booster",
+          isInternal: true,
+        },
+        {
+          id: "hustle-incubator",
+          name: "Hustle Incubator",
+          status: "coming_soon",
+          metric: "Waitlist open",
+          url: "/hustle-incubator",
+          isInternal: true,
+        },
+        {
+          id: "tce-holdings",
+          name: "TCE Holdings (tceholdings.org)",
+          status: "external",
+          metric: "Empire parent site",
+          url: "https://tceholdings.org",
+          isInternal: false,
+        },
+        {
+          id: "kkmg",
+          name: "Khomplete Khemistri Apparel",
+          status: "external",
+          metric: "Shop live",
+          url: "https://tceholdings.org",
+          isInternal: false,
+        },
+        {
+          id: "metal-cards",
+          name: "Metal Business Cards",
+          status: "live",
+          metric: `${cardOrdersCount.count} orders`,
+          url: "/store",
+          isInternal: true,
+        },
+      ];
+
+      res.json({
+        greeting: "Welcome to the Consolidatus Empire Back Office",
+        overview: {
+          totalMembers: allMembers.length,
+          activeMembers: activeMembers.length,
+          inactiveMembers: inactiveMembers.length,
+          newMembersThisWeek: newThisWeek.length,
+          totalPageViews: totalViews.count,
+          uniqueVisitors: Number(uniqueVisitors.count),
+          emailCaptures: emailCaptures.count,
+          newFeedback: feedbackNewCount.count,
+          loanApplications: loanAppsCount.count,
+          days,
+        },
+        ventures,
+        prospectStats,
+        recentMembers,
+        recentVisits,
+        recentFeedback,
+      });
+    } catch (error) {
+      console.error("Error fetching empire dashboard:", error);
+      res.status(500).json({ message: "Failed to fetch empire dashboard" });
     }
   });
 

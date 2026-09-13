@@ -15,8 +15,11 @@ import {
   Rocket,
   TrendingUp,
   Receipt,
-  PawPrint
+  PawPrint,
+  LayoutDashboard,
+  MessageSquare
 } from "lucide-react";
+import { CustomerFeedbackForm } from "@/components/CustomerFeedbackForm";
 
 const TCE_HOLDINGS_URL = "https://tceholdings.org";
 
@@ -155,6 +158,12 @@ export default function Empire() {
             wealth-building under one umbrella. As an FR2P member, you're not just joining a club — 
             you're becoming part of a movement with access to an entire ecosystem.
           </p>
+          <a href="/empire/back-office" className="inline-block mt-5">
+            <Button className="bg-[#001f3f] border-2 border-[#FFD700] text-[#FFD700] hover:bg-[#FFD700]/10 font-bold" data-testid="button-empire-back-office">
+              <LayoutDashboard className="h-4 w-4 mr-2" />
+              Empire Back Office
+            </Button>
+          </a>
         </div>
 
         <div className="mb-16">
@@ -259,6 +268,20 @@ export default function Empire() {
               </Button>
             </a>
           </div>
+        </div>
+
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-[#FFD700] text-center mb-2 flex items-center justify-center gap-2">
+            <MessageSquare className="h-7 w-7" /> Tell Us What You'd Like to See
+          </h2>
+          <p className="text-white/60 text-center mb-6 max-w-xl mx-auto text-sm">
+            Your feedback shapes the empire. Let us know what features, services, or businesses you'd like to see more of.
+          </p>
+          <Card className="max-w-2xl mx-auto bg-[#001f3f]/80 border-[#FFD700]/20">
+            <CardContent className="p-6">
+              <CustomerFeedbackForm />
+            </CardContent>
+          </Card>
         </div>
 
         <div className="text-center mt-12 text-white/60 text-sm">
