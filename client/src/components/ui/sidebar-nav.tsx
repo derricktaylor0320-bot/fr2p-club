@@ -30,7 +30,9 @@ import {
   LogIn,
   LogOut,
   Shapes,
-  Fuel
+  Fuel,
+  Eye,
+  LayoutDashboard
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -66,6 +68,8 @@ const navigation = [
   { name: "Profile", href: "/profile", icon: User },
   { name: "Donate", href: "/donate", icon: Heart },
   { name: "Terms", href: "/terms", icon: FileText },
+  { name: "Empire Back Office", href: "/empire/back-office", icon: LayoutDashboard, highlight: true },
+  { name: "Visitor Tracker", href: "/admin/visitors", icon: Eye },
 ];
 
 export function SidebarNav({ className }: SidebarNavProps) {

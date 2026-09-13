@@ -36,6 +36,10 @@ import InvestmentTracker from "@/pages/investment-tracker";
 import Collection from "@/pages/collection";
 import Login from "@/pages/login";
 import NotFound from "@/pages/not-found";
+import AdminVisitors from "@/pages/admin-visitors";
+import EmpireBackOffice from "@/pages/empire-back-office";
+import { useVisitorTracking } from "@/hooks/use-visitor-tracking";
+import { VisitorLeadCapture } from "@/components/VisitorLeadCapture";
 
 function Router() {
   return (
@@ -54,6 +58,7 @@ function Router() {
       <Route path="/resources" component={Resources} />
       <Route path="/achievements" component={Achievements} />
       <Route path="/admin/certificates" component={AdminCertificates} />
+      <Route path="/admin/visitors" component={AdminVisitors} />
       <Route path="/donate" component={Donate} />
       <Route path="/terms" component={Terms} />
       <Route path="/konnectmd" component={KonnectMD} />
@@ -61,6 +66,7 @@ function Router() {
       <Route path="/ambassador" component={Ambassador} />
       <Route path="/partner" component={Ambassador} />
       <Route path="/empire" component={Empire} />
+      <Route path="/empire/back-office" component={EmpireBackOffice} />
       <Route path="/consolidators" component={Empire} />
       <Route path="/certifications" component={Certifications} />
       <Route path="/investments" component={Investments} />
@@ -83,11 +89,14 @@ function Router() {
 }
 
 function App() {
+  useVisitorTracking();
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Router />
+        <VisitorLeadCapture />
       </TooltipProvider>
     </QueryClientProvider>
   );

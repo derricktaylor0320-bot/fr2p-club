@@ -1092,6 +1092,50 @@ export const insertMicroLoanApplicationSchema = createInsertSchema(microLoanAppl
 export type MicroLoanApplication = typeof microLoanApplications.$inferSelect;
 export type InsertMicroLoanApplication = z.infer<typeof insertMicroLoanApplicationSchema>;
 
+export const siteVisits = pgTable("site_visits", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: text("session_id").notNull(),
+  eventType: text("event_type").notNull().default("page_view"), // page_view | email_capture
+  pagePath: text("page_path").notNull(),
+  pageTitle: text("page_title"),
+  referrer: text("referrer"),
+  utmSource: text("utm_source"),
+  utmMedium: text("utm_medium"),
+  utmCampaign: text("utm_campaign"),
+  userAgent: text("user_agent"),
+  deviceType: text("device_type"),
+  browser: text("browser"),
+  memberId: varchar("member_id").references(() => members.id),
+  email: text("email"),
+  firstName: text("first_name"),
+  ipAddress: text("ip_address"),
+  visitedAt: timestamp("visited_at").notNull().defaultNow(),
+});
+
+export const insertSiteVisitSchema = createInsertSchema(siteVisits).omit({ id: true, visitedAt: true });
+export type SiteVisit = typeof siteVisits.$inferSelect;
+export type InsertSiteVisit = z.infer<typeof insertSiteVisitSchema>;
+
+export const customerFeedback = pgTable("customer_feedback", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name"),
+  email: text("email").notNull(),
+  venture: text("venture"), // which empire business the feedback is about
+  category: text("category").notNull().default("general"), // general | feature_request | support | complaint | praise
+  message: text("message").notNull(),
+  status: text("status").notNull().default("new"), // new | reviewed | responded | closed
+  adminNotes: text("admin_notes"),
+  memberId: varchar("member_id").references(() => members.id),
+  pagePath: text("page_path"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertCustomerFeedbackSchema = createInsertSchema(customerFeedback).omit({
+  id: true, createdAt: true, status: true, adminNotes: true,
+});
+export type CustomerFeedback = typeof customerFeedback.$inferSelect;
+export type InsertCustomerFeedback = z.infer<typeof insertCustomerFeedbackSchema>;
+
 export interface CharitySearchResult {
   ein: string; // Employer Identification Number
   name: string; // Organization name
